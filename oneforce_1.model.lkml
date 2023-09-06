@@ -1,4 +1,4 @@
-connection: "one_force"
+  connection: "one_force"
 
 view: v_customer_opus_n_prospect {}
 view: of_svc_contract {}
