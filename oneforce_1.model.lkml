@@ -1,17 +1,5 @@
   connection: "one_force"
 
-view: v_customer_opus_n_prospect {}
-view: of_svc_contract {}
-view: of_user_email {}
-view: of_user {}
-view: of_office_custom {}
-view: of_country {}
-view: of_reg_ref {}
-view: of_customer_fy_teu {}
-view: of_sales_week_master {}
-view: of_customer {}
-view: of_contract_customer_contact {}
-
 explore: v_customer_opus_n_prospect {
   view_label: "Contract Customers"
   # change for DCN-526 to show contract customer regardless of lifting
