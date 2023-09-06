@@ -1,13 +1,5 @@
 connection: "one_force"
 
-# include all the views
-include: "/views/**/*.view"
-include: "/models/entities/of_consolidated_explore_data_tests.lkml"
-include: "/models/entities/datagroups.lkml"
-include: "/dashboards/enterprise_dashboards/*.dashboard.lookml"
-
-persist_with: oneforce_default_datagroup
-
 view: v_customer_opus_n_prospect {}
 view: of_svc_contract {}
 view: of_user_email {}
