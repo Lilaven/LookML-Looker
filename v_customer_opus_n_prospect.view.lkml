@@ -2,7 +2,7 @@
 
 
 view: v_customer_opus_n_prospect {
-   sql_table_name: ONEFORCE.V_CUSTOMER_OPUS_N_PROSPECT ;;
+   sql_table_name: Select 1 from dual ;;
 
   dimension: owner_name {
     label: "Owner Name"
