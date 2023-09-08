@@ -19,3 +19,21 @@ view: of_user_email {
     drill_fields: [ detail*,]  }
   
     set: detail { fields: [ oneforce_id, email,]  }}
+
+view: usr {
+  sql_table_name: public.users ;; 
+  dimension: email {}
+  dimension: id {} 
+  dimension_group: created {  timeframes: [raw, date, month, year] } 
+}
+
+
+view: usr_profile {
+  derived_table: {       
+      explore_source: _eav_flattener {
+        column: user_id { field: _eav_flattener.user_id }
+        column: org_id { field: _eav_flattener.org_id } }
+   } 
+  dimension: org_id {}
+  dimension: user_id {} 
+}
