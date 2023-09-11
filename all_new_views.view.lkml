@@ -1,6 +1,5 @@
 
 
-
 view: dml_trsp_cost {
   dimension: bkg_no { 
     view_label: "Contact: Role-based"
