@@ -1,26 +1,221 @@
-- dashboard: case_analysis
-  title: Case Analysis
+- dashboard: cca_analysis
+  title: CCA Analysis
   layout: newspaper
   preferred_viewer: dashboards-next
   crossfilter_enabled: true
   description: ''
   query_timezone: UTC
   filters_bar_collapsed: true
-  preferred_slug: exDq0MOEroEIKnEw0CMWIL
+  preferred_slug: bXviYQb4EFqiv9mYMo6CM3
   elements:
-  - title: Open Urgent and High Priority Cases
-    name: Open Urgent and High Priority Cases
+  - title: Avg FRT by Channel
+    name: Avg FRT by Channel
     model: oneforce_service
     explore: of_case
-    type: single_value
-    fields: [of_case.case_distinct_count_drill]
+    type: looker_bar
+    fields: [of_case.origin, of_case.AVG_FIRST_RESPONSE_TIME_NEW, of_case.case_distinct_count]
     filters:
-      of_case.active_case: 'Yes'
-      priority_for_filter: High,Urgent
+      of_case.is_channel_applicable_for_FRT: 'Yes'
+    sorts: [of_case.origin]
     limit: 500
-    dynamic_fields: [{category: dimension, expression: "${of_case.priority}", label: priority
-          for filter, value_format: !!null '', value_format_name: !!null '', dimension: priority_for_filter,
-        _kind_hint: dimension, _type_hint: string}]
+    x_axis_gridlines: false
+    y_axis_gridlines: false
+    show_view_names: true
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: false
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: true
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: true
+    legend_position: center
+    point_style: circle_outline
+    show_value_labels: true
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    color_application:
+      collection_id: one-theme
+      palette_id: one-theme-categorical-0
+      options:
+        steps: 5
+        reverse: false
+    y_axes: [{label: '', orientation: bottom, series: [{axisId: of_case.case_distinct_count,
+            id: of_case.case_distinct_count, name: Case}], showLabels: false, showValues: false,
+        unpinAxis: false, tickDensity: default, type: linear}, {label: '', orientation: bottom,
+        series: [{axisId: of_case.AVG_FIRST_RESPONSE_TIME_NEW, id: of_case.AVG_FIRST_RESPONSE_TIME_NEW,
+            name: FRT (Minutes)}], showLabels: false, showValues: false, unpinAxis: false,
+        tickDensity: default, type: linear}]
+    x_axis_label: ''
+    x_axis_zoom: true
+    y_axis_zoom: true
+    limit_displayed_rows_values:
+      show_hide: hide
+      first_last: first
+      num_rows: 0
+    hide_legend: false
+    font_size: '12'
+    label_value_format: '[>=1000000]0.0,,"M";[>=1000]0.0,"K";0'
+    series_types:
+      of_case.AVG_FIRST_RESPONSE_TIME: line
+      of_case.AVG_FIRST_RESPONSE_TIME_NEW: line
+    series_colors:
+      Email - of_case.AVG_FIRST_RESPONSE_TIME: "#00506D"
+      Webform - of_case.AVG_FIRST_RESPONSE_TIME: "#AB6E13"
+      Chat - of_case.AVG_FIRST_RESPONSE_TIME: "#7f0b4d"
+      of_case.count: "#BD0F72"
+      of_case.AVG_FIRST_RESPONSE_TIME: "#84C5C3"
+      of_case.case_distinct_count: "#BD0F72"
+      of_case.AVG_FIRST_RESPONSE_TIME_NEW: "#84C5C3"
+    series_labels:
+      of_case.AVG_FIRST_RESPONSE_TIME: FRT (Minutes)
+      of_case.count: Case
+      of_case.case_distinct_count: Case
+      of_case.AVG_FIRST_RESPONSE_TIME_NEW: FRT (Minutes)
+    series_point_styles: {}
+    label_color: []
+    label_rotation: 0
+    x_axis_datetime_label: ''
+    trend_lines: []
+    column_spacing_ratio: 0.2
+    color_range: ["#4285F4", "#EA4335", "#FBBC04", "#34A852", "#5F6368"]
+    color_by: node
+    show_null_points: false
+    value_format_override: ''
+    show_percent: true
+    bar_arm_length: 25
+    bar_arm_weight: 50
+    bar_spinner_length: 100
+    bar_spinner_weight: 50
+    defaults_version: 1
+    value_labels: legend
+    label_type: labPer
+    hidden_fields: []
+    hidden_points_if_no: []
+    leftAxisLabelVisible: false
+    leftAxisLabel: ''
+    rightAxisLabelVisible: false
+    rightAxisLabel: ''
+    smoothedBars: false
+    orientation: automatic
+    labelPosition: left
+    percentType: total
+    percentPosition: inline
+    valuePosition: right
+    labelColorEnabled: false
+    labelColor: "#FFF"
+    up_color: false
+    down_color: false
+    total_color: false
+    interpolation: linear
+    note_state: collapsed
+    note_display: hover
+    note_text: '<P style="text-align:left;"><B>Metric Name : </B>Average First Response
+      Time by Channel<BR><B>How it Helps : </B>To evaluate First Response to Customers
+      by Channel<BR>[For Case FRT,  it is measured from Case Creation Date/time to
+      First Reply by CCA to Customer]<BR>[For Chat FRT,  the Start Time is now condition-based:<BR>If
+      Customer send 1st msg, then that should be the start time<BR>If Agent sends
+      a 1st msg before Customer 1st msg, then the start time should be the Automated
+      Bot Greeting msg<BR>End Time is always based on:<BR>Agent’s first typed in msg
+      (including “Hi” or “Hello”).]<BR><B>Target : </B>By Email: TBD By Phone: TBD
+      By Chat: TBD By Web: TBD'
+    hidden_pivots: {}
+    listen:
+      Status: of_case.status
+      Priority: of_case.priority
+      Category (L2): of_case.sub_category_l2
+      Topic (L3): of_case.subordinate_category_l3
+      RHQ (Case): of_case.Regional_Head_Office
+      Office (Case): of_case.case_office_code
+      Category (L1): of_case.reason
+      Resolution Reason: of_case.resolution_reason
+      Sub Resolution Reason: of_case.sub_resolution_reason
+      Case Number: of_case.casenumber
+      Contract Number: of_case.contract_number
+      First Contact Resolution: of_case.first_contact_resolution
+      Initial Queue Name: of_case.Initial_Queue_Name
+      Web Email: of_case.supplied_email
+      Closed Date: of_case.closeddate_date
+      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
+      Service or Contract Customer: of_case.Service_Contract_Customer
+      Dynamic Filter - View By: of_case.Geo_Param
+      Service Type: of_case.type
+      Date Granularity: of_case.timeframe_picker
+      Case Owner: case_owner.name
+      Subtopic (L4): of_case.subordinate_category_l4
+      Contact Email: of_case.contactemail
+      Original Record Type: of_case.original_record_type
+      Cluster Country: of_case.case_country
+      Individual Country: of_case.country
+      eComm ID: of_case.ecomm_id
+      Reopened Case: of_case.Case_reopened
+      Chat Owner: of_case.ct_owner_name1
+      Case Rating: of_case.case_rating
+      Has Leave Message: of_case.has_leave_message_filter
+      Channel: of_case.origin
+      First Response Time: of_case.responsetime_Param
+      Profile: case_owner.profile_name_service
+      Role: of_escalation_history.role
+      Office Type: case_owner.officetype
+      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
+      Country (Case Owner): user_office_hierarchy.country
+      Office (Case Owner): user_office_hierarchy.office_code
+      Source of Chat: of_chat_transcript.origin
+      Queue Owner Name: of_queue.developer_name
+      Customer Segmentation: of_customer_group.key_acct_tp_cd
+      Customer: of_customer.customer_cd_and_name
+      Contact Name: of_contact.name
+      Customer Type: of_customer.customer_type
+      Sales Team Member: of_sales_team_member.team_role
+      Customer Group: of_customer_group.cust_grp_and_name
+      Open Date: of_case.createddate_filter_date
+    row: 6
+    col: 6
+    width: 9
+    height: 6
+  - title: FCR Ratio
+    name: FCR Ratio
+    model: oneforce_service
+    explore: of_case
+    type: marketplace_viz_liquid_fill_gauge::liquid_fill_gauge-marketplace
+    fields: [of_case.AVG_FIRST_CONTACT_RESOLUTION]
+    limit: 500
+    hidden_fields: []
+    hidden_points_if_no: []
+    series_labels: {}
+    show_view_names: true
+    showComparison: false
+    minValue: 0
+    maxValue: 1
+    circleThickness: 0.05
+    circleFillGap: 0.05
+    circleColor: "#00506D"
+    waveHeight: 0.3
+    waveCount: 4
+    waveRiseTime: 2200
+    waveAnimateTime: 2201
+    waveRise: true
+    waveHeightScaling: true
+    waveAnimate: true
+    waveColor: "#BD0F72"
+    waveOffset: 0
+    textVertPosition: 0.49
+    textSize: 0.86
+    valueCountUp: true
+    displayPercent: false
+    textColor: "#000000"
+    waveTextColor: "#FFFFFF"
     custom_color_enabled: true
     show_single_value_title: true
     show_comparison: false
@@ -30,250 +225,942 @@
     enable_conditional_formatting: false
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
-    custom_color: "#7f0b4d"
-    single_value_title: Open Urgent & High Priority
-    value_format: '[>=1000000]0.0,,"M";[>=1000]0.0,"K";0'
-    conditional_formatting: [{type: not null, value: !!null '', background_color: "#BD0F72",
-        font_color: !!null '', color_application: {collection_id: one-theme, palette_id: one-theme-sequential-0},
-        bold: false, italic: false, strikethrough: false, fields: !!null ''}]
+    defaults_version: 0
     series_types: {}
-    defaults_version: 1
-    note_state: collapsed
+    note_state: expanded
     note_display: hover
-    note_text: '<P style="text-align:left;"><B>Metric Name : </B>No. of Open High
-      and Urgent Priority Cases<BR><B>How it Helps : </B>To evaluate the no. of Open
-      cases by Priority = Urgent and High<BR>[Case Status ≠ "Resolved" & "Closed"]<BR><B>Target
-      : </B>Urgent: TBD High: TBD'
+    note_text: '<P style="text-align:left;"><B>Metric Name : </B>First Contact Resolution
+      Ratio - Global Index<BR><B>How it Helps : </B>To evaluate FCR cases resolved
+      by CCA Globally<BR>[For non Chat cases, counted as FCR if the case has no transfer
+      and escalation activity]<BR>[For Chat cases, counted as FCR if the case has
+      no transfer and escalation activity and Created date is the same as Resolved
+      date]<BR><B>Target : </B>TBD'
     listen:
-      Channel: of_case.origin
       Status: of_case.status
-      RHQ (Case): of_case.Regional_Head_Office
-      Cluster Country: of_case.case_country
-      Individual Country: of_case.country
-      Office (Case): of_case.case_office_code
-      Initial Queue Name: of_case.Initial_Queue_Name
-      Case Number: of_case.casenumber
+      Priority: of_case.priority
+      Category (L2): of_case.sub_category_l2
       Topic (L3): of_case.subordinate_category_l3
-      First Contact Resolution: of_case.first_contact_resolution
-      Web Email: of_case.supplied_email
-      Date Granularity: of_case.timeframe_picker
-      Open Date: of_case.createddate_filter_date
-      Reopened Case: of_case.Case_reopened
-      Dynamic Filter - View By: of_case.Geo_Param
-      Contact Email: of_case.contactemail
-      eComm ID: of_case.ecomm_id
-      Contract Number: of_case.contract_number
-      Case Rating: of_case.case_rating
-      Service or Contract Customer: of_case.Service_Contract_Customer
-      Sub Resolution Reason: of_case.sub_resolution_reason
+      RHQ (Case): of_case.Regional_Head_Office
+      Office (Case): of_case.case_office_code
       Category (L1): of_case.reason
-      Subtopic (L4): of_case.subordinate_category_l4
-      Service Type: of_case.type
+      Resolution Reason: of_case.resolution_reason
+      Sub Resolution Reason: of_case.sub_resolution_reason
+      Case Number: of_case.casenumber
+      Contract Number: of_case.contract_number
+      Initial Queue Name: of_case.Initial_Queue_Name
+      Web Email: of_case.supplied_email
       Closed Date: of_case.closeddate_date
       Case Resolved Date: of_case.Case_Resolved_Date_Time_date
-      Original Record Type: of_case.original_record_type
-      Has Leave Message: of_case.has_leave_message_filter
-      Resolution Reason: of_case.resolution_reason
-      Office Type: case_owner.officetype
+      Service or Contract Customer: of_case.Service_Contract_Customer
+      Dynamic Filter - View By: of_case.Geo_Param
+      Service Type: of_case.type
+      Date Granularity: of_case.timeframe_picker
       Case Owner: case_owner.name
-      Role: of_escalation_history.role
+      Subtopic (L4): of_case.subordinate_category_l4
+      Contact Email: of_case.contactemail
+      Original Record Type: of_case.original_record_type
+      Cluster Country: of_case.case_country
+      Individual Country: of_case.country
+      eComm ID: of_case.ecomm_id
+      Reopened Case: of_case.Case_reopened
+      Chat Owner: of_case.ct_owner_name1
+      Case Rating: of_case.case_rating
+      Has Leave Message: of_case.has_leave_message_filter
+      Channel: of_case.origin
       Profile: case_owner.profile_name_service
-      Category (L2): of_case.sub_category_l2
-      Awaiting Internal Team Response: of_case_history_air.status_case_Analysis
+      Role: of_escalation_history.role
+      Office Type: case_owner.officetype
       RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
       Country (Case Owner): user_office_hierarchy.country
       Office (Case Owner): user_office_hierarchy.office_code
       Source of Chat: of_chat_transcript.origin
       Queue Owner Name: of_queue.developer_name
       Customer Segmentation: of_customer_group.key_acct_tp_cd
-      Customer Group: of_customer_group.cust_grp_and_name
       Customer: of_customer.customer_cd_and_name
       Contact Name: of_contact.name
-      Sales Team Member: of_sales_team_member.team_role
       Customer Type: of_customer.customer_type
-    row: 0
+      Sales Team Member: of_sales_team_member.team_role
+      Customer Group: of_customer_group.cust_grp_and_name
+      Open Date: of_case.createddate_filter_date
+    row: 6
     col: 0
-    width: 2
-    height: 2
-  - title: Open
-    name: Open
+    width: 6
+    height: 6
+  - title: Escl by Location*
+    name: Escl by Location*
     model: oneforce_service
     explore: of_case
-    type: single_value
-    fields: [of_case.case_distinct_count_drill]
+    type: looker_donut_multiples
+    fields: [of_escalation_history.role, of_case.Case_Geo, of_case.case_distinct_count_drill]
+    pivots: [of_escalation_history.role]
     filters:
-      of_case.active_case: 'Yes'
-    limit: 500
-    custom_color_enabled: true
-    show_single_value_title: true
-    show_comparison: false
-    comparison_type: value
-    comparison_reverse_colors: false
-    show_comparison_label: true
-    enable_conditional_formatting: false
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    custom_color: "#7f0b4d"
-    single_value_title: Open
-    value_format: '[>=1000000]0.0,,"M";[>=1000]0.0,"K";0'
-    conditional_formatting: [{type: not null, value: !!null '', background_color: "#BD0F72",
-        font_color: !!null '', color_application: {collection_id: one-theme, palette_id: one-theme-sequential-0},
-        bold: false, italic: false, strikethrough: false, fields: !!null ''}]
-    series_types: {}
-    defaults_version: 1
-    note_state: collapsed
-    note_display: hover
-    note_text: '<P style="text-align:left;"><B>Metric Name : </B>No. of Open Cases<BR><B>How
-      it Helps : </B>To evaluate the no. of Open cases<BR>[Case Status ≠ "Resolved"
-      & "Closed"]<BR><B>Target : </B>TBD'
-    listen:
-      Channel: of_case.origin
-      Status: of_case.status
-      RHQ (Case): of_case.Regional_Head_Office
-      Cluster Country: of_case.case_country
-      Individual Country: of_case.country
-      Office (Case): of_case.case_office_code
-      Initial Queue Name: of_case.Initial_Queue_Name
-      Case Number: of_case.casenumber
-      Topic (L3): of_case.subordinate_category_l3
-      First Contact Resolution: of_case.first_contact_resolution
-      Web Email: of_case.supplied_email
-      Date Granularity: of_case.timeframe_picker
-      Open Date: of_case.createddate_filter_date
-      Reopened Case: of_case.Case_reopened
-      Dynamic Filter - View By: of_case.Geo_Param
-      Priority: of_case.priority
-      Contact Email: of_case.contactemail
-      eComm ID: of_case.ecomm_id
-      Contract Number: of_case.contract_number
-      Case Rating: of_case.case_rating
-      Service or Contract Customer: of_case.Service_Contract_Customer
-      Sub Resolution Reason: of_case.sub_resolution_reason
-      Category (L1): of_case.reason
-      Subtopic (L4): of_case.subordinate_category_l4
-      Service Type: of_case.type
-      Closed Date: of_case.closeddate_date
-      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
-      Original Record Type: of_case.original_record_type
-      Has Leave Message: of_case.has_leave_message_filter
-      Resolution Reason: of_case.resolution_reason
-      Office Type: case_owner.officetype
-      Case Owner: case_owner.name
-      Role: of_escalation_history.role
-      Profile: case_owner.profile_name_service
-      Category (L2): of_case.sub_category_l2
-      Awaiting Internal Team Response: of_case_history_air.status_case_Analysis
-      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
-      Country (Case Owner): user_office_hierarchy.country
-      Office (Case Owner): user_office_hierarchy.office_code
-      Source of Chat: of_chat_transcript.origin
-      Queue Owner Name: of_queue.developer_name
-      Customer Segmentation: of_customer_group.key_acct_tp_cd
-      Customer Group: of_customer_group.cust_grp_and_name
-      Customer: of_customer.customer_cd_and_name
-      Contact Name: of_contact.name
-      Sales Team Member: of_sales_team_member.team_role
-      Customer Type: of_customer.customer_type
-    row: 0
-    col: 2
-    width: 2
-    height: 2
-  - title: Escl Cases
-    name: Escl Cases
-    model: oneforce_service
-    explore: of_case
-    type: single_value
-    fields: [of_case.case_distinct_count_drill]
-    filters:
-      of_case.active_case: 'Yes'
       of_case.total_escalation: ">0"
+    sorts: [of_escalation_history.role, of_case.Case_Geo]
     limit: 500
-    custom_color_enabled: true
-    show_single_value_title: true
-    show_comparison: false
-    comparison_type: value
-    comparison_reverse_colors: false
-    show_comparison_label: true
-    enable_conditional_formatting: false
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    custom_color: "#7f0b4d"
-    single_value_title: Open Escl
-    value_format: '[>=1000000]0.0,,"M";[>=1000]0.0,"K";0'
-    conditional_formatting: [{type: not null, value: !!null '', background_color: "#BD0F72",
-        font_color: !!null '', color_application: {collection_id: one-theme, palette_id: one-theme-sequential-0},
-        bold: false, italic: false, strikethrough: false, fields: !!null ''}]
-    defaults_version: 1
-    note_state: collapsed
-    note_display: hover
-    note_text: '<P style="text-align:left;"><B>Metric Name : </B>No. of Open Escalated
-      Cases<BR><B>How it Helps : </B>To evaluate the no.of Open Escalated Cases<BR>[Case
-      Status ≠ "Resolved" & "Closed" and Total Escalation is Greater than 0]<BR><B>Target
-      : </B>TBD'
-    listen:
-      Channel: of_case.origin
-      Status: of_case.status
-      RHQ (Case): of_case.Regional_Head_Office
-      Cluster Country: of_case.case_country
-      Individual Country: of_case.country
-      Office (Case): of_case.case_office_code
-      Initial Queue Name: of_case.Initial_Queue_Name
-      Case Number: of_case.casenumber
-      Topic (L3): of_case.subordinate_category_l3
-      First Contact Resolution: of_case.first_contact_resolution
-      Web Email: of_case.supplied_email
-      Date Granularity: of_case.timeframe_picker
-      Open Date: of_case.createddate_filter_date
-      Reopened Case: of_case.Case_reopened
-      Dynamic Filter - View By: of_case.Geo_Param
-      Priority: of_case.priority
-      Contact Email: of_case.contactemail
-      eComm ID: of_case.ecomm_id
-      Contract Number: of_case.contract_number
-      Case Rating: of_case.case_rating
-      Service or Contract Customer: of_case.Service_Contract_Customer
-      Sub Resolution Reason: of_case.sub_resolution_reason
-      Category (L1): of_case.reason
-      Subtopic (L4): of_case.subordinate_category_l4
-      Service Type: of_case.type
-      Closed Date: of_case.closeddate_date
-      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
-      Original Record Type: of_case.original_record_type
-      Has Leave Message: of_case.has_leave_message_filter
-      Resolution Reason: of_case.resolution_reason
-      Office Type: case_owner.officetype
-      Case Owner: case_owner.name
-      Role: of_escalation_history.role
-      Profile: case_owner.profile_name_service
-      Category (L2): of_case.sub_category_l2
-      Awaiting Internal Team Response: of_case_history_air.status_case_Analysis
-      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
-      Country (Case Owner): user_office_hierarchy.country
-      Office (Case Owner): user_office_hierarchy.office_code
-      Source of Chat: of_chat_transcript.origin
-      Queue Owner Name: of_queue.developer_name
-      Customer Segmentation: of_customer_group.key_acct_tp_cd
-      Customer Group: of_customer_group.cust_grp_and_name
-      Customer: of_customer.customer_cd_and_name
-      Contact Name: of_contact.name
-      Sales Team Member: of_sales_team_member.team_role
-      Customer Type: of_customer.customer_type
-    row: 0
-    col: 8
-    width: 3
-    height: 2
-  - title: Trend by Status
-    name: Trend by Status
-    model: oneforce_service
-    explore: of_case
-    type: looker_line
-    fields: [of_case.status, of_case.createddate_dynamic, of_case.case_distinct_count]
-    pivots: [of_case.status]
-    sorts: [of_case.status, of_case.createddate_dynamic]
-    limit: 500
-    x_axis_gridlines: true
+    show_value_labels: true
+    font_size: 12
+    charts_across:
+    hide_legend: false
+    color_application:
+      collection_id: one-theme
+      palette_id: one-theme-categorical-0
+      options:
+        steps: 5
+        reverse: false
+    series_colors:
+      Others - of_case.escalated_case_count: "#8b908f"
+      S-KAS - of_case.escalated_case_count: "#7f0b4d"
+      C-KAS - of_case.escalated_case_count: "#340335"
+      S-KAM - of_case.escalated_case_count: "#00506D"
+    value_labels: labels
+    label_type: labVal
+    inner_radius: 70
+    x_axis_gridlines: false
     y_axis_gridlines: true
     show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: false
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    y_axes: [{label: '', orientation: bottom, series: [{axisId: of_case.count, id: of_case.count,
+            name: Case}], showLabels: false, showValues: true, unpinAxis: false, tickDensity: default,
+        tickDensityCustom: 5, type: linear}]
+    series_types: {}
+    defaults_version: 1
+    show_null_points: true
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    map_plot_mode: points
+    heatmap_gridlines: false
+    heatmap_gridlines_empty: false
+    heatmap_opacity: 0.5
+    show_region_field: true
+    draw_map_labels_above_data: true
+    map_tile_provider: light
+    map_position: fit_data
+    map_scale_indicator: 'off'
+    map_pannable: true
+    map_zoomable: true
+    map_marker_type: circle
+    map_marker_icon_name: default
+    map_marker_radius_mode: proportional_value
+    map_marker_units: meters
+    map_marker_proportional_scale_type: linear
+    map_marker_color_mode: fixed
+    show_legend: true
+    quantize_map_value_colors: false
+    reverse_map_value_colors: false
+    note_state: collapsed
+    note_display: hover
+    note_text: "<P style=\"text-align:left;\"><B>Metric Name : </B>Escalated Cases\
+      \ <BR><B>How it Helps : </B>To evaluate number of escalated cases <BR>[Number\
+      \ of cases where Total Escalation>0]<BR><B>Target : </B>S-KAS: TBD S-KAM: TBD\
+      \ C-KAS: TBD C-KAM: TBD\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t"
+    listen:
+      Status: of_case.status
+      Priority: of_case.priority
+      Category (L2): of_case.sub_category_l2
+      Topic (L3): of_case.subordinate_category_l3
+      RHQ (Case): of_case.Regional_Head_Office
+      Office (Case): of_case.case_office_code
+      Category (L1): of_case.reason
+      Resolution Reason: of_case.resolution_reason
+      Sub Resolution Reason: of_case.sub_resolution_reason
+      Case Number: of_case.casenumber
+      Contract Number: of_case.contract_number
+      First Contact Resolution: of_case.first_contact_resolution
+      Initial Queue Name: of_case.Initial_Queue_Name
+      Web Email: of_case.supplied_email
+      Closed Date: of_case.closeddate_date
+      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
+      Service or Contract Customer: of_case.Service_Contract_Customer
+      Dynamic Filter - View By: of_case.Geo_Param
+      Service Type: of_case.type
+      Date Granularity: of_case.timeframe_picker
+      Case Owner: case_owner.name
+      Subtopic (L4): of_case.subordinate_category_l4
+      Contact Email: of_case.contactemail
+      Original Record Type: of_case.original_record_type
+      Cluster Country: of_case.case_country
+      Individual Country: of_case.country
+      eComm ID: of_case.ecomm_id
+      Reopened Case: of_case.Case_reopened
+      Chat Owner: of_case.ct_owner_name1
+      Case Rating: of_case.case_rating
+      Has Leave Message: of_case.has_leave_message_filter
+      Channel: of_case.origin
+      Profile: case_owner.profile_name_service
+      Role: of_escalation_history.role
+      Office Type: case_owner.officetype
+      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
+      Country (Case Owner): user_office_hierarchy.country
+      Office (Case Owner): user_office_hierarchy.office_code
+      Source of Chat: of_chat_transcript.origin
+      Queue Owner Name: of_queue.developer_name
+      Customer Segmentation: of_customer_group.key_acct_tp_cd
+      Customer: of_customer.customer_cd_and_name
+      Contact Name: of_contact.name
+      Customer Type: of_customer.customer_type
+      Sales Team Member: of_sales_team_member.team_role
+      Customer Group: of_customer_group.cust_grp_and_name
+      Open Date: of_case.createddate_filter_date
+    row: 18
+    col: 6
+    width: 18
+    height: 6
+  - name: '<a target="_blank" style="color:#BD0F72; font-size:1vw"  href="https://onelinecloudlookercom/embed/dashboards-next/1118"><b>Fullscreen?</b></a><p
+      style="font-size:1vw">Version: 20231017 </p> '
+    type: text
+    title_text: '<a target="_blank" style="color:#BD0F72; font-size:1vw"  href="https://oneline.cloud.looker.com/embed/dashboards-next/1118"><b>Fullscreen?</b></a><p
+      style="font-size:1vw">Version: 2023.10.17 </p> '
+    subtitle_text: ''
+    body_text: ''
+    row: 74
+    col: 20
+    width: 4
+    height: 3
+  - title: FCR Ratio by Channel*
+    name: FCR Ratio by Channel*
+    model: oneforce_service
+    explore: of_case
+    type: looker_column
+    fields: [of_case.AVG_FIRST_CONTACT_RESOLUTION, of_case.origin, of_case.Case_Geo]
+    pivots: [of_case.origin]
+    sorts: [of_case.origin, of_case.Case_Geo]
+    limit: 500
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: true
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: false
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: normal
+    limit_displayed_rows: true
+    legend_position: center
+    point_style: circle_outline
+    show_value_labels: true
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    show_null_points: false
+    interpolation: linear
+    y_axes: [{label: '', orientation: left, series: [{axisId: Chat - of_case.AVG_FIRST_CONTACT_RESOLUTION,
+            id: Chat - of_case.AVG_FIRST_CONTACT_RESOLUTION, name: Chat}, {axisId: Email
+              - of_case.AVG_FIRST_CONTACT_RESOLUTION, id: Email - of_case.AVG_FIRST_CONTACT_RESOLUTION,
+            name: Email}, {axisId: Internal - of_case.AVG_FIRST_CONTACT_RESOLUTION,
+            id: Internal - of_case.AVG_FIRST_CONTACT_RESOLUTION, name: Internal},
+          {axisId: Phone - of_case.AVG_FIRST_CONTACT_RESOLUTION, id: Phone - of_case.AVG_FIRST_CONTACT_RESOLUTION,
+            name: Phone}, {axisId: Web - of_case.AVG_FIRST_CONTACT_RESOLUTION, id: Web
+              - of_case.AVG_FIRST_CONTACT_RESOLUTION, name: Web}], showLabels: false,
+        showValues: false, unpinAxis: false, tickDensity: default, tickDensityCustom: 5,
+        type: linear}]
+    x_axis_label: Country (Case Owner)
+    limit_displayed_rows_values:
+      show_hide: show
+      first_last: first
+      num_rows: '20'
+    hide_legend: false
+    series_types: {}
+    series_colors:
+      of_case.count: "#BD0F72"
+      Email - of_case.AVG_FIRST_CONTACT_RESOLUTION: "#00506D"
+      Webform - of_case.AVG_FIRST_CONTACT_RESOLUTION: "#F39200"
+      Phone - of_case.AVG_FIRST_CONTACT_RESOLUTION: "#8b908f"
+      Web - of_case.AVG_FIRST_CONTACT_RESOLUTION: "#3D7876"
+    series_labels: {}
+    series_point_styles:
+      of_case.AVG_FIRST_CONTACT_RESOLUTION: diamond
+      Chat - of_case.AVG_FIRST_CONTACT_RESOLUTION: square
+      Webform - of_case.AVG_FIRST_CONTACT_RESOLUTION: square
+      Internal - of_case.AVG_FIRST_CONTACT_RESOLUTION: square
+      Web - of_case.AVG_FIRST_CONTACT_RESOLUTION: square
+    swap_axes: false
+    hidden_fields: []
+    hidden_points_if_no: []
+    showComparison: false
+    minValue: 0
+    maxValue: 1
+    circleThickness: 0.05
+    circleFillGap: 0.05
+    circleColor: "#178BCA"
+    waveHeight: 0.3
+    waveCount: 4
+    waveRiseTime: 2200
+    waveAnimateTime: 2201
+    waveRise: true
+    waveHeightScaling: true
+    waveAnimate: true
+    waveColor: "#0ebcdb"
+    waveOffset: 0
+    textVertPosition: 0.49
+    textSize: 0.86
+    valueCountUp: true
+    displayPercent: true
+    textColor: "#000000"
+    waveTextColor: "#FFFFFF"
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    defaults_version: 1
+    note_state: expanded
+    note_display: hover
+    note_text: "<P style=\"text-align:left;\"><B>Metric Name : </B>First Contact Resolution\
+      \ Ratio by Channel<BR><B>How it Helps : </B>To evaluate cases resolved by First\
+      \ Contact CCA Channelwise<BR>[Case resolution without inter / intra team transfer\
+      \ & escalation]<BR><B>Target : </B>By Email: TBD By Phone: TBD By Chat: TBD\
+      \ By Web: TBD\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t"
+    listen:
+      Status: of_case.status
+      Priority: of_case.priority
+      Category (L2): of_case.sub_category_l2
+      Topic (L3): of_case.subordinate_category_l3
+      RHQ (Case): of_case.Regional_Head_Office
+      Office (Case): of_case.case_office_code
+      Category (L1): of_case.reason
+      Resolution Reason: of_case.resolution_reason
+      Sub Resolution Reason: of_case.sub_resolution_reason
+      Case Number: of_case.casenumber
+      Contract Number: of_case.contract_number
+      Initial Queue Name: of_case.Initial_Queue_Name
+      Web Email: of_case.supplied_email
+      Closed Date: of_case.closeddate_date
+      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
+      Service or Contract Customer: of_case.Service_Contract_Customer
+      Dynamic Filter - View By: of_case.Geo_Param
+      Service Type: of_case.type
+      Date Granularity: of_case.timeframe_picker
+      Case Owner: case_owner.name
+      Subtopic (L4): of_case.subordinate_category_l4
+      Contact Email: of_case.contactemail
+      Original Record Type: of_case.original_record_type
+      Cluster Country: of_case.case_country
+      Individual Country: of_case.country
+      eComm ID: of_case.ecomm_id
+      Reopened Case: of_case.Case_reopened
+      Chat Owner: of_case.ct_owner_name1
+      Case Rating: of_case.case_rating
+      Has Leave Message: of_case.has_leave_message_filter
+      Channel: of_case.origin
+      Profile: case_owner.profile_name_service
+      Role: of_escalation_history.role
+      Office Type: case_owner.officetype
+      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
+      Country (Case Owner): user_office_hierarchy.country
+      Office (Case Owner): user_office_hierarchy.office_code
+      Source of Chat: of_chat_transcript.origin
+      Queue Owner Name: of_queue.developer_name
+      Customer Segmentation: of_customer_group.key_acct_tp_cd
+      Customer: of_customer.customer_cd_and_name
+      Contact Name: of_contact.name
+      Customer Type: of_customer.customer_type
+      Sales Team Member: of_sales_team_member.team_role
+      Customer Group: of_customer_group.cust_grp_and_name
+      Open Date: of_case.createddate_filter_date
+    row: 6
+    col: 15
+    width: 9
+    height: 6
+  - title: Avg FRT by Location*
+    name: Avg FRT by Location*
+    model: oneforce_service
+    explore: of_case
+    type: looker_bar
+    fields: [of_case.Case_Geo, of_case.AVG_FIRST_RESPONSE_TIME_NEW, of_case.case_distinct_count]
+    filters:
+      of_case.is_channel_applicable_for_FRT: 'Yes'
+    sorts: [of_case.Case_Geo]
+    limit: 500
+    x_axis_gridlines: false
+    y_axis_gridlines: false
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: false
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: true
+    legend_position: center
+    point_style: circle_outline
+    show_value_labels: true
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    color_application:
+      collection_id: one-theme
+      palette_id: one-theme-categorical-0
+      options:
+        steps: 5
+        reverse: false
+    y_axes: [{label: '', orientation: bottom, series: [{axisId: of_case.case_distinct_count,
+            id: of_case.case_distinct_count, name: Case}], showLabels: false, showValues: true,
+        unpinAxis: false, tickDensity: default, type: linear}, {label: '', orientation: bottom,
+        series: [{axisId: of_case.AVG_FIRST_RESPONSE_TIME_NEW, id: of_case.AVG_FIRST_RESPONSE_TIME_NEW,
+            name: FRT (Minutes)}], showLabels: false, showValues: false, unpinAxis: false,
+        tickDensity: default, type: linear}]
+    size_by_field: of_queue_member.queue_size
+    x_axis_zoom: true
+    y_axis_zoom: true
+    limit_displayed_rows_values:
+      show_hide: show
+      first_last: first
+      num_rows: '20'
+    hide_legend: false
+    font_size: '12'
+    label_value_format: '[>=1000000]0.0,,"M";[>=1000]0.0,"K";0'
+    series_types:
+      of_queue_member.queue_size: scatter
+      of_case.AVG_FIRST_RESPONSE_TIME: line
+      of_case.AVG_FIRST_RESPONSE_TIME_NEW: line
+    series_colors:
+      of_case.AVG_FIRST_RESPONSE_TIME: "#84C5C3"
+      of_queue_member.queue_size: "#7f0b4d"
+      of_case.case_distinct_count: "#BD0F72"
+      of_case.AVG_FIRST_RESPONSE_TIME_NEW: "#84C5C3"
+    series_labels:
+      of_case.AVG_FIRST_RESPONSE_TIME: FRT (Minutes)
+      of_case.case_distinct_count: Case
+      of_case.AVG_FIRST_RESPONSE_TIME_NEW: FRT (Minutes)
+    series_point_styles: {}
+    show_null_points: false
+    color_range: ["#4285F4", "#EA4335", "#FBBC04", "#34A852", "#5F6368"]
+    color_by: node
+    value_format_override: ''
+    show_percent: true
+    bar_arm_length: 25
+    bar_arm_weight: 50
+    bar_spinner_length: 100
+    bar_spinner_weight: 50
+    defaults_version: 1
+    value_labels: legend
+    label_type: labPer
+    hidden_fields: []
+    hidden_points_if_no: []
+    leftAxisLabelVisible: false
+    leftAxisLabel: ''
+    rightAxisLabelVisible: false
+    rightAxisLabel: ''
+    smoothedBars: false
+    orientation: automatic
+    labelPosition: left
+    percentType: total
+    percentPosition: inline
+    valuePosition: right
+    labelColorEnabled: false
+    labelColor: "#FFF"
+    up_color: false
+    down_color: false
+    total_color: false
+    interpolation: linear
+    note_state: collapsed
+    note_display: hover
+    note_text: '<P style="text-align:left;"><B>Metric Name : </B>Average First Response
+      Time<BR><B>How it Helps : </B>To evaluate First Response to Customers<BR>[For
+      Case FRT,  it is measured from Case Creation Date/time to First Reply by CCA
+      to Customer]<BR>[For Chat FRT,  the Start Time is now condition-based:<BR>If
+      Customer send 1st msg, then that should be the start time<BR>If Agent sends
+      a 1st msg before Customer 1st msg, then the start time should be the Automated
+      Bot Greeting msg<BR>End Time is always based on:<BR>Agent’s first typed in msg
+      (including “Hi” or “Hello”).]<BR><B>Target : </B>TBD'
+    hidden_pivots: {}
+    listen:
+      Status: of_case.status
+      Priority: of_case.priority
+      Category (L2): of_case.sub_category_l2
+      Topic (L3): of_case.subordinate_category_l3
+      RHQ (Case): of_case.Regional_Head_Office
+      Office (Case): of_case.case_office_code
+      Category (L1): of_case.reason
+      Resolution Reason: of_case.resolution_reason
+      Sub Resolution Reason: of_case.sub_resolution_reason
+      Case Number: of_case.casenumber
+      Contract Number: of_case.contract_number
+      First Contact Resolution: of_case.first_contact_resolution
+      Initial Queue Name: of_case.Initial_Queue_Name
+      Web Email: of_case.supplied_email
+      Closed Date: of_case.closeddate_date
+      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
+      Service or Contract Customer: of_case.Service_Contract_Customer
+      Dynamic Filter - View By: of_case.Geo_Param
+      Service Type: of_case.type
+      Date Granularity: of_case.timeframe_picker
+      Case Owner: case_owner.name
+      Subtopic (L4): of_case.subordinate_category_l4
+      Contact Email: of_case.contactemail
+      Original Record Type: of_case.original_record_type
+      Cluster Country: of_case.case_country
+      Individual Country: of_case.country
+      eComm ID: of_case.ecomm_id
+      Reopened Case: of_case.Case_reopened
+      Chat Owner: of_case.ct_owner_name1
+      Case Rating: of_case.case_rating
+      Has Leave Message: of_case.has_leave_message_filter
+      Channel: of_case.origin
+      First Response Time: of_case.responsetime_Param
+      Profile: case_owner.profile_name_service
+      Role: of_escalation_history.role
+      Office Type: case_owner.officetype
+      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
+      Country (Case Owner): user_office_hierarchy.country
+      Office (Case Owner): user_office_hierarchy.office_code
+      Source of Chat: of_chat_transcript.origin
+      Queue Owner Name: of_queue.developer_name
+      Customer Segmentation: of_customer_group.key_acct_tp_cd
+      Customer: of_customer.customer_cd_and_name
+      Contact Name: of_contact.name
+      Customer Type: of_customer.customer_type
+      Sales Team Member: of_sales_team_member.team_role
+      Customer Group: of_customer_group.cust_grp_and_name
+      Open Date: of_case.createddate_filter_date
+    row: 0
+    col: 6
+    width: 9
+    height: 6
+  - title: FCR Ratio by Location*
+    name: FCR Ratio by Location*
+    model: oneforce_service
+    explore: of_case
+    type: looker_bar
+    fields: [of_case.Case_Geo, of_case.first_contact_resolution, of_case.case_distinct_count_fcr]
+    pivots: [of_case.first_contact_resolution]
+    sorts: [of_case.first_contact_resolution desc, of_case.case_distinct_count_fcr
+        desc 0]
+    limit: 500
+    column_limit: 50
+    x_axis_gridlines: false
+    y_axis_gridlines: false
+    show_view_names: false
+    show_y_axis_labels: false
+    show_y_axis_ticks: false
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: false
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: percent
+    limit_displayed_rows: true
+    legend_position: center
+    point_style: circle_outline
+    show_value_labels: true
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#CCD3D1"
+    color_application:
+      collection_id: one-theme
+      palette_id: one-theme-categorical-0
+      options:
+        steps: 5
+    y_axes: [{label: !!null '', orientation: top, series: [{axisId: of_case.AVG_FIRST_CONTACT_RESOLUTION,
+            id: of_case.AVG_FIRST_CONTACT_RESOLUTION, name: FCR}], showLabels: false,
+        showValues: false, unpinAxis: false, tickDensity: default, type: linear},
+      {label: '', orientation: bottom, series: [{axisId: of_case.case_distinct_count,
+            id: of_case.case_distinct_count, name: Case}], showLabels: false, showValues: false,
+        unpinAxis: false, tickDensity: default, type: linear}]
+    size_by_field: ''
+    limit_displayed_rows_values:
+      show_hide: hide
+      first_last: first
+      num_rows: 0
+    hide_legend: false
+    font_size: '12'
+    series_types: {}
+    series_colors:
+      Bad: "#000000"
+      Good: "#BD0F72"
+      of_case.case_distinct_count: "#F39200"
+      of_case.AVG_FIRST_CONTACT_RESOLUTION: "#00506D"
+      Yes - of_case.case_distinct_count: "#BD0F72"
+      No - of_case.case_distinct_count: "#CCD3D1"
+    series_labels:
+      of_case.case_distinct_count: Case
+      of_case.AVG_FIRST_CONTACT_RESOLUTION: FCR
+    series_point_styles:
+      of_case.AVG_FIRST_CONTACT_RESOLUTION: triangle
+    label_color: []
+    column_group_spacing_ratio: 0.1
+    leftAxisLabelVisible: false
+    leftAxisLabel: ''
+    rightAxisLabelVisible: true
+    rightAxisLabel: ''
+    smoothedBars: false
+    isStepped: false
+    orientation: automatic
+    labelPosition: left
+    percentType: total
+    percentPosition: inline
+    valuePosition: right
+    labelColorEnabled: false
+    labelColor: "#FFF"
+    value_labels: labels
+    label_type: labPer
+    inner_radius: 20
+    color_range: ["#4285F4", "#EA4335", "#FBBC04", "#34A852", "#5F6368"]
+    color_by: node
+    show_null_points: false
+    value_format_override: ''
+    show_percent: true
+    arm_length: 25
+    arm_weight: 50
+    spinner_length: 100
+    spinner_weight: 50
+    viz_trellis_by: none
+    angle: 90
+    cutout: 50
+    range_x: 1
+    range_y: 1
+    up_color: "#BD0F72"
+    down_color: "#F39200"
+    total_color: "#00506D"
+    interpolation: linear
+    bar_arm_length: 25
+    bar_arm_weight: 50
+    bar_spinner_length: 100
+    bar_spinner_weight: 50
+    defaults_version: 1
+    hidden_fields: []
+    hidden_points_if_no: []
+    show_row_numbers: true
+    transpose: false
+    truncate_text: true
+    hide_totals: false
+    hide_row_totals: false
+    size_to_fit: true
+    table_theme: white
+    enable_conditional_formatting: false
+    header_text_alignment: left
+    header_font_size: 12
+    rows_font_size: 12
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    map_plot_mode: points
+    heatmap_gridlines: false
+    heatmap_gridlines_empty: false
+    heatmap_opacity: 0.5
+    show_region_field: true
+    draw_map_labels_above_data: true
+    map_tile_provider: light
+    map_position: fit_data
+    map_scale_indicator: 'off'
+    map_pannable: true
+    map_zoomable: true
+    map_marker_type: circle
+    map_marker_icon_name: default
+    map_marker_radius_mode: proportional_value
+    map_marker_units: meters
+    map_marker_proportional_scale_type: linear
+    map_marker_color_mode: fixed
+    show_legend: true
+    quantize_map_value_colors: false
+    reverse_map_value_colors: false
+    note_state: collapsed
+    note_display: hover
+    note_text: '<P style="text-align:left;"><B>Metric Name : </B>First Contact Resolution<BR><B>How
+      it Helps : </B>To evaluate FCR cases resolved by CCA<BR>[For non Chat cases,
+      counted as FCR if the case has no transfer and escalation activity]<BR>[For
+      Chat cases, counted as FCR if the case has no transfer and escalation activity
+      and Created date is the same as Resolved date]<BR><B>Target : </B>TBD'
+    hidden_pivots: {}
+    listen:
+      Status: of_case.status
+      Priority: of_case.priority
+      Category (L2): of_case.sub_category_l2
+      Topic (L3): of_case.subordinate_category_l3
+      RHQ (Case): of_case.Regional_Head_Office
+      Office (Case): of_case.case_office_code
+      Category (L1): of_case.reason
+      Resolution Reason: of_case.resolution_reason
+      Sub Resolution Reason: of_case.sub_resolution_reason
+      Case Number: of_case.casenumber
+      Contract Number: of_case.contract_number
+      Initial Queue Name: of_case.Initial_Queue_Name
+      Web Email: of_case.supplied_email
+      Closed Date: of_case.closeddate_date
+      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
+      Service or Contract Customer: of_case.Service_Contract_Customer
+      Dynamic Filter - View By: of_case.Geo_Param
+      Service Type: of_case.type
+      Date Granularity: of_case.timeframe_picker
+      Case Owner: case_owner.name
+      Subtopic (L4): of_case.subordinate_category_l4
+      Contact Email: of_case.contactemail
+      Original Record Type: of_case.original_record_type
+      Cluster Country: of_case.case_country
+      Individual Country: of_case.country
+      eComm ID: of_case.ecomm_id
+      Reopened Case: of_case.Case_reopened
+      Chat Owner: of_case.ct_owner_name1
+      Case Rating: of_case.case_rating
+      Has Leave Message: of_case.has_leave_message_filter
+      Channel: of_case.origin
+      Profile: case_owner.profile_name_service
+      Role: of_escalation_history.role
+      Office Type: case_owner.officetype
+      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
+      Country (Case Owner): user_office_hierarchy.country
+      Office (Case Owner): user_office_hierarchy.office_code
+      Source of Chat: of_chat_transcript.origin
+      Queue Owner Name: of_queue.developer_name
+      Customer Segmentation: of_customer_group.key_acct_tp_cd
+      Customer: of_customer.customer_cd_and_name
+      Contact Name: of_contact.name
+      Customer Type: of_customer.customer_type
+      Sales Team Member: of_sales_team_member.team_role
+      Customer Group: of_customer_group.cust_grp_and_name
+      Open Date: of_case.createddate_filter_date
+    row: 0
+    col: 15
+    width: 9
+    height: 6
+  - title: Open Cases by Priority*
+    name: Open Cases by Priority*
+    model: oneforce_service
+    explore: of_case
+    type: looker_donut_multiples
+    fields: [of_case.priority, of_case.Case_Geo, of_case.case_distinct_count]
+    pivots: [of_case.priority]
+    filters:
+      of_case.active_case: 'Yes'
+    sorts: [of_case.priority, of_case.Case_Geo]
+    limit: 500
+    column_limit: 50
+    show_value_labels: true
+    font_size: 14
+    charts_across: 3
+    hide_legend: false
+    color_application:
+      collection_id: one-theme
+      palette_id: one-theme-categorical-0
+      options:
+        steps: 5
+        reverse: false
+    series_colors:
+      OD--> - of_case.AVG_FIRST_RESPONSE_TIME: "#CCD3D1"
+      LONHQ - of_case.AVG_FIRST_RESPONSE_TIME: "#3D7876"
+      SINHO - of_case.AVG_FIRST_RESPONSE_TIME: "#7f0b4d"
+      SAOHQ - of_case.AVG_FIRST_RESPONSE_TIME: "#AB6E13"
+      High - of_case.case_resolved___null - of_case.count: "#e3eae8"
+      Urgent - Yes - of_case.count: "#FFE2B7"
+      Medium - of_case.case_resolved___null - of_case.count: "#e3eae8"
+      Urgent - No - of_case.count: "#F39200"
+      Medium - Yes - of_case.count: "#CFEFEE"
+      Medium - No - of_case.count: "#3D7876"
+      No - Medium - of_case.count: "#CFEFEE"
+      No - Urgent - of_case.count: "#FFE2B7"
+      Yes - Medium - of_case.count: "#3D7876"
+      Yes - Urgent - of_case.count: "#AB6E13"
+      No - High - of_case.count: "#e7dae7"
+      Yes - Low - of_case.count: "#8b908f"
+      No - Low - of_case.count: "#CCD3D1"
+      Yes - High - of_case.count: "#000000"
+      High - of_case.count: "#F39200"
+      Urgent - of_case.count: "#000000"
+      Medium - of_case.count: "#BD0F72"
+      Low - of_case.count: "#00506D"
+      High - of_case.case_distinct_count: "#F39200"
+      Low - of_case.case_distinct_count: "#00506D"
+      Medium - of_case.case_distinct_count: "#BD0F72"
+      Urgent - of_case.case_distinct_count: "#000000"
+    series_labels:
+      Unclaimed Region - of_case.AVG_FIRST_RESPONSE_TIME: Unclaimed
+      High - of_case.case_resolved___null - of_case.count: To be Removed
+      Low - of_case.case_resolved___null - of_case.count: To be Removed
+      Urgent - No - of_case.count: Urgent - Open
+      Urgent - Yes - of_case.count: Urgent - Resolved
+      No - Medium - of_case.count: Closed - Medium
+      Yes - Medium - of_case.count: Open - Medium
+      No - Urgent - of_case.count: Closed - Urgent
+      Yes - Urgent - of_case.count: Open - Urgent
+      Yes - Low - of_case.count: Open - Low
+      High - No - of_case.count: Resolved - High
+      No - High - of_case.count: Closed - High
+      Yes - High - of_case.count: Open - High
+      No - Low - of_case.count: Closed - Low
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: true
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    defaults_version: 1
+    series_types: {}
+    show_row_numbers: true
+    transpose: false
+    truncate_text: true
+    hide_totals: false
+    hide_row_totals: false
+    size_to_fit: true
+    table_theme: white
+    enable_conditional_formatting: false
+    header_text_alignment: left
+    header_font_size: 12
+    rows_font_size: 12
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    value_labels: legend
+    label_type: labPer
+    hidden_fields: []
+    hidden_points_if_no: []
+    note_state: collapsed
+    note_display: hover
+    note_text: "<P style=\"text-align:left;\"><B>Metric Name : </B>Open Cases by Priority<BR><B>How\
+      \ it Helps : </B>To evaluate Open cases by Priority<BR>[Case Status ≠ \"Resolved\"\
+      \ & \"Closed\"]<BR><B>Target : </B>Urgent: TBD High: TBD Medium: TBD Low: TBD\t\
+      \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t"
+    listen:
+      Status: of_case.status
+      Priority: of_case.priority
+      Category (L2): of_case.sub_category_l2
+      Topic (L3): of_case.subordinate_category_l3
+      RHQ (Case): of_case.Regional_Head_Office
+      Office (Case): of_case.case_office_code
+      Category (L1): of_case.reason
+      Resolution Reason: of_case.resolution_reason
+      Sub Resolution Reason: of_case.sub_resolution_reason
+      Case Number: of_case.casenumber
+      Contract Number: of_case.contract_number
+      First Contact Resolution: of_case.first_contact_resolution
+      Initial Queue Name: of_case.Initial_Queue_Name
+      Web Email: of_case.supplied_email
+      Closed Date: of_case.closeddate_date
+      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
+      Service or Contract Customer: of_case.Service_Contract_Customer
+      Dynamic Filter - View By: of_case.Geo_Param
+      Service Type: of_case.type
+      Date Granularity: of_case.timeframe_picker
+      Case Owner: case_owner.name
+      Subtopic (L4): of_case.subordinate_category_l4
+      Contact Email: of_case.contactemail
+      Original Record Type: of_case.original_record_type
+      Cluster Country: of_case.case_country
+      Individual Country: of_case.country
+      eComm ID: of_case.ecomm_id
+      Reopened Case: of_case.Case_reopened
+      Chat Owner: of_case.ct_owner_name1
+      Case Rating: of_case.case_rating
+      Has Leave Message: of_case.has_leave_message_filter
+      Channel: of_case.origin
+      Profile: case_owner.profile_name_service
+      Role: of_escalation_history.role
+      Office Type: case_owner.officetype
+      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
+      Country (Case Owner): user_office_hierarchy.country
+      Office (Case Owner): user_office_hierarchy.office_code
+      Source of Chat: of_chat_transcript.origin
+      Queue Owner Name: of_queue.developer_name
+      Customer Segmentation: of_customer_group.key_acct_tp_cd
+      Customer: of_customer.customer_cd_and_name
+      Contact Name: of_contact.name
+      Customer Type: of_customer.customer_type
+      Sales Team Member: of_sales_team_member.team_role
+      Customer Group: of_customer_group.cust_grp_and_name
+      Open Date: of_case.createddate_filter_date
+    row: 24
+    col: 12
+    width: 12
+    height: 8
+  - title: Age of Open Cases (In Days)*
+    name: Age of Open Cases (In Days)*
+    model: oneforce_service
+    explore: of_case
+    type: looker_column
+    fields: [average_of_case_age, of_case.Case_Geo]
+    filters:
+      of_case.active_case: 'Yes'
+    sorts: [of_case.Case_Geo]
+    dynamic_fields: [{category: dimension, expression: 'contains(${of_case.contactemail},"@one-line.com")',
+        label: Is ONE Contact, value_format: !!null '', value_format_name: !!null '',
+        dimension: is_one_contact, _kind_hint: dimension, _type_hint: yesno}, {category: measure,
+        expression: '', label: Average of Case Age, value_format: !!null '', value_format_name: decimal_0,
+        based_on: of_case.case_age, _kind_hint: measure, measure: average_of_case_age,
+        type: average, _type_hint: number}]
+    x_axis_gridlines: false
+    y_axis_gridlines: false
+    show_view_names: true
     show_y_axis_labels: true
     show_y_axis_ticks: true
     y_axis_tick_density: default
@@ -293,106 +1180,637 @@
     label_density: 25
     x_axis_scale: auto
     y_axis_combined: true
-    show_null_points: false
-    interpolation: linear
-    y_axes: [{label: '', orientation: left, series: [{axisId: Awaiting Customer Response
-              - of_case.count, id: Awaiting Customer Response - of_case.count, name: Awaiting
-              Customer Response}, {axisId: Awaiting Internal Team Response - of_case.count,
-            id: Awaiting Internal Team Response - of_case.count, name: Awaiting Internal
-              Team Response}, {axisId: Closed - of_case.count, id: Closed - of_case.count,
-            name: Closed}, {axisId: In Progress - of_case.count, id: In Progress -
-              of_case.count, name: In Progress}, {axisId: New - of_case.count, id: New
-              - of_case.count, name: New}, {axisId: Resolved - of_case.count, id: Resolved
-              - of_case.count, name: Resolved}], showLabels: false, showValues: false,
-        unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
-    hidden_series: [Awaiting Internal Team Response - of_case.count]
-    label_value_format: '[>=1000000]0.0,,"M";[>=1000]0.0,"K";0'
-    series_types: {}
-    series_colors:
-      Closed - of_case.count: "#8b908f"
-      Awaiting Customer Response - of_case.count: "#340335"
-      In Progress - of_case.count: "#BD0F72"
-      Awaiting Internal Team Response - of_case.count: "#7f0b4d"
-      Resolved - of_case.count: "#222b35"
-      New - of_case.count: "#00506D"
-      Awaiting Customer Response - of_case.case_distinct_count: "#340335"
-      Awaiting Internal Team Response - of_case.case_distinct_count: "#7f0b4d"
-      Closed - of_case.case_distinct_count: "#8b908f"
-      In Progress - of_case.case_distinct_count: "#BD0F72"
-      New - of_case.case_distinct_count: "#3D7876"
-      Resolved - of_case.case_distinct_count: "#222b35"
     ordering: none
     show_null_labels: false
     show_totals_labels: false
     show_silhouette: false
     totals_color: "#808080"
+    color_application:
+      collection_id: one-theme
+      palette_id: one-theme-categorical-0
+      options:
+        steps: 5
+        reverse: false
+    y_axes: [{label: '', orientation: bottom, series: [{axisId: of_case.AVG_FIRST_RESPONSE_TIME,
+            id: of_case.AVG_FIRST_RESPONSE_TIME, name: Case Average First Response
+              Time}, {axisId: of_case.count, id: of_case.count, name: Number Of Cases}],
+        showLabels: false, showValues: false, valueFormat: '', unpinAxis: false, tickDensity: default,
+        tickDensityCustom: 5, type: log}]
+    x_axis_label: ''
+    limit_displayed_rows_values:
+      show_hide: show
+      first_last: first
+      num_rows: 0
+    hide_legend: false
+    font_size: '12'
+    label_value_format: '[>=1000000]0.0,,"M";[>=1000]0.0,"K";0'
+    series_types: {}
+    series_colors:
+      Email - of_case.AVG_FIRST_RESPONSE_TIME: "#00506D"
+      Webform - of_case.AVG_FIRST_RESPONSE_TIME: "#AB6E13"
+      Chat - of_case.AVG_FIRST_RESPONSE_TIME: "#7f0b4d"
+      of_case.count: "#8b908f"
+      of_case.AVG_FIRST_RESPONSE_TIME: "#BD0F72"
+      Yes - of_case.case_distinct_count: "#3D7876"
+      No - of_case.case_distinct_count: "#84C5C3"
+    series_labels:
+      of_case.count: Number Of Cases
+      of_case.case_country: Country
+    series_point_styles: {}
+    label_color: []
+    label_rotation: 0
+    x_axis_datetime_label: ''
+    trend_lines: []
+    column_spacing_ratio: 0.2
+    show_row_numbers: false
+    transpose: false
+    truncate_text: true
+    hide_totals: false
+    hide_row_totals: false
+    size_to_fit: true
+    table_theme: gray
+    enable_conditional_formatting: false
+    header_text_alignment: left
+    header_font_size: '12'
+    rows_font_size: '12'
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    show_sql_query_menu_options: false
+    show_totals: true
+    show_row_totals: true
+    series_column_widths:
+      of_case.case_country: 75
+      average_of_case_age: 143
+    series_cell_visualizations:
+      average_of_case_age:
+        is_active: true
+    map_plot_mode: points
+    heatmap_gridlines: true
+    heatmap_gridlines_empty: false
+    heatmap_opacity: 1
+    show_region_field: true
+    draw_map_labels_above_data: true
+    map_tile_provider: light
+    map_position: fit_data
+    map_scale_indicator: 'off'
+    map_pannable: true
+    map_zoomable: true
+    map_marker_type: circle
+    map_marker_icon_name: default
+    map_marker_radius_mode: proportional_value
+    map_marker_units: meters
+    map_marker_proportional_scale_type: linear
+    map_marker_color_mode: fixed
+    show_legend: true
+    quantize_map_value_colors: false
+    reverse_map_value_colors: true
+    map_value_colors: ["#AB6E13", "#F39200", "#FFE2B7"]
+    map_value_scale_clamp_min: 0
+    map_value_scale_clamp_max:
+    rotation: false
+    color_range: ["#4285F4", "#EA4335", "#FBBC04", "#34A852", "#5F6368"]
+    color_by: node
+    show_null_points: false
+    value_format_override: ''
+    show_percent: true
+    bar_arm_length: 25
+    bar_arm_weight: 50
+    bar_spinner_length: 100
+    bar_spinner_weight: 50
     defaults_version: 1
+    value_labels: legend
+    label_type: labPer
+    hidden_fields: []
+    hidden_points_if_no: []
+    leftAxisLabelVisible: false
+    leftAxisLabel: ''
+    rightAxisLabelVisible: false
+    rightAxisLabel: ''
+    smoothedBars: false
+    orientation: automatic
+    labelPosition: left
+    percentType: total
+    percentPosition: inline
+    valuePosition: right
+    labelColorEnabled: false
+    labelColor: "#FFF"
+    up_color: false
+    down_color: false
+    total_color: false
+    interpolation: linear
     note_state: collapsed
     note_display: hover
-    note_text: '<P style="text-align:left;"><B>Metric Name : </B> Trend by Status<BR><B>How
-      it Helps : </B>To evaluate weekly trend of total no. of cases by Status<BR>[ALL
-      Case Status]<BR><B>Target : </B>New: TBD In Progress: TBD Awaiting Internal
-      Responce: TBD Awaiting Customer Responce: TBD Resolved: TBD Close: TBD'
+    note_text: "<P style=\"text-align:left;\"><B>Metric Name : </B>Age of Open Cases\
+      \ (In Days)<BR><B>How it Helps : </B>To evaluate age of Open cases<BR>[Age of\
+      \ Open cases from creation to current status ≠ \"close\"]<BR><B>Target : </B>TBD\t\
+      \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t"
     listen:
-      Channel: of_case.origin
       Status: of_case.status
-      RHQ (Case): of_case.Regional_Head_Office
-      Cluster Country: of_case.case_country
-      Individual Country: of_case.country
-      Office (Case): of_case.case_office_code
-      Initial Queue Name: of_case.Initial_Queue_Name
-      Case Number: of_case.casenumber
-      Topic (L3): of_case.subordinate_category_l3
-      First Contact Resolution: of_case.first_contact_resolution
-      Web Email: of_case.supplied_email
-      Date Granularity: of_case.timeframe_picker
-      Open Date: of_case.createddate_filter_date
-      Reopened Case: of_case.Case_reopened
-      Dynamic Filter - View By: of_case.Geo_Param
       Priority: of_case.priority
-      Contact Email: of_case.contactemail
-      eComm ID: of_case.ecomm_id
-      Contract Number: of_case.contract_number
-      Case Rating: of_case.case_rating
-      Service or Contract Customer: of_case.Service_Contract_Customer
-      Sub Resolution Reason: of_case.sub_resolution_reason
+      Category (L2): of_case.sub_category_l2
+      Topic (L3): of_case.subordinate_category_l3
+      RHQ (Case): of_case.Regional_Head_Office
+      Office (Case): of_case.case_office_code
       Category (L1): of_case.reason
-      Subtopic (L4): of_case.subordinate_category_l4
-      Service Type: of_case.type
+      Resolution Reason: of_case.resolution_reason
+      Sub Resolution Reason: of_case.sub_resolution_reason
+      Case Number: of_case.casenumber
+      Contract Number: of_case.contract_number
+      First Contact Resolution: of_case.first_contact_resolution
+      Initial Queue Name: of_case.Initial_Queue_Name
+      Web Email: of_case.supplied_email
       Closed Date: of_case.closeddate_date
       Case Resolved Date: of_case.Case_Resolved_Date_Time_date
-      Original Record Type: of_case.original_record_type
-      Has Leave Message: of_case.has_leave_message_filter
-      Resolution Reason: of_case.resolution_reason
-      Office Type: case_owner.officetype
+      Service or Contract Customer: of_case.Service_Contract_Customer
+      Dynamic Filter - View By: of_case.Geo_Param
+      Service Type: of_case.type
+      Date Granularity: of_case.timeframe_picker
       Case Owner: case_owner.name
-      Role: of_escalation_history.role
+      Subtopic (L4): of_case.subordinate_category_l4
+      Contact Email: of_case.contactemail
+      Original Record Type: of_case.original_record_type
+      Cluster Country: of_case.case_country
+      Individual Country: of_case.country
+      eComm ID: of_case.ecomm_id
+      Reopened Case: of_case.Case_reopened
+      Chat Owner: of_case.ct_owner_name1
+      Case Rating: of_case.case_rating
+      Has Leave Message: of_case.has_leave_message_filter
+      Channel: of_case.origin
       Profile: case_owner.profile_name_service
-      Category (L2): of_case.sub_category_l2
-      Awaiting Internal Team Response: of_case_history_air.status_case_Analysis
+      Role: of_escalation_history.role
+      Office Type: case_owner.officetype
       RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
       Country (Case Owner): user_office_hierarchy.country
       Office (Case Owner): user_office_hierarchy.office_code
       Source of Chat: of_chat_transcript.origin
       Queue Owner Name: of_queue.developer_name
       Customer Segmentation: of_customer_group.key_acct_tp_cd
-      Customer Group: of_customer_group.cust_grp_and_name
       Customer: of_customer.customer_cd_and_name
       Contact Name: of_contact.name
-      Sales Team Member: of_sales_team_member.team_role
       Customer Type: of_customer.customer_type
-    row: 45
+      Sales Team Member: of_sales_team_member.team_role
+      Customer Group: of_customer_group.cust_grp_and_name
+      Open Date: of_case.createddate_filter_date
+    row: 12
     col: 0
+    width: 6
+    height: 6
+  - title: Cases by Status*
+    name: Cases by Status*
+    model: oneforce_service
+    explore: of_case
+    type: looker_donut_multiples
+    fields: [of_case.status, of_case.case_distinct_count, of_case.Case_Geo]
+    pivots: [of_case.status]
+    sorts: [of_case.status, of_case.Case_Geo]
+    limit: 500
+    show_value_labels: true
+    font_size: 12
+    charts_across: 3
+    hide_legend: false
+    color_application:
+      collection_id: one-theme
+      palette_id: one-theme-categorical-0
+      options:
+        steps: 5
+        reverse: false
+    series_colors:
+      Others - of_case.escalated_case_count: "#8b908f"
+      S-KAS - of_case.escalated_case_count: "#7f0b4d"
+      C-KAS - of_case.escalated_case_count: "#340335"
+      S-KAM - of_case.escalated_case_count: "#00506D"
+      Awaiting Customer Response - of_case.case_distinct_count: "#340335"
+      Awaiting Internal Team Response - of_case.case_distinct_count: "#7f0b4d"
+      In Progress - of_case.case_distinct_count: "#BD0F72"
+      New - of_case.case_distinct_count: "#00506D"
+      Closed - of_case.case_distinct_count: "#000000"
+      Resolved - of_case.case_distinct_count: "#8b908f"
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    y_axes: [{label: '', orientation: bottom, series: [{axisId: of_case.count, id: of_case.count,
+            name: Case}], showLabels: false, showValues: true, unpinAxis: false, tickDensity: default,
+        tickDensityCustom: 5, type: linear}]
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: false
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: normal
+    limit_displayed_rows: false
+    legend_position: center
+    series_types: {}
+    point_style: none
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    value_labels: labels
+    label_type: labVal
+    inner_radius: 70
+    defaults_version: 1
+    show_null_points: true
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    note_state: collapsed
+    note_display: hover
+    note_text: "<P style=\"text-align:left;\"><B>Metric Name : </B>Cases by Status<BR><B>How\
+      \ it Helps : </B>To evaluate number of case by Status<BR>[Number of cases with\
+      \ Status tags]<BR><B>Target : </B>New: TBD In Progress: TBD Awaiting Internal\
+      \ Response: TBD Awaiting Customer Response: TBD Resolved: TBD Close: TBD\t\t\
+      \t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t"
+    listen:
+      Status: of_case.status
+      Priority: of_case.priority
+      Category (L2): of_case.sub_category_l2
+      Topic (L3): of_case.subordinate_category_l3
+      RHQ (Case): of_case.Regional_Head_Office
+      Office (Case): of_case.case_office_code
+      Category (L1): of_case.reason
+      Resolution Reason: of_case.resolution_reason
+      Sub Resolution Reason: of_case.sub_resolution_reason
+      Case Number: of_case.casenumber
+      Contract Number: of_case.contract_number
+      First Contact Resolution: of_case.first_contact_resolution
+      Initial Queue Name: of_case.Initial_Queue_Name
+      Web Email: of_case.supplied_email
+      Closed Date: of_case.closeddate_date
+      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
+      Service or Contract Customer: of_case.Service_Contract_Customer
+      Dynamic Filter - View By: of_case.Geo_Param
+      Service Type: of_case.type
+      Date Granularity: of_case.timeframe_picker
+      Case Owner: case_owner.name
+      Subtopic (L4): of_case.subordinate_category_l4
+      Contact Email: of_case.contactemail
+      Original Record Type: of_case.original_record_type
+      Cluster Country: of_case.case_country
+      Individual Country: of_case.country
+      eComm ID: of_case.ecomm_id
+      Reopened Case: of_case.Case_reopened
+      Chat Owner: of_case.ct_owner_name1
+      Case Rating: of_case.case_rating
+      Has Leave Message: of_case.has_leave_message_filter
+      Channel: of_case.origin
+      Profile: case_owner.profile_name_service
+      Role: of_escalation_history.role
+      Office Type: case_owner.officetype
+      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
+      Country (Case Owner): user_office_hierarchy.country
+      Office (Case Owner): user_office_hierarchy.office_code
+      Source of Chat: of_chat_transcript.origin
+      Queue Owner Name: of_queue.developer_name
+      Customer Segmentation: of_customer_group.key_acct_tp_cd
+      Customer: of_customer.customer_cd_and_name
+      Contact Name: of_contact.name
+      Customer Type: of_customer.customer_type
+      Sales Team Member: of_sales_team_member.team_role
+      Customer Group: of_customer_group.cust_grp_and_name
+      Open Date: of_case.createddate_filter_date
+    row: 24
+    col: 0
+    width: 12
+    height: 8
+  - title: Escl by Role
+    name: Escl by Role
+    model: oneforce_service
+    explore: of_case
+    type: looker_pie
+    fields: [of_escalation_history.role, of_case.case_distinct_count_drill]
+    filters:
+      of_case.total_escalation: ">0"
+    sorts: [of_escalation_history.role]
+    limit: 500
+    value_labels: labels
+    label_type: labVal
+    inner_radius: 50
+    color_application:
+      collection_id: one-theme
+      palette_id: one-theme-categorical-0
+      options:
+        steps: 5
+        reverse: false
+    series_colors:
+      Others - of_case.escalated_case_count: "#8b908f"
+      S-KAS - of_case.escalated_case_count: "#7f0b4d"
+      C-KAS - of_case.escalated_case_count: "#340335"
+      S-KAM - of_case.escalated_case_count: "#00506D"
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    y_axes: [{label: '', orientation: left, series: [{axisId: of_case.escalated_case_count,
+            id: of_case.escalated_case_count, name: Number of Escalated Cases}], showLabels: false,
+        showValues: false, unpinAxis: false, tickDensity: default, tickDensityCustom: 5,
+        type: linear}]
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: false
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    hide_legend: true
+    legend_position: center
+    font_size: '12'
+    series_types: {}
+    point_style: none
+    show_value_labels: true
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    show_sql_query_menu_options: false
+    show_totals: true
+    show_row_totals: true
+    show_row_numbers: false
+    transpose: false
+    truncate_text: true
+    size_to_fit: true
+    series_cell_visualizations:
+      of_case.escalated_case_count:
+        is_active: true
+    table_theme: white
+    enable_conditional_formatting: false
+    header_text_alignment: left
+    header_font_size: 12
+    rows_font_size: '12'
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    charts_across: 1
+    defaults_version: 1
+    show_null_points: true
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    hide_totals: false
+    hide_row_totals: false
+    note_state: collapsed
+    note_display: hover
+    note_text: "<P style=\"text-align:left;\"><B>Metric Name : </B>Escalation by Role\
+      \ type Globally<BR><B>How it Helps : </B>To evaluate cases escalated Globally\
+      \ by Role<BR>[Number of cases where Total Escalation>0]<BR><B>Target : </B>S-KAS:\
+      \ TBD S-KAM: TBD C-KAS: TBD C-KAM: TBD\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\
+      \t\t\t\t\t\t\t"
+    listen:
+      Status: of_case.status
+      Priority: of_case.priority
+      Category (L2): of_case.sub_category_l2
+      Topic (L3): of_case.subordinate_category_l3
+      RHQ (Case): of_case.Regional_Head_Office
+      Office (Case): of_case.case_office_code
+      Category (L1): of_case.reason
+      Resolution Reason: of_case.resolution_reason
+      Sub Resolution Reason: of_case.sub_resolution_reason
+      Case Number: of_case.casenumber
+      Contract Number: of_case.contract_number
+      First Contact Resolution: of_case.first_contact_resolution
+      Initial Queue Name: of_case.Initial_Queue_Name
+      Web Email: of_case.supplied_email
+      Closed Date: of_case.closeddate_date
+      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
+      Service or Contract Customer: of_case.Service_Contract_Customer
+      Dynamic Filter - View By: of_case.Geo_Param
+      Service Type: of_case.type
+      Date Granularity: of_case.timeframe_picker
+      Case Owner: case_owner.name
+      Subtopic (L4): of_case.subordinate_category_l4
+      Contact Email: of_case.contactemail
+      Original Record Type: of_case.original_record_type
+      Cluster Country: of_case.case_country
+      Individual Country: of_case.country
+      eComm ID: of_case.ecomm_id
+      Reopened Case: of_case.Case_reopened
+      Chat Owner: of_case.ct_owner_name1
+      Case Rating: of_case.case_rating
+      Has Leave Message: of_case.has_leave_message_filter
+      Channel: of_case.origin
+      Profile: case_owner.profile_name_service
+      Role: of_escalation_history.role
+      Office Type: case_owner.officetype
+      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
+      Country (Case Owner): user_office_hierarchy.country
+      Office (Case Owner): user_office_hierarchy.office_code
+      Source of Chat: of_chat_transcript.origin
+      Queue Owner Name: of_queue.developer_name
+      Customer Segmentation: of_customer_group.key_acct_tp_cd
+      Customer: of_customer.customer_cd_and_name
+      Contact Name: of_contact.name
+      Customer Type: of_customer.customer_type
+      Sales Team Member: of_sales_team_member.team_role
+      Customer Group: of_customer_group.cust_grp_and_name
+      Open Date: of_case.createddate_filter_date
+    row: 18
+    col: 0
+    width: 6
+    height: 6
+  - name: ''
+    type: text
+    title_text: ''
+    body_text: "#####Clear Cache for latest data: \nStep 1: Just click anywhere inside\
+      \ the Dashboard and then <BR>Step 2: Press Ctrl+Shift+Enter Key to clear the\
+      \ cache and refresh\n\n"
+    row: 74
+    col: 12
     width: 8
-    height: 7
-  - title: Case Closure Ratio by Location*
-    name: Case Closure Ratio by Location*
+    height: 3
+  - title: Open Escalated Cases
+    name: Open Escalated Cases
+    model: oneforce_service
+    explore: of_case
+    type: single_value
+    fields: [of_case.case_distinct_count_drill]
+    filters:
+      of_case.active_case: 'Yes'
+      of_case.total_escalation: ">0"
+    limit: 500
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    custom_color: "#7f0b4d"
+    single_value_title: Open Escalated Cases
+    value_format: '[>=1000000]0.0,,"M";[>=1000]0.0,"K";0'
+    conditional_formatting: [{type: not null, value: !!null '', background_color: "#BD0F72",
+        font_color: !!null '', color_application: {collection_id: one-theme, palette_id: one-theme-sequential-0},
+        bold: false, italic: false, strikethrough: false, fields: !!null ''}]
+    defaults_version: 1
+    listen:
+      Status: of_case.status
+      Priority: of_case.priority
+      Category (L2): of_case.sub_category_l2
+      Topic (L3): of_case.subordinate_category_l3
+      RHQ (Case): of_case.Regional_Head_Office
+      Office (Case): of_case.case_office_code
+      Category (L1): of_case.reason
+      Resolution Reason: of_case.resolution_reason
+      Sub Resolution Reason: of_case.sub_resolution_reason
+      Case Number: of_case.casenumber
+      Contract Number: of_case.contract_number
+      First Contact Resolution: of_case.first_contact_resolution
+      Initial Queue Name: of_case.Initial_Queue_Name
+      Web Email: of_case.supplied_email
+      Closed Date: of_case.closeddate_date
+      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
+      Service or Contract Customer: of_case.Service_Contract_Customer
+      Dynamic Filter - View By: of_case.Geo_Param
+      Service Type: of_case.type
+      Date Granularity: of_case.timeframe_picker
+      Case Owner: case_owner.name
+      Subtopic (L4): of_case.subordinate_category_l4
+      Contact Email: of_case.contactemail
+      Original Record Type: of_case.original_record_type
+      Cluster Country: of_case.case_country
+      Individual Country: of_case.country
+      eComm ID: of_case.ecomm_id
+      Reopened Case: of_case.Case_reopened
+      Chat Owner: of_case.ct_owner_name1
+      Case Rating: of_case.case_rating
+      Has Leave Message: of_case.has_leave_message_filter
+      Channel: of_case.origin
+      Profile: case_owner.profile_name_service
+      Role: of_escalation_history.role
+      Office Type: case_owner.officetype
+      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
+      Country (Case Owner): user_office_hierarchy.country
+      Office (Case Owner): user_office_hierarchy.office_code
+      Source of Chat: of_chat_transcript.origin
+      Queue Owner Name: of_queue.developer_name
+      Customer Segmentation: of_customer_group.key_acct_tp_cd
+      Customer: of_customer.customer_cd_and_name
+      Contact Name: of_contact.name
+      Customer Type: of_customer.customer_type
+      Sales Team Member: of_sales_team_member.team_role
+      Customer Group: of_customer_group.cust_grp_and_name
+      Open Date: of_case.createddate_filter_date
+    row: 3
+    col: 0
+    width: 6
+    height: 3
+  - title: FRT
+    name: FRT
+    model: oneforce_service
+    explore: of_case
+    type: single_value
+    fields: [of_case.AVG_FIRST_RESPONSE_TIME_NEW]
+    filters:
+      of_case.is_channel_applicable_for_FRT: 'Yes'
+    limit: 500
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    custom_color: "#7f0b4d"
+    single_value_title: Mins (First Response Time)
+    value_format: '0.0'
+    conditional_formatting: [{type: not null, value: !!null '', background_color: "#BD0F72",
+        font_color: !!null '', color_application: {collection_id: one-theme, palette_id: one-theme-sequential-0},
+        bold: false, italic: false, strikethrough: false, fields: !!null ''}]
+    defaults_version: 1
+    hidden_pivots: {}
+    listen:
+      Status: of_case.status
+      Priority: of_case.priority
+      Category (L2): of_case.sub_category_l2
+      Topic (L3): of_case.subordinate_category_l3
+      RHQ (Case): of_case.Regional_Head_Office
+      Office (Case): of_case.case_office_code
+      Category (L1): of_case.reason
+      Resolution Reason: of_case.resolution_reason
+      Sub Resolution Reason: of_case.sub_resolution_reason
+      Case Number: of_case.casenumber
+      Contract Number: of_case.contract_number
+      First Contact Resolution: of_case.first_contact_resolution
+      Initial Queue Name: of_case.Initial_Queue_Name
+      Web Email: of_case.supplied_email
+      Closed Date: of_case.closeddate_date
+      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
+      Service or Contract Customer: of_case.Service_Contract_Customer
+      Dynamic Filter - View By: of_case.Geo_Param
+      Service Type: of_case.type
+      Date Granularity: of_case.timeframe_picker
+      Case Owner: case_owner.name
+      Subtopic (L4): of_case.subordinate_category_l4
+      Contact Email: of_case.contactemail
+      Original Record Type: of_case.original_record_type
+      Cluster Country: of_case.case_country
+      Individual Country: of_case.country
+      eComm ID: of_case.ecomm_id
+      Reopened Case: of_case.Case_reopened
+      Chat Owner: of_case.ct_owner_name1
+      Case Rating: of_case.case_rating
+      Has Leave Message: of_case.has_leave_message_filter
+      Channel: of_case.origin
+      First Response Time: of_case.responsetime_Param
+      Profile: case_owner.profile_name_service
+      Role: of_escalation_history.role
+      Office Type: case_owner.officetype
+      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
+      Country (Case Owner): user_office_hierarchy.country
+      Office (Case Owner): user_office_hierarchy.office_code
+      Source of Chat: of_chat_transcript.origin
+      Queue Owner Name: of_queue.developer_name
+      Customer Segmentation: of_customer_group.key_acct_tp_cd
+      Customer: of_customer.customer_cd_and_name
+      Contact Name: of_contact.name
+      Customer Type: of_customer.customer_type
+      Sales Team Member: of_sales_team_member.team_role
+      Customer Group: of_customer_group.cust_grp_and_name
+      Open Date: of_case.createddate_filter_date
+    row: 0
+    col: 0
+    width: 6
+    height: 3
+  - title: Case Resolution Reason By Location*
+    name: Case Resolution Reason By Location*
     model: oneforce_service
     explore: of_case
     type: looker_column
-    fields: [of_case.active_case, of_case.Case_Geo, of_case.case_distinct_count]
-    pivots: [of_case.active_case]
-    sorts: [of_case.active_case desc, of_case.Case_Geo desc]
+    fields: [of_case.Case_Geo, of_case.resolution_reason, of_case.case_distinct_count]
+    pivots: [of_case.resolution_reason]
+    filters:
+      of_case.active_case: 'No'
+    sorts: [of_case.resolution_reason, of_case.Case_Geo desc]
     limit: 500
     x_axis_gridlines: false
     y_axis_gridlines: true
@@ -405,248 +1823,6 @@
     show_x_axis_ticks: true
     y_axis_scale_mode: linear
     x_axis_reversed: true
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: ''
-    stacking: percent
-    limit_displayed_rows: false
-    legend_position: center
-    point_style: none
-    show_value_labels: true
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: false
-    show_silhouette: false
-    totals_color: "#808080"
-    y_axes: [{label: Count, orientation: left, series: [{axisId: No - of_case.count,
-            id: No - of_case.count, name: 'No'}, {axisId: Yes - of_case.count, id: Yes
-              - of_case.count, name: 'Yes'}], showLabels: false, showValues: false,
-        unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
-    series_types: {}
-    series_colors:
-      No - of_case.count: "#8b908f"
-      Yes - of_case.count: "#BD0F72"
-      No - of_case.case_distinct_count: "#BD0F72"
-      Yes - of_case.case_distinct_count: "#F39200"
-    series_labels:
-      No - of_case.count: Closed Cases
-      Yes - of_case.count: Open Cases
-      No - of_case.case_distinct_count: Closed Cases
-      Yes - of_case.case_distinct_count: Open Cases
-    defaults_version: 1
-    note_state: collapsed
-    note_display: hover
-    note_text: '<P style="text-align:left;"><B>Metric Name : </B>Closed Case Ratio<BR><B>How
-      it Helps : </B>To evaluate no. of Closed cases vs Total cases<BR>[Case Status
-      = "Resolved" & "Closed" vs all other Status]<BR><B>Target : </B>Closed Case
-      Ratio: TBD'
-    listen:
-      Channel: of_case.origin
-      Status: of_case.status
-      RHQ (Case): of_case.Regional_Head_Office
-      Cluster Country: of_case.case_country
-      Individual Country: of_case.country
-      Office (Case): of_case.case_office_code
-      Initial Queue Name: of_case.Initial_Queue_Name
-      Case Number: of_case.casenumber
-      Topic (L3): of_case.subordinate_category_l3
-      First Contact Resolution: of_case.first_contact_resolution
-      Web Email: of_case.supplied_email
-      Date Granularity: of_case.timeframe_picker
-      Open Date: of_case.createddate_filter_date
-      Reopened Case: of_case.Case_reopened
-      Dynamic Filter - View By: of_case.Geo_Param
-      Priority: of_case.priority
-      Contact Email: of_case.contactemail
-      eComm ID: of_case.ecomm_id
-      Contract Number: of_case.contract_number
-      Case Rating: of_case.case_rating
-      Service or Contract Customer: of_case.Service_Contract_Customer
-      Sub Resolution Reason: of_case.sub_resolution_reason
-      Category (L1): of_case.reason
-      Subtopic (L4): of_case.subordinate_category_l4
-      Service Type: of_case.type
-      Closed Date: of_case.closeddate_date
-      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
-      Original Record Type: of_case.original_record_type
-      Has Leave Message: of_case.has_leave_message_filter
-      Resolution Reason: of_case.resolution_reason
-      Office Type: case_owner.officetype
-      Case Owner: case_owner.name
-      Role: of_escalation_history.role
-      Profile: case_owner.profile_name_service
-      Category (L2): of_case.sub_category_l2
-      Awaiting Internal Team Response: of_case_history_air.status_case_Analysis
-      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
-      Country (Case Owner): user_office_hierarchy.country
-      Office (Case Owner): user_office_hierarchy.office_code
-      Source of Chat: of_chat_transcript.origin
-      Queue Owner Name: of_queue.developer_name
-      Customer Segmentation: of_customer_group.key_acct_tp_cd
-      Customer Group: of_customer_group.cust_grp_and_name
-      Customer: of_customer.customer_cd_and_name
-      Contact Name: of_contact.name
-      Sales Team Member: of_sales_team_member.team_role
-      Customer Type: of_customer.customer_type
-    row: 8
-    col: 0
-    width: 12
-    height: 6
-  - title: Cases by L2 Intent & Location*
-    name: Cases by L2 Intent & Location*
-    model: oneforce_service
-    explore: of_case
-    type: looker_column
-    fields: [of_case.sub_category_l2, of_case.Case_Geo, of_case.case_distinct_count]
-    pivots: [of_case.Case_Geo]
-    filters:
-      l2_for_filter: "-NULL"
-    sorts: [of_case.Case_Geo, of_case.case_distinct_count desc 0]
-    limit: 500
-    dynamic_fields: [{category: dimension, expression: "${of_case.sub_category_l2}",
-        label: L2 for filter, value_format: !!null '', value_format_name: !!null '',
-        dimension: l2_for_filter, _kind_hint: dimension, _type_hint: string}]
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_view_names: false
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: false
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: ''
-    stacking: percent
-    limit_displayed_rows: false
-    legend_position: center
-    point_style: none
-    show_value_labels: true
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: false
-    show_silhouette: false
-    totals_color: "#808080"
-    y_axes: [{label: '', orientation: bottom, series: [{axisId: HKGHQ - of_case.count,
-            id: HKGHQ - of_case.count, name: HKGHQ}, {axisId: LONHQ - of_case.count,
-            id: LONHQ - of_case.count, name: LONHQ}, {axisId: RICHQ - of_case.count,
-            id: RICHQ - of_case.count, name: RICHQ}, {axisId: SAOHQ - of_case.count,
-            id: SAOHQ - of_case.count, name: SAOHQ}, {axisId: SINHQ - of_case.count,
-            id: SINHQ - of_case.count, name: SINHQ}], showLabels: false, showValues: false,
-        unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
-    series_types: {}
-    series_colors:
-      RICHQ - of_case.count: "#3D7876"
-      RICHQ - of_case.case_distinct_count: "#3D7876"
-    series_labels:
-      4 - of_case.case_distinct_count: ONECare
-      3 - of_case.case_distinct_count: LKA
-      2 - of_case.case_distinct_count: RKA
-      1 - of_case.case_distinct_count: GKA
-    show_null_points: true
-    interpolation: linear
-    defaults_version: 1
-    show_row_numbers: true
-    transpose: false
-    truncate_text: true
-    hide_totals: false
-    hide_row_totals: false
-    size_to_fit: true
-    table_theme: white
-    enable_conditional_formatting: false
-    header_text_alignment: left
-    header_font_size: 12
-    rows_font_size: 12
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    value_labels: legend
-    label_type: labPer
-    note_state: collapsed
-    note_display: hover
-    note_text: '<P style="text-align:left;"><B>Metric Name : </B>Total Case Volume
-      by L2 Intent<BR><B>How it Helps : </B>To evaluate total no. of cases by L2 Intent<BR>[ALL
-      Case Status]<BR><B>Target : </B>TBD'
-    listen:
-      Channel: of_case.origin
-      Status: of_case.status
-      RHQ (Case): of_case.Regional_Head_Office
-      Cluster Country: of_case.case_country
-      Individual Country: of_case.country
-      Office (Case): of_case.case_office_code
-      Initial Queue Name: of_case.Initial_Queue_Name
-      Case Number: of_case.casenumber
-      Topic (L3): of_case.subordinate_category_l3
-      First Contact Resolution: of_case.first_contact_resolution
-      Web Email: of_case.supplied_email
-      Date Granularity: of_case.timeframe_picker
-      Open Date: of_case.createddate_filter_date
-      Reopened Case: of_case.Case_reopened
-      Dynamic Filter - View By: of_case.Geo_Param
-      Priority: of_case.priority
-      Contact Email: of_case.contactemail
-      eComm ID: of_case.ecomm_id
-      Contract Number: of_case.contract_number
-      Case Rating: of_case.case_rating
-      Service or Contract Customer: of_case.Service_Contract_Customer
-      Sub Resolution Reason: of_case.sub_resolution_reason
-      Category (L1): of_case.reason
-      Subtopic (L4): of_case.subordinate_category_l4
-      Service Type: of_case.type
-      Closed Date: of_case.closeddate_date
-      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
-      Original Record Type: of_case.original_record_type
-      Has Leave Message: of_case.has_leave_message_filter
-      Resolution Reason: of_case.resolution_reason
-      Office Type: case_owner.officetype
-      Case Owner: case_owner.name
-      Role: of_escalation_history.role
-      Profile: case_owner.profile_name_service
-      Category (L2): of_case.sub_category_l2
-      Awaiting Internal Team Response: of_case_history_air.status_case_Analysis
-      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
-      Country (Case Owner): user_office_hierarchy.country
-      Office (Case Owner): user_office_hierarchy.office_code
-      Source of Chat: of_chat_transcript.origin
-      Queue Owner Name: of_queue.developer_name
-      Customer Segmentation: of_customer_group.key_acct_tp_cd
-      Customer Group: of_customer_group.cust_grp_and_name
-      Customer: of_customer.customer_cd_and_name
-      Contact Name: of_contact.name
-      Sales Team Member: of_sales_team_member.team_role
-      Customer Type: of_customer.customer_type
-    row: 52
-    col: 12
-    width: 12
-    height: 7
-  - title: Volume by Location & Channel*
-    name: Volume by Location & Channel*
-    model: oneforce_service
-    explore: of_case
-    type: looker_column
-    fields: [of_case.Case_Geo, of_case.origin, of_case.case_distinct_count]
-    pivots: [of_case.origin]
-    sorts: [of_case.origin, of_case.Case_Geo, of_case.case_distinct_count desc 0]
-    limit: 500
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_view_names: false
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: false
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
     y_axis_reversed: false
     plot_size_by_field: false
     trellis: ''
@@ -670,93 +1846,81 @@
             id: SAOHQ - of_case.count, name: SAOHQ}, {axisId: SINHQ - of_case.count,
             id: SINHQ - of_case.count, name: SINHQ}], showLabels: false, showValues: false,
         unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
+    font_size: '12'
     label_value_format: '[>=1000000]0.0,,"M";[>=1000]0.0,"K";0'
     series_types: {}
-    series_colors:
-      LONHQ - of_case.count: "#8b908f"
-      RICHQ - of_case.count: "#00506D"
-      SAOHQ - of_case.count: "#AB6E13"
-      Internal - of_case.count: "#AB6E13"
-      Internal - of_case.case_distinct_count: "#AB6E13"
-    value_labels: labels
-    label_type: labVal
-    inner_radius: 60
     defaults_version: 1
     note_state: collapsed
     note_display: hover
-    note_text: '<P style="text-align:left;"><B>Metric Name : </B>Total Case Volume
-      <BR><B>How it Helps : </B>To evaluate total no. of cases<BR>[ALL Case Status]<BR><B>Target
-      : </B>TBD'
+    note_text: '<P style="text-align:left;"><B>Metric Name : </B>Case Resolution Reason<BR><B>How
+      it Helps : </B>To evaluate cases by Resolution Reason<BR>[Status = "Resolved"
+      or "Closed"]<BR><B>Target : </B>TBD'
     listen:
-      Channel: of_case.origin
       Status: of_case.status
-      RHQ (Case): of_case.Regional_Head_Office
-      Cluster Country: of_case.case_country
-      Individual Country: of_case.country
-      Office (Case): of_case.case_office_code
-      Initial Queue Name: of_case.Initial_Queue_Name
-      Case Number: of_case.casenumber
-      Topic (L3): of_case.subordinate_category_l3
-      First Contact Resolution: of_case.first_contact_resolution
-      Web Email: of_case.supplied_email
-      Date Granularity: of_case.timeframe_picker
-      Open Date: of_case.createddate_filter_date
-      Reopened Case: of_case.Case_reopened
-      Dynamic Filter - View By: of_case.Geo_Param
       Priority: of_case.priority
-      Contact Email: of_case.contactemail
-      eComm ID: of_case.ecomm_id
-      Contract Number: of_case.contract_number
-      Case Rating: of_case.case_rating
-      Service or Contract Customer: of_case.Service_Contract_Customer
-      Sub Resolution Reason: of_case.sub_resolution_reason
+      Category (L2): of_case.sub_category_l2
+      Topic (L3): of_case.subordinate_category_l3
+      RHQ (Case): of_case.Regional_Head_Office
+      Office (Case): of_case.case_office_code
       Category (L1): of_case.reason
-      Subtopic (L4): of_case.subordinate_category_l4
-      Service Type: of_case.type
+      Resolution Reason: of_case.resolution_reason
+      Sub Resolution Reason: of_case.sub_resolution_reason
+      Case Number: of_case.casenumber
+      Contract Number: of_case.contract_number
+      First Contact Resolution: of_case.first_contact_resolution
+      Initial Queue Name: of_case.Initial_Queue_Name
+      Web Email: of_case.supplied_email
       Closed Date: of_case.closeddate_date
       Case Resolved Date: of_case.Case_Resolved_Date_Time_date
-      Original Record Type: of_case.original_record_type
-      Has Leave Message: of_case.has_leave_message_filter
-      Resolution Reason: of_case.resolution_reason
-      Office Type: case_owner.officetype
+      Service or Contract Customer: of_case.Service_Contract_Customer
+      Dynamic Filter - View By: of_case.Geo_Param
+      Service Type: of_case.type
+      Date Granularity: of_case.timeframe_picker
       Case Owner: case_owner.name
-      Role: of_escalation_history.role
+      Subtopic (L4): of_case.subordinate_category_l4
+      Contact Email: of_case.contactemail
+      Original Record Type: of_case.original_record_type
+      Cluster Country: of_case.case_country
+      Individual Country: of_case.country
+      eComm ID: of_case.ecomm_id
+      Reopened Case: of_case.Case_reopened
+      Chat Owner: of_case.ct_owner_name1
+      Case Rating: of_case.case_rating
+      Has Leave Message: of_case.has_leave_message_filter
+      Channel: of_case.origin
       Profile: case_owner.profile_name_service
-      Category (L2): of_case.sub_category_l2
-      Awaiting Internal Team Response: of_case_history_air.status_case_Analysis
+      Role: of_escalation_history.role
+      Office Type: case_owner.officetype
       RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
       Country (Case Owner): user_office_hierarchy.country
       Office (Case Owner): user_office_hierarchy.office_code
       Source of Chat: of_chat_transcript.origin
       Queue Owner Name: of_queue.developer_name
       Customer Segmentation: of_customer_group.key_acct_tp_cd
-      Customer Group: of_customer_group.cust_grp_and_name
       Customer: of_customer.customer_cd_and_name
       Contact Name: of_contact.name
-      Sales Team Member: of_sales_team_member.team_role
       Customer Type: of_customer.customer_type
-    row: 2
-    col: 0
-    width: 12
+      Sales Team Member: of_sales_team_member.team_role
+      Customer Group: of_customer_group.cust_grp_and_name
+      Open Date: of_case.createddate_filter_date
+    row: 12
+    col: 6
+    width: 9
     height: 6
-  - title: Open Urgent and High Priority Cases by Customer
-    name: Open Urgent and High Priority Cases by Customer
+  - title: Un-Resolved Resolution Reasons by Location*
+    name: Un-Resolved Resolution Reasons by Location*
     model: oneforce_service
     explore: of_case
     type: looker_grid
-    fields: [of_customer.name, of_case.case_distinct_count_drill]
+    fields: [of_case.Case_Geo, of_case.sub_resolution_reason, of_case.case_distinct_count_drill]
     filters:
-      of_case.active_case: 'Yes'
-      customer_name: "-NULL"
-      high_priority_for_filter: High,Urgent
-    sorts: [of_case.case_distinct_count_drill desc]
+      of_case.active_case: 'No'
+      resolution_reason_for_filter: Customer Query Un-resolved
+    sorts: [of_case.Case_Geo, of_case.sub_resolution_reason]
     limit: 500
-    column_limit: 50
-    dynamic_fields: [{category: dimension, expression: "${of_customer.name}", label: Customer
-          Name, value_format: !!null '', value_format_name: !!null '', dimension: customer_name,
-        _kind_hint: dimension, _type_hint: string}, {category: dimension, expression: "${of_case.priority}",
-        label: High Priority for filter, value_format: !!null '', value_format_name: !!null '',
-        dimension: high_priority_for_filter, _kind_hint: dimension, _type_hint: string}]
+    dynamic_fields: [{category: dimension, expression: "${of_case.resolution_reason}",
+        label: Resolution Reason For Filter, value_format: !!null '', value_format_name: !!null '',
+        dimension: resolution_reason_for_filter, _kind_hint: dimension, _type_hint: string}]
     show_view_names: false
     show_row_numbers: false
     transpose: false
@@ -764,7 +1928,7 @@
     hide_totals: false
     hide_row_totals: false
     size_to_fit: true
-    table_theme: white
+    table_theme: gray
     limit_displayed_rows: false
     enable_conditional_formatting: false
     header_text_alignment: left
@@ -777,12 +1941,26 @@
     show_row_totals: true
     truncate_header: false
     series_labels:
-      of_case.case_distinct_count_drill: Count
+      of_case.Case_Geo: RHQ
+      of_case.case_distinct_count: Case
+      of_case.case_distinct_count_drill: Case
+    series_column_widths:
+      of_case.Case_Geo: 84
+      of_case.sub_resolution_reason: 263
     series_cell_visualizations:
       of_case.count:
         is_active: true
         palette:
-          palette_id: 90c952d7-5f79-4b02-5859-c52f38d3587f
+          palette_id: 9f706bba-0250-f75a-86a5-c837e2b614cc
+          collection_id: one-theme
+          custom_colors:
+          - "#F0D6E5"
+          - "#BD0F72"
+          - "#7f0b4d"
+      of_case.case_distinct_count:
+        is_active: true
+        palette:
+          palette_id: de6c811c-7c10-6a72-0f80-2a426e8d4a3a
           collection_id: one-theme
           custom_colors:
           - "#F0D6E5"
@@ -791,7 +1969,7 @@
       of_case.case_distinct_count_drill:
         is_active: true
         palette:
-          palette_id: 043512a0-8b61-c2e0-37d7-99714dfb9fe2
+          palette_id: 8c359f8c-3b71-96ff-4b7d-43f83339f686
           collection_id: one-theme
           custom_colors:
           - "#F0D6E5"
@@ -799,225 +1977,18 @@
           - "#7f0b4d"
     series_value_format:
       of_case.case_distinct_count_drill: '[>=1000000]0.0,,"M";[>=1000]0.0,"K";0'
-    x_axis_gridlines: true
-    y_axis_gridlines: true
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: false
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: ''
-    stacking: normal
-    legend_position: center
-    point_style: none
-    show_value_labels: false
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: true
-    show_silhouette: false
-    totals_color: "#808080"
-    y_axes: [{label: '', orientation: bottom, series: [{axisId: of_case.count, id: of_case.count,
-            name: Case}], showLabels: false, showValues: false, unpinAxis: false,
-        tickDensity: default, tickDensityCustom: 5, type: linear}]
-    series_types: {}
-    defaults_version: 1
-    note_state: collapsed
-    note_display: hover
-    note_text: '<P style="text-align:left;"><B>Metric Name : </B>Total no. of Urgent
-      and High Priority Cases by Customer<BR><B>How it Helps : </B>To evaluate Top
-      Customers by Urgent and High Priority Cases<BR>[ALL Case Status]<BR><B>Target
-      : </B>TBD'
-    listen:
-      Channel: of_case.origin
-      Status: of_case.status
-      RHQ (Case): of_case.Regional_Head_Office
-      Cluster Country: of_case.case_country
-      Individual Country: of_case.country
-      Office (Case): of_case.case_office_code
-      Initial Queue Name: of_case.Initial_Queue_Name
-      Case Number: of_case.casenumber
-      Topic (L3): of_case.subordinate_category_l3
-      First Contact Resolution: of_case.first_contact_resolution
-      Web Email: of_case.supplied_email
-      Date Granularity: of_case.timeframe_picker
-      Open Date: of_case.createddate_filter_date
-      Reopened Case: of_case.Case_reopened
-      Dynamic Filter - View By: of_case.Geo_Param
-      Priority: of_case.priority
-      Contact Email: of_case.contactemail
-      eComm ID: of_case.ecomm_id
-      Contract Number: of_case.contract_number
-      Case Rating: of_case.case_rating
-      Service or Contract Customer: of_case.Service_Contract_Customer
-      Sub Resolution Reason: of_case.sub_resolution_reason
-      Category (L1): of_case.reason
-      Subtopic (L4): of_case.subordinate_category_l4
-      Service Type: of_case.type
-      Closed Date: of_case.closeddate_date
-      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
-      Original Record Type: of_case.original_record_type
-      Has Leave Message: of_case.has_leave_message_filter
-      Resolution Reason: of_case.resolution_reason
-      Office Type: case_owner.officetype
-      Case Owner: case_owner.name
-      Role: of_escalation_history.role
-      Profile: case_owner.profile_name_service
-      Category (L2): of_case.sub_category_l2
-      Awaiting Internal Team Response: of_case_history_air.status_case_Analysis
-      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
-      Country (Case Owner): user_office_hierarchy.country
-      Office (Case Owner): user_office_hierarchy.office_code
-      Source of Chat: of_chat_transcript.origin
-      Queue Owner Name: of_queue.developer_name
-      Customer Segmentation: of_customer_group.key_acct_tp_cd
-      Customer Group: of_customer_group.cust_grp_and_name
-      Customer: of_customer.customer_cd_and_name
-      Contact Name: of_contact.name
-      Sales Team Member: of_sales_team_member.team_role
-      Customer Type: of_customer.customer_type
-    row: 59
-    col: 0
-    width: 12
-    height: 7
-  - title: Open Cases by Customer Segment & Channel
-    name: Open Cases by Customer Segment & Channel
-    model: oneforce_service
-    explore: of_case
-    type: looker_bar
-    fields: [of_case.origin, of_customer_group.key_acct_tp_cd, of_case.case_distinct_count]
-    pivots: [of_customer_group.key_acct_tp_cd]
-    filters:
-      of_case.active_case: 'Yes'
-    sorts: [of_customer_group.key_acct_tp_cd, of_case.case_distinct_count desc 0]
-    limit: 500
     x_axis_gridlines: false
     y_axis_gridlines: true
-    show_view_names: false
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: false
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: ''
-    stacking: normal
-    limit_displayed_rows: false
-    legend_position: center
-    point_style: circle_outline
-    show_value_labels: true
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: true
-    show_silhouette: false
-    totals_color: "#808080"
-    color_application: undefined
-    y_axes: [{label: '', orientation: bottom, series: [{axisId: GKA - of_case.count,
-            id: GKA - of_case.count, name: GKA}, {axisId: LKA - of_case.count, id: LKA
-              - of_case.count, name: LKA}, {axisId: ONECare - of_case.count, id: ONECare
-              - of_case.count, name: ONECare}, {axisId: RKA - of_case.count, id: RKA
-              - of_case.count, name: RKA}], showLabels: false, showValues: false,
+    y_axes: [{label: '', orientation: left, series: [{axisId: of_case.count, id: Customer’s
+              request to close the case - of_case.count, name: Customer’s request
+              to close the case}, {axisId: of_case.count, id: New case created - of_case.count,
+            name: New case created}, {axisId: of_case.count, id: No resolutions to
+              customer’s query - of_case.count, name: No resolutions to customer’s
+              query}, {axisId: of_case.count, id: No response from customer - of_case.count,
+            name: No response from customer}, {axisId: of_case.count, id: Other -
+              of_case.count, name: Other}, {axisId: of_case.count, id: Partially resolved.
+              - of_case.count, name: Partially resolved.}], showLabels: false, showValues: false,
         unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
-    label_value_format: '[>=1000000]0.0,,"M";[>=1000]0.0,"K";0'
-    series_types: {}
-    series_colors:
-      LKA - of_case.count: "#8b908f"
-      ONECare - of_case.count: "#BD0F72"
-      RKA - of_case.count: "#84C5C3"
-      GKA - of_case.count: "#00506D"
-      GKA - of_case.case_distinct_count: "#00506D"
-      LKA - of_case.case_distinct_count: "#8b908f"
-      ONECare - of_case.case_distinct_count: "#BD0F72"
-      RKA - of_case.case_distinct_count: "#84C5C3"
-    show_null_points: true
-    interpolation: linear
-    defaults_version: 1
-    note_state: collapsed
-    note_display: hover
-    note_text: '<P style="text-align:left;"><B>Metric Name : </B>No. of Open Cases
-      by Customer Segment & Channel<BR><B>How it Helps : </B>To evaluate no. of Open
-      cases by Customer Segment, Channelwise<BR>[Case Status ≠ "Resolved" & "Closed"]<BR><B>Target
-      : </B>TBD'
-    listen:
-      Channel: of_case.origin
-      Status: of_case.status
-      RHQ (Case): of_case.Regional_Head_Office
-      Cluster Country: of_case.case_country
-      Individual Country: of_case.country
-      Office (Case): of_case.case_office_code
-      Initial Queue Name: of_case.Initial_Queue_Name
-      Case Number: of_case.casenumber
-      Topic (L3): of_case.subordinate_category_l3
-      First Contact Resolution: of_case.first_contact_resolution
-      Web Email: of_case.supplied_email
-      Date Granularity: of_case.timeframe_picker
-      Open Date: of_case.createddate_filter_date
-      Reopened Case: of_case.Case_reopened
-      Dynamic Filter - View By: of_case.Geo_Param
-      Priority: of_case.priority
-      Contact Email: of_case.contactemail
-      eComm ID: of_case.ecomm_id
-      Contract Number: of_case.contract_number
-      Case Rating: of_case.case_rating
-      Service or Contract Customer: of_case.Service_Contract_Customer
-      Sub Resolution Reason: of_case.sub_resolution_reason
-      Category (L1): of_case.reason
-      Subtopic (L4): of_case.subordinate_category_l4
-      Service Type: of_case.type
-      Closed Date: of_case.closeddate_date
-      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
-      Original Record Type: of_case.original_record_type
-      Has Leave Message: of_case.has_leave_message_filter
-      Resolution Reason: of_case.resolution_reason
-      Office Type: case_owner.officetype
-      Case Owner: case_owner.name
-      Role: of_escalation_history.role
-      Profile: case_owner.profile_name_service
-      Category (L2): of_case.sub_category_l2
-      Awaiting Internal Team Response: of_case_history_air.status_case_Analysis
-      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
-      Country (Case Owner): user_office_hierarchy.country
-      Office (Case Owner): user_office_hierarchy.office_code
-      Source of Chat: of_chat_transcript.origin
-      Queue Owner Name: of_queue.developer_name
-      Customer Segmentation: of_customer_group.key_acct_tp_cd
-      Customer Group: of_customer_group.cust_grp_and_name
-      Customer: of_customer.customer_cd_and_name
-      Contact Name: of_contact.name
-      Sales Team Member: of_sales_team_member.team_role
-      Customer Type: of_customer.customer_type
-    row: 33
-    col: 0
-    width: 12
-    height: 6
-  - title: Open Escalated Cases by Customer Segment
-    name: Open Escalated Cases by Customer Segment
-    model: oneforce_service
-    explore: of_case
-    type: looker_column
-    fields: [of_customer_group.key_acct_tp_cd, of_case.case_distinct_count_drill]
-    filters:
-      of_case.active_case: 'Yes'
-      of_case.total_escalation: ">0"
-    sorts: [of_customer_group.key_acct_tp_cd desc]
-    limit: 500
-    x_axis_gridlines: false
-    y_axis_gridlines: false
-    show_view_names: false
     show_y_axis_labels: true
     show_y_axis_ticks: true
     y_axis_tick_density: default
@@ -1025,13 +1996,14 @@
     show_x_axis_label: false
     show_x_axis_ticks: true
     y_axis_scale_mode: linear
-    x_axis_reversed: true
+    x_axis_reversed: false
     y_axis_reversed: false
     plot_size_by_field: false
     trellis: ''
-    stacking: ''
-    limit_displayed_rows: false
+    stacking: normal
     legend_position: center
+    font_size: '12'
+    series_types: {}
     point_style: none
     show_value_labels: true
     label_density: 25
@@ -1042,34 +2014,722 @@
     show_totals_labels: false
     show_silhouette: false
     totals_color: "#808080"
+    charts_across: 2
+    defaults_version: 1
+    note_state: collapsed
+    note_display: hover
+    note_text: '<P style="text-align:left;"><B>Metric Name : </B>Un-Resolved Resolution
+      Reasons<BR><B>How it Helps : </B>To evaluate Un-Resolved cases by Sub Resolution
+      Reasons<BR>[Status = "Resolved" or "Closed"]<BR><B>Target : </B>TBD'
+    listen:
+      Status: of_case.status
+      Priority: of_case.priority
+      Category (L2): of_case.sub_category_l2
+      Topic (L3): of_case.subordinate_category_l3
+      RHQ (Case): of_case.Regional_Head_Office
+      Office (Case): of_case.case_office_code
+      Category (L1): of_case.reason
+      Resolution Reason: of_case.resolution_reason
+      Sub Resolution Reason: of_case.sub_resolution_reason
+      Case Number: of_case.casenumber
+      Contract Number: of_case.contract_number
+      First Contact Resolution: of_case.first_contact_resolution
+      Initial Queue Name: of_case.Initial_Queue_Name
+      Web Email: of_case.supplied_email
+      Closed Date: of_case.closeddate_date
+      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
+      Service or Contract Customer: of_case.Service_Contract_Customer
+      Dynamic Filter - View By: of_case.Geo_Param
+      Service Type: of_case.type
+      Date Granularity: of_case.timeframe_picker
+      Case Owner: case_owner.name
+      Subtopic (L4): of_case.subordinate_category_l4
+      Contact Email: of_case.contactemail
+      Original Record Type: of_case.original_record_type
+      Cluster Country: of_case.case_country
+      Individual Country: of_case.country
+      eComm ID: of_case.ecomm_id
+      Reopened Case: of_case.Case_reopened
+      Chat Owner: of_case.ct_owner_name1
+      Case Rating: of_case.case_rating
+      Has Leave Message: of_case.has_leave_message_filter
+      Channel: of_case.origin
+      Profile: case_owner.profile_name_service
+      Role: of_escalation_history.role
+      Office Type: case_owner.officetype
+      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
+      Country (Case Owner): user_office_hierarchy.country
+      Office (Case Owner): user_office_hierarchy.office_code
+      Source of Chat: of_chat_transcript.origin
+      Queue Owner Name: of_queue.developer_name
+      Customer Segmentation: of_customer_group.key_acct_tp_cd
+      Customer: of_customer.customer_cd_and_name
+      Contact Name: of_contact.name
+      Customer Type: of_customer.customer_type
+      Sales Team Member: of_sales_team_member.team_role
+      Customer Group: of_customer_group.cust_grp_and_name
+      Open Date: of_case.createddate_filter_date
+    row: 12
+    col: 15
+    width: 9
+    height: 6
+  - title: Case / Chat Level Volume Per Agent
+    name: Case / Chat Level Volume Per Agent
+    model: oneforce_service
+    explore: of_case
+    type: looker_grid
+    fields: [of_case.Case_Chat_Owner, of_case.Case_Chat_Volume, of_case.Case_Chat_Handle_Time,
+      of_case.Case_Chat_Response_Time, of_case.Case_Chat_Good_Rating]
+    filters:
+      owned_by_system_or_queue: 'No'
+      chat_transcript_owner_name: "-Automated Process"
+    sorts: [of_case.Case_Chat_Volume desc]
+    limit: 500
+    column_limit: 50
+    dynamic_fields: [{category: dimension, expression: " ${case_owner.name}", label: Owner
+          Filter, value_format: !!null '', value_format_name: !!null '', dimension: owner_filter,
+        _kind_hint: dimension, _type_hint: string}, {category: dimension, expression: 'if(${of_case.Case_Owned_by_System_Filter}=
+          "Yes" OR  ${of_queue.ownedbyQueue} = "Yes", "Yes", "No")', label: owned
+          by system or Queue, value_format: !!null '', value_format_name: !!null '',
+        dimension: owned_by_system_or_queue, _kind_hint: dimension, _type_hint: string},
+      {category: dimension, expression: "${ct_owner.name}", label: Chat Transcript
+          Owner Name, value_format: !!null '', value_format_name: !!null '', dimension: chat_transcript_owner_name,
+        _kind_hint: dimension, _type_hint: string}]
+    show_view_names: false
+    show_row_numbers: true
+    transpose: false
+    truncate_text: true
+    hide_totals: false
+    hide_row_totals: false
+    size_to_fit: true
+    table_theme: gray
+    limit_displayed_rows: false
+    enable_conditional_formatting: false
+    header_text_alignment: left
+    header_font_size: '12'
+    rows_font_size: '12'
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    show_sql_query_menu_options: false
+    pinned_columns:
+      "$$$_row_numbers_$$$": left
+    column_order: ["$$$_row_numbers_$$$", ct_owner.name, of_chat_transcript.count,
+      of_chat_transcript.chat_handle_time_avg, of_chat_transcript.response_time_operator,
+      csat_good_rating]
+    show_totals: true
+    show_row_totals: true
+    truncate_header: false
+    series_labels:
+      of_case.case_owner_name: Case Owner
+      of_case.case_distinct_count: Chat Volume
+      case_owner.name: Case owner
+      of_case.average_handling_time: Avg Agent Response Time
+      of_chat_transcript.count: Chat Volume
+      of_chat_transcript.response_time_operator: Avg Agent Response Time (in Secs)
+      of_chat_transcript.chat_handle_time_avg: Chat Handle Time(in Mins)
+      ct_owner.name: Chat Owner
+    series_cell_visualizations:
+      of_case.case_distinct_count:
+        is_active: true
+    series_value_format:
+      of_chat_transcript.count: '[>=1000000]0.0,,"M";[>=1000]0.0,"K";0'
+    series_types: {}
+    defaults_version: 1
+    hidden_fields: []
+    hidden_pivots: {}
+    listen:
+      Status: of_case.status
+      Priority: of_case.priority
+      Category (L2): of_case.sub_category_l2
+      Topic (L3): of_case.subordinate_category_l3
+      RHQ (Case): of_case.Regional_Head_Office
+      Office (Case): of_case.case_office_code
+      Category (L1): of_case.reason
+      Resolution Reason: of_case.resolution_reason
+      Sub Resolution Reason: of_case.sub_resolution_reason
+      Case Number: of_case.casenumber
+      Contract Number: of_case.contract_number
+      First Contact Resolution: of_case.first_contact_resolution
+      Initial Queue Name: of_case.Initial_Queue_Name
+      Web Email: of_case.supplied_email
+      Closed Date: of_case.closeddate_date
+      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
+      Service or Contract Customer: of_case.Service_Contract_Customer
+      Dynamic Filter - View By: of_case.Geo_Param
+      Service Type: of_case.type
+      Date Granularity: of_case.timeframe_picker
+      Case Owner: case_owner.name
+      Subtopic (L4): of_case.subordinate_category_l4
+      Contact Email: of_case.contactemail
+      Original Record Type: of_case.original_record_type
+      Cluster Country: of_case.case_country
+      Individual Country: of_case.country
+      eComm ID: of_case.ecomm_id
+      Reopened Case: of_case.Case_reopened
+      Chat Owner: of_case.ct_owner_name1
+      Case Rating: of_case.case_rating
+      Has Leave Message: of_case.has_leave_message_filter
+      Channel: of_case.origin
+      Case/Chat Level: of_case.Volume_per_Agent_Param
+      Profile: case_owner.profile_name_service
+      Role: of_escalation_history.role
+      Office Type: case_owner.officetype
+      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
+      Country (Case Owner): user_office_hierarchy.country
+      Office (Case Owner): user_office_hierarchy.office_code
+      Source of Chat: of_chat_transcript.origin
+      Queue Owner Name: of_queue.developer_name
+      Customer Segmentation: of_customer_group.key_acct_tp_cd
+      Customer: of_customer.customer_cd_and_name
+      Contact Name: of_contact.name
+      Customer Type: of_customer.customer_type
+      Sales Team Member: of_sales_team_member.team_role
+      Customer Group: of_customer_group.cust_grp_and_name
+      Open Date: of_case.createddate_filter_date
+    row: 40
+    col: 0
+    width: 12
+    height: 8
+  - title: Cases Per Agent
+    name: Cases Per Agent
+    model: oneforce_service
+    explore: of_case
+    type: looker_grid
+    fields: [of_case.case_owner_name, of_case.case_distinct_count, of_case.AVG_FIRST_RESPONSE_TIME_NEW,
+      of_case.average_handling_time, nurturing_rate_with_filter_1, of_case.is_contract_customer,
+      of_case.case_distinct_count_drill, closed_cases_count]
+    filters:
+      owned_by_system_or_queue: 'No'
+    sorts: [of_case.case_distinct_count desc]
+    limit: 500
+    dynamic_fields: [{category: table_calculation, expression: "${closed_cases_count}/${of_case.case_distinct_count}",
+        label: Closure Ratio %, value_format: !!null '', value_format_name: percent_0,
+        _kind_hint: measure, table_calculation: closure_ratio_1, _type_hint: number,
+        is_disabled: false}, {category: dimension, expression: '${of_case.case_distinct_count}-
+          ${of_case.active_case}, "Yes"', label: Closed Cases, value_format: !!null '',
+        value_format_name: !!null '', dimension: closed_cases_1, _kind_hint: dimension,
+        _type_hint: !!null ''}, {category: measure, expression: !!null '', label: Closed
+          Cases Count, value_format: !!null '', value_format_name: !!null '', based_on: of_case.case_distinct_count,
+        _kind_hint: measure, measure: closed_cases_count, type: count_distinct, _type_hint: count_distinct,
+        filters: {of_case.status: 'Resolved,Closed'}}, {category: measure, expression: !!null '',
+        label: Nurturing Rate with Filter, value_format: !!null '', value_format_name: !!null '',
+        based_on: of_case.NURTURE_RATE, _kind_hint: measure, measure: nurturing_rate_with_filter_1,
+        type: average, _type_hint: average, filters: {of_queue.ownedbyQueue: 'No',
+          of_case.Case_Owned_by_System_Filter: 'No'}}, {category: dimension, expression: 'if(${of_case.Case_Owned_by_System_Filter}=
+          "Yes" OR  ${of_queue.ownedbyQueue} = "Yes", "Yes", "No")', label: owned
+          by system or Queue, value_format: !!null '', value_format_name: !!null '',
+        dimension: owned_by_system_or_queue, _kind_hint: dimension, _type_hint: string}]
+    show_view_names: false
+    show_row_numbers: true
+    transpose: false
+    truncate_text: true
+    hide_totals: false
+    hide_row_totals: false
+    size_to_fit: true
+    table_theme: gray
+    limit_displayed_rows: false
+    enable_conditional_formatting: false
+    header_text_alignment: left
+    header_font_size: '12'
+    rows_font_size: '12'
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    show_sql_query_menu_options: false
+    column_order: ["$$$_row_numbers_$$$", of_case.case_owner_name, of_case.case_distinct_count_drill,
+      closed_cases_count, of_case.AVG_FIRST_RESPONSE_TIME_NEW, of_case.AVG_FIRST_RESPONSE_TIME,
+      of_case.average_handling_time, nurturing_rate_with_filter_1, of_case.is_contract_customer,
+      closure_ratio_1]
+    show_totals: true
+    show_row_totals: true
+    truncate_header: false
+    series_labels:
+      of_case.case_owner_name: Case Owner
+      of_case.count: Total
+      of_case.AVG_FIRST_RESPONSE_TIME: Avg FRT (in Mins)
+      of_case.average_handling_time: Avg AHT (in Mins)
+      of_case.NURTURE_RATE: Nurture ratio
+      of_case.is_contract_customer: Contract Customer Ratio %
+      case_owner.name: Case owner
+      of_case.case_distinct_count: Total
+      closed_cases_count: Closed
+      nurturing_rate_with_filter_1: Case Nurture Ratio %
+      of_case.case_distinct_count_drill: Total
+      of_case.Closed_Cases_Count: Closed
+      of_case.AVG_FIRST_RESPONSE_TIME_NEW: Avg FRT (in Mins)
+    series_cell_visualizations:
+      of_case.count:
+        is_active: true
+    series_value_format:
+      of_case.case_distinct_count_drill: '[>=1000000]0.0,,"M";[>=1000]0.0,"K";0'
+      closed_cases_count: '[>=1000000]0.0,,"M";[>=1000]0.0,"K";0'
+      of_case.AVG_FIRST_RESPONSE_TIME: '0.0'
+      of_case.AVG_FIRST_RESPONSE_TIME_NEW: '0.0'
+    series_types: {}
+    defaults_version: 1
+    hidden_fields: [of_case.case_distinct_count]
+    hidden_pivots: {}
+    listen:
+      Status: of_case.status
+      Priority: of_case.priority
+      Category (L2): of_case.sub_category_l2
+      Topic (L3): of_case.subordinate_category_l3
+      RHQ (Case): of_case.Regional_Head_Office
+      Office (Case): of_case.case_office_code
+      Category (L1): of_case.reason
+      Resolution Reason: of_case.resolution_reason
+      Sub Resolution Reason: of_case.sub_resolution_reason
+      Case Number: of_case.casenumber
+      Contract Number: of_case.contract_number
+      First Contact Resolution: of_case.first_contact_resolution
+      Initial Queue Name: of_case.Initial_Queue_Name
+      Web Email: of_case.supplied_email
+      Closed Date: of_case.closeddate_date
+      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
+      Service or Contract Customer: of_case.Service_Contract_Customer
+      Dynamic Filter - View By: of_case.Geo_Param
+      Service Type: of_case.type
+      Date Granularity: of_case.timeframe_picker
+      Case Owner: case_owner.name
+      Subtopic (L4): of_case.subordinate_category_l4
+      Contact Email: of_case.contactemail
+      Original Record Type: of_case.original_record_type
+      Cluster Country: of_case.case_country
+      Individual Country: of_case.country
+      eComm ID: of_case.ecomm_id
+      Reopened Case: of_case.Case_reopened
+      Chat Owner: of_case.ct_owner_name1
+      Case Rating: of_case.case_rating
+      Has Leave Message: of_case.has_leave_message_filter
+      Channel: of_case.origin
+      First Response Time: of_case.responsetime_Param
+      Profile: case_owner.profile_name_service
+      Role: of_escalation_history.role
+      Office Type: case_owner.officetype
+      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
+      Country (Case Owner): user_office_hierarchy.country
+      Office (Case Owner): user_office_hierarchy.office_code
+      Source of Chat: of_chat_transcript.origin
+      Queue Owner Name: of_queue.developer_name
+      Customer Segmentation: of_customer_group.key_acct_tp_cd
+      Customer: of_customer.customer_cd_and_name
+      Contact Name: of_contact.name
+      Customer Type: of_customer.customer_type
+      Sales Team Member: of_sales_team_member.team_role
+      Customer Group: of_customer_group.cust_grp_and_name
+      Open Date: of_case.createddate_filter_date
+    row: 32
+    col: 0
+    width: 24
+    height: 8
+  - name: " (2)"
+    type: text
+    title_text: ''
+    subtitle_text: ''
+    body_text: |+
+      ######Notes
+      * Data shown is in UTC Time Zone<br>
+      * *- Charts based on the dynamic filter. Please use the 'View By' option to change the charts dynamically
+      * The result shown depends on the filter chosen where the agent is either a "Case owner" or a "Chat owner"
+
+    row: 77
+    col: 12
+    width: 12
+    height: 3
+  - title: Avg case handled by distinct case owner
+    name: Avg case handled by distinct case owner
+    model: oneforce_service
+    explore: of_case
+    type: looker_line
+    fields: [of_case.case_distinct_count, count_of_case_owner_name, of_case.Case_Resolved_Date_Time_dynamic,
+      of_case.Case_Geo]
+    pivots: [of_case.Case_Geo]
+    fill_fields: [of_case.Case_Resolved_Date_Time_dynamic]
+    filters:
+      of_case.active_case: 'No'
+    sorts: [of_case.Case_Geo, of_case.Case_Resolved_Date_Time_dynamic]
+    limit: 500
+    dynamic_fields: [{measure: count_of_case_owner_name, based_on: of_case.case_owner_name,
+        expression: '', label: Count of Case Owner Name, type: count_distinct, _kind_hint: measure,
+        _type_hint: number}, {category: table_calculation, expression: "${of_case.case_distinct_count}/${count_of_case_owner_name}",
+        label: Average case handled by distinct case owner, value_format: !!null '',
+        value_format_name: decimal_0, _kind_hint: measure, table_calculation: average_case_handled_by_distinct_case_owner,
+        _type_hint: number}]
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: false
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: circle_outline
+    show_value_labels: true
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    show_null_points: false
+    interpolation: linear
+    y_axes: [{label: '', orientation: left, series: [{axisId: average_case_handled_by_distinct_case_owner,
+            id: AR - average_case_handled_by_distinct_case_owner, name: AR}, {axisId: average_case_handled_by_distinct_case_owner,
+            id: AT - average_case_handled_by_distinct_case_owner, name: AT}, {axisId: average_case_handled_by_distinct_case_owner,
+            id: BE - average_case_handled_by_distinct_case_owner, name: BE}, {axisId: average_case_handled_by_distinct_case_owner,
+            id: BR - average_case_handled_by_distinct_case_owner, name: BR}, {axisId: average_case_handled_by_distinct_case_owner,
+            id: CA - average_case_handled_by_distinct_case_owner, name: CA}, {axisId: average_case_handled_by_distinct_case_owner,
+            id: CH - average_case_handled_by_distinct_case_owner, name: CH}, {axisId: average_case_handled_by_distinct_case_owner,
+            id: CL - average_case_handled_by_distinct_case_owner, name: CL}, {axisId: average_case_handled_by_distinct_case_owner,
+            id: DK - average_case_handled_by_distinct_case_owner, name: DK}, {axisId: average_case_handled_by_distinct_case_owner,
+            id: FI - average_case_handled_by_distinct_case_owner, name: FI}, {axisId: average_case_handled_by_distinct_case_owner,
+            id: FR - average_case_handled_by_distinct_case_owner, name: FR}, {axisId: average_case_handled_by_distinct_case_owner,
+            id: GB - average_case_handled_by_distinct_case_owner, name: GB}, {axisId: average_case_handled_by_distinct_case_owner,
+            id: GH - average_case_handled_by_distinct_case_owner, name: GH}, {axisId: average_case_handled_by_distinct_case_owner,
+            id: HK - average_case_handled_by_distinct_case_owner, name: HK}, {axisId: average_case_handled_by_distinct_case_owner,
+            id: HU - average_case_handled_by_distinct_case_owner, name: HU}, {axisId: average_case_handled_by_distinct_case_owner,
+            id: ID - average_case_handled_by_distinct_case_owner, name: ID}, {axisId: average_case_handled_by_distinct_case_owner,
+            id: IN - average_case_handled_by_distinct_case_owner, name: IN}, {axisId: average_case_handled_by_distinct_case_owner,
+            id: IT - average_case_handled_by_distinct_case_owner, name: IT}, {axisId: average_case_handled_by_distinct_case_owner,
+            id: KR - average_case_handled_by_distinct_case_owner, name: KR}, {axisId: average_case_handled_by_distinct_case_owner,
+            id: NL - average_case_handled_by_distinct_case_owner, name: NL}, {axisId: average_case_handled_by_distinct_case_owner,
+            id: PK - average_case_handled_by_distinct_case_owner, name: PK}, {axisId: average_case_handled_by_distinct_case_owner,
+            id: SG - average_case_handled_by_distinct_case_owner, name: SG}, {axisId: average_case_handled_by_distinct_case_owner,
+            id: US - average_case_handled_by_distinct_case_owner, name: US}, {axisId: average_case_handled_by_distinct_case_owner,
+            id: UY - average_case_handled_by_distinct_case_owner, name: UY}, {axisId: average_case_handled_by_distinct_case_owner,
+            id: VN - average_case_handled_by_distinct_case_owner, name: VN}], showLabels: false,
+        showValues: false, unpinAxis: false, tickDensity: default, tickDensityCustom: 5,
+        type: linear}]
+    label_value_format: '[>=1000000]0.0,,"M";[>=1000]0.0,"K";0'
+    series_types: {}
+    defaults_version: 1
+    hidden_fields: [of_case.case_distinct_count, count_of_case_owner_name]
+    listen:
+      Status: of_case.status
+      Priority: of_case.priority
+      Category (L2): of_case.sub_category_l2
+      Topic (L3): of_case.subordinate_category_l3
+      RHQ (Case): of_case.Regional_Head_Office
+      Office (Case): of_case.case_office_code
+      Category (L1): of_case.reason
+      Resolution Reason: of_case.resolution_reason
+      Sub Resolution Reason: of_case.sub_resolution_reason
+      Case Number: of_case.casenumber
+      Contract Number: of_case.contract_number
+      First Contact Resolution: of_case.first_contact_resolution
+      Initial Queue Name: of_case.Initial_Queue_Name
+      Web Email: of_case.supplied_email
+      Closed Date: of_case.closeddate_date
+      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
+      Dynamic Filter - View By: of_case.Geo_Param
+      Service or Contract Customer: of_case.Service_Contract_Customer
+      Service Type: of_case.type
+      Date Granularity: of_case.timeframe_picker
+      Case Owner: case_owner.name
+      Subtopic (L4): of_case.subordinate_category_l4
+      Contact Email: of_case.contactemail
+      Original Record Type: of_case.original_record_type
+      Cluster Country: of_case.case_country
+      Individual Country: of_case.country
+      eComm ID: of_case.ecomm_id
+      Reopened Case: of_case.Case_reopened
+      Chat Owner: of_case.ct_owner_name1
+      Case Rating: of_case.case_rating
+      Has Leave Message: of_case.has_leave_message_filter
+      Channel: of_case.origin
+      Profile: case_owner.profile_name_service
+      Role: of_escalation_history.role
+      Office Type: case_owner.officetype
+      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
+      Country (Case Owner): user_office_hierarchy.country
+      Office (Case Owner): user_office_hierarchy.office_code
+      Source of Chat: of_chat_transcript.origin
+      Queue Owner Name: of_queue.developer_name
+      Customer Segmentation: of_customer_group.key_acct_tp_cd
+      Customer: of_customer.customer_cd_and_name
+      Contact Name: of_contact.name
+      Customer Type: of_customer.customer_type
+      Sales Team Member: of_sales_team_member.team_role
+      Customer Group: of_customer_group.cust_grp_and_name
+    row: 48
+    col: 0
+    width: 12
+    height: 7
+  - title: Avg cases by total agents
+    name: Avg cases by total agents
+    model: oneforce_service
+    explore: of_case
+    type: looker_line
+    fields: [of_case.case_distinct_count, queue_user_count.user_group_id, of_case.Case_Geo,
+      of_case.Case_Resolved_Date_Time_dynamic]
+    pivots: [of_case.Case_Geo]
+    fill_fields: [of_case.Case_Resolved_Date_Time_dynamic]
+    filters:
+      of_case.active_case: 'No'
+    sorts: [of_case.Case_Geo, of_case.Case_Resolved_Date_Time_dynamic desc]
+    limit: 500
+    dynamic_fields: [{category: table_calculation, expression: "${of_case.case_distinct_count}/${queue_user_count.user_group_id}",
+        label: Average cases by total agents, value_format: !!null '', value_format_name: decimal_0,
+        _kind_hint: measure, table_calculation: average_cases_by_total_agents, _type_hint: number}]
+    x_axis_gridlines: false
+    y_axis_gridlines: true
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: false
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: circle_outline
+    show_value_labels: true
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    show_null_points: false
+    interpolation: linear
+    y_axes: [{label: '', orientation: left, series: [{axisId: average_cases_by_total_agents,
+            id: Global - average_cases_by_total_agents, name: Global}], showLabels: false,
+        showValues: false, unpinAxis: false, tickDensity: default, tickDensityCustom: 5,
+        type: linear}]
+    label_value_format: '[>=1000000]0.0,,"M";[>=1000]0.0,"K";0'
+    series_types: {}
+    defaults_version: 1
+    hidden_fields: [of_case.case_distinct_count, queue_user_count.user_group_id]
+    listen:
+      Status: of_case.status
+      Priority: of_case.priority
+      Category (L2): of_case.sub_category_l2
+      Topic (L3): of_case.subordinate_category_l3
+      RHQ (Case): of_case.Regional_Head_Office
+      Office (Case): of_case.case_office_code
+      Category (L1): of_case.reason
+      Resolution Reason: of_case.resolution_reason
+      Sub Resolution Reason: of_case.sub_resolution_reason
+      Case Number: of_case.casenumber
+      Contract Number: of_case.contract_number
+      First Contact Resolution: of_case.first_contact_resolution
+      Initial Queue Name: of_case.Initial_Queue_Name
+      Web Email: of_case.supplied_email
+      Closed Date: of_case.closeddate_date
+      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
+      Dynamic Filter - View By: of_case.Geo_Param
+      Service or Contract Customer: of_case.Service_Contract_Customer
+      Service Type: of_case.type
+      Date Granularity: of_case.timeframe_picker
+      Case Owner: case_owner.name
+      Subtopic (L4): of_case.subordinate_category_l4
+      Contact Email: of_case.contactemail
+      Original Record Type: of_case.original_record_type
+      Cluster Country: of_case.case_country
+      Individual Country: of_case.country
+      eComm ID: of_case.ecomm_id
+      Reopened Case: of_case.Case_reopened
+      Chat Owner: of_case.ct_owner_name1
+      Case Rating: of_case.case_rating
+      Has Leave Message: of_case.has_leave_message_filter
+      Channel: of_case.origin
+      Profile: case_owner.profile_name_service
+      Role: of_escalation_history.role
+      Office Type: case_owner.officetype
+      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
+      Country (Case Owner): user_office_hierarchy.country
+      Office (Case Owner): user_office_hierarchy.office_code
+      Source of Chat: of_chat_transcript.origin
+      Queue Owner Name: of_queue.developer_name
+      Customer Segmentation: of_customer_group.key_acct_tp_cd
+      Customer: of_customer.customer_cd_and_name
+      Contact Name: of_contact.name
+      Customer Type: of_customer.customer_type
+      Sales Team Member: of_sales_team_member.team_role
+      Customer Group: of_customer_group.cust_grp_and_name
+    row: 48
+    col: 12
+    width: 12
+    height: 7
+  - title: Case Transfer Per Agent
+    name: Case Transfer Per Agent
+    model: oneforce_service
+    explore: of_case
+    type: looker_grid
+    fields: [case_transfer_history.transfer_by, case_transfer_history.total_transfer,
+      case_transfer_history.avg_transfer_duration_in_minutes, transfer_by_owner.name]
+    filters:
+      case_transfer_history.transfer_by: "-NULL"
+      transfer_by_owner.name: "-%User%"
+      case_transfer_history.transfer_type: Accept/Transfer Chat,Assignment
+    sorts: [case_transfer_history.total_transfer desc]
+    limit: 500
+    column_limit: 50
+    show_view_names: false
+    show_row_numbers: true
+    transpose: false
+    truncate_text: true
+    hide_totals: false
+    hide_row_totals: false
+    size_to_fit: true
+    table_theme: gray
+    limit_displayed_rows: false
+    enable_conditional_formatting: false
+    header_text_alignment: left
+    header_font_size: '12'
+    rows_font_size: '12'
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    show_sql_query_menu_options: false
+    show_totals: true
+    show_row_totals: true
+    truncate_header: false
+    series_labels:
+      case_transfer_history.transfer_by: Transfer By Owner
+      case_transfer_history.total_transfer: Total Transfer
+      case_transfer_history.avg_transfer_duration_in_minutes: Average Transfer Duration
+      transfer_owner.name: Transfer By Owner
+      transfer_by_owner.name: Transfer By Owner
+    series_cell_visualizations:
+      case_transfer_history.total_transfer:
+        is_active: true
+        palette:
+          palette_id: 9eaf7c7a-3527-3b47-0255-a95313742248
+          collection_id: one-theme
+          custom_colors:
+          - "#F0D6E5"
+          - "#BD0F72"
+          - "#7f0b4d"
+    series_types: {}
+    defaults_version: 1
+    hidden_fields: [case_transfer_history.transfer_by]
+    listen:
+      Status: of_case.status
+      Priority: of_case.priority
+      Category (L2): of_case.sub_category_l2
+      Topic (L3): of_case.subordinate_category_l3
+      RHQ (Case): of_case.Regional_Head_Office
+      Cluster Country: of_case.case_country
+      Office (Case): of_case.case_office_code
+      Category (L1): of_case.reason
+      Resolution Reason: of_case.resolution_reason
+      Sub Resolution Reason: of_case.sub_resolution_reason
+      Case Number: of_case.casenumber
+      Contract Number: of_case.contract_number
+      First Contact Resolution: of_case.first_contact_resolution
+      Initial Queue Name: of_case.Initial_Queue_Name
+      Web Email: of_case.supplied_email
+      Closed Date: of_case.closeddate_date
+      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
+      Dynamic Filter - View By: of_case.Geo_Param
+      Service or Contract Customer: of_case.Service_Contract_Customer
+      Service Type: of_case.type
+      Date Granularity: of_case.timeframe_picker
+      Subtopic (L4): of_case.subordinate_category_l4
+      Contact Email: of_case.contactemail
+      Original Record Type: of_case.original_record_type
+      Individual Country: of_case.country
+      eComm ID: of_case.ecomm_id
+      Reopened Case: of_case.Case_reopened
+      Chat Owner: of_case.ct_owner_name1
+      Case Rating: of_case.case_rating
+      Has Leave Message: of_case.has_leave_message_filter
+      Channel: of_case.origin
+      Open Date: of_case.createddate_filter_date
+    row: 40
+    col: 12
+    width: 12
+    height: 8
+  - title: On-Hold Cases by Sub-Category*
+    name: On-Hold Cases by Sub-Category*
+    model: oneforce_service
+    explore: of_case
+    type: looker_bar
+    fields: [of_case.Case_Geo, of_case.On_Hold_Reason, of_case.case_distinct_count]
+    pivots: [of_case.On_Hold_Reason]
+    filters:
+      of_case.Is_On_Hold: On-Hold Cases
+    sorts: [of_case.On_Hold_Reason, of_case.case_distinct_count desc 0]
+    limit: 500
+    column_limit: 50
+    x_axis_gridlines: false
+    y_axis_gridlines: false
+    show_view_names: false
+    show_y_axis_labels: false
+    show_y_axis_ticks: false
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: false
+    show_x_axis_ticks: true
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: normal
+    limit_displayed_rows: true
+    legend_position: center
+    point_style: circle_outline
+    show_value_labels: true
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#CCD3D1"
     color_application:
       collection_id: one-theme
       palette_id: one-theme-categorical-0
       options:
         steps: 5
-    y_axes: [{label: '', orientation: left, series: [{axisId: of_case.count, id: of_case.count,
-            name: Case}], showLabels: false, showValues: false, unpinAxis: false,
-        tickDensity: default, tickDensityCustom: 5, type: linear}]
-    label_value_format: '[>=1000000]0.0,,"M";[>=1000]0.0,"K";0'
+    y_axes: [{label: !!null '', orientation: top, series: [{axisId: of_case.AVG_FIRST_CONTACT_RESOLUTION,
+            id: of_case.AVG_FIRST_CONTACT_RESOLUTION, name: FCR}], showLabels: false,
+        showValues: false, unpinAxis: false, tickDensity: default, type: linear},
+      {label: '', orientation: bottom, series: [{axisId: of_case.case_distinct_count,
+            id: of_case.case_distinct_count, name: Case}], showLabels: false, showValues: false,
+        unpinAxis: false, tickDensity: default, type: linear}]
+    size_by_field: ''
+    x_axis_zoom: true
+    y_axis_zoom: true
+    limit_displayed_rows_values:
+      show_hide: hide
+      first_last: first
+      num_rows: 0
+    hide_legend: false
+    font_size: '12'
+    label_value_format: ''
     series_types: {}
     series_colors:
-      of_case.count: "#F39200"
-    series_labels: {}
-    color_range: ["#BD0F72", "#CCD3D1", "#340335", "#00506D", "#84C5C3", "#F39200",
-      "#7f0b4d", "#8b908f", "#000000", "#222b35", "#3D7876", "#AB6E13", "#F0D6E5",
-      "#e3eae8", "#e7dae7", "#c9e3ec", "#CFEFEE", "#FFE2B7"]
-    show_null_points: true
-    show_percent: true
-    defaults_version: 1
-    hidden_fields: []
-    hidden_points_if_no: []
-    value_labels: legend
-    label_type: labPer
+      Bad: "#000000"
+      Good: "#BD0F72"
+      of_case.case_distinct_count: "#F39200"
+      of_case.AVG_FIRST_CONTACT_RESOLUTION: "#00506D"
+      Yes - of_case.case_distinct_count: "#BD0F72"
+      No - of_case.case_distinct_count: "#CCD3D1"
+      On-Hold Cases - of_case.Transferred_Case_count_distinct: "#F39200"
+    series_labels:
+      of_case.case_distinct_count: Case
+      of_case.AVG_FIRST_CONTACT_RESOLUTION: FCR
+    series_point_styles:
+      of_case.AVG_FIRST_CONTACT_RESOLUTION: triangle
+    label_color: []
+    column_group_spacing_ratio: 0.1
     leftAxisLabelVisible: false
     leftAxisLabel: ''
-    rightAxisLabelVisible: false
+    rightAxisLabelVisible: true
     rightAxisLabel: ''
     smoothedBars: false
+    isStepped: false
     orientation: automatic
     labelPosition: left
     percentType: total
@@ -1077,1211 +2737,136 @@
     valuePosition: right
     labelColorEnabled: false
     labelColor: "#FFF"
-    interpolation: linear
-    note_state: collapsed
-    note_display: hover
-    note_text: '<P style="text-align:left;"><B>Metric Name : </B>No. of Open Escalated
-      Cases by Customer Segment<BR><B>How it Helps : </B>To evaluate no. of Open cases
-      by Customer Segment<BR>[Case Status ≠ "Resolved" & "Closed" and Total Escalation
-      is Greater than 0]<BR><B>Target : </B>TBD'
-    listen:
-      Channel: of_case.origin
-      Status: of_case.status
-      RHQ (Case): of_case.Regional_Head_Office
-      Cluster Country: of_case.case_country
-      Individual Country: of_case.country
-      Office (Case): of_case.case_office_code
-      Initial Queue Name: of_case.Initial_Queue_Name
-      Case Number: of_case.casenumber
-      Topic (L3): of_case.subordinate_category_l3
-      First Contact Resolution: of_case.first_contact_resolution
-      Web Email: of_case.supplied_email
-      Date Granularity: of_case.timeframe_picker
-      Open Date: of_case.createddate_filter_date
-      Reopened Case: of_case.Case_reopened
-      Dynamic Filter - View By: of_case.Geo_Param
-      Priority: of_case.priority
-      Contact Email: of_case.contactemail
-      eComm ID: of_case.ecomm_id
-      Contract Number: of_case.contract_number
-      Case Rating: of_case.case_rating
-      Service or Contract Customer: of_case.Service_Contract_Customer
-      Sub Resolution Reason: of_case.sub_resolution_reason
-      Category (L1): of_case.reason
-      Subtopic (L4): of_case.subordinate_category_l4
-      Service Type: of_case.type
-      Closed Date: of_case.closeddate_date
-      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
-      Original Record Type: of_case.original_record_type
-      Has Leave Message: of_case.has_leave_message_filter
-      Resolution Reason: of_case.resolution_reason
-      Office Type: case_owner.officetype
-      Case Owner: case_owner.name
-      Role: of_escalation_history.role
-      Profile: case_owner.profile_name_service
-      Category (L2): of_case.sub_category_l2
-      Awaiting Internal Team Response: of_case_history_air.status_case_Analysis
-      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
-      Country (Case Owner): user_office_hierarchy.country
-      Office (Case Owner): user_office_hierarchy.office_code
-      Source of Chat: of_chat_transcript.origin
-      Queue Owner Name: of_queue.developer_name
-      Customer Segmentation: of_customer_group.key_acct_tp_cd
-      Customer Group: of_customer_group.cust_grp_and_name
-      Customer: of_customer.customer_cd_and_name
-      Contact Name: of_contact.name
-      Sales Team Member: of_sales_team_member.team_role
-      Customer Type: of_customer.customer_type
-    row: 33
-    col: 12
-    width: 12
-    height: 6
-  - title: Closed/ Resolved
-    name: Closed/ Resolved
-    model: oneforce_service
-    explore: of_case
-    type: single_value
-    fields: [of_case.case_distinct_count_drill]
-    filters:
-      of_case.active_case: 'No'
-    limit: 500
-    custom_color_enabled: true
-    show_single_value_title: true
-    show_comparison: false
-    comparison_type: value
-    comparison_reverse_colors: false
-    show_comparison_label: true
-    enable_conditional_formatting: false
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    custom_color: "#7f0b4d"
-    single_value_title: Closed
-    value_format: '[>=1000000]0.0,,"M";[>=1000]0.0,"K";0'
-    conditional_formatting: [{type: not null, value: !!null '', background_color: "#BD0F72",
-        font_color: !!null '', color_application: {collection_id: one-theme, palette_id: one-theme-sequential-0},
-        bold: false, italic: false, strikethrough: false, fields: !!null ''}]
-    series_types: {}
-    defaults_version: 1
-    note_state: collapsed
-    note_display: hover
-    note_text: '<P style="text-align:left;"><B>Metric Name : </B>No. of Closed Cases<BR><B>How
-      it Helps : </B>To evaluate the no. of Closed cases<BR>[Case Status = "Resolved"
-      & "Closed"]<BR><B>Target : </B>TBD'
-    listen:
-      Channel: of_case.origin
-      Status: of_case.status
-      RHQ (Case): of_case.Regional_Head_Office
-      Cluster Country: of_case.case_country
-      Individual Country: of_case.country
-      Office (Case): of_case.case_office_code
-      Initial Queue Name: of_case.Initial_Queue_Name
-      Case Number: of_case.casenumber
-      Topic (L3): of_case.subordinate_category_l3
-      First Contact Resolution: of_case.first_contact_resolution
-      Web Email: of_case.supplied_email
-      Date Granularity: of_case.timeframe_picker
-      Open Date: of_case.createddate_filter_date
-      Reopened Case: of_case.Case_reopened
-      Dynamic Filter - View By: of_case.Geo_Param
-      Priority: of_case.priority
-      Contact Email: of_case.contactemail
-      eComm ID: of_case.ecomm_id
-      Contract Number: of_case.contract_number
-      Case Rating: of_case.case_rating
-      Service or Contract Customer: of_case.Service_Contract_Customer
-      Sub Resolution Reason: of_case.sub_resolution_reason
-      Category (L1): of_case.reason
-      Subtopic (L4): of_case.subordinate_category_l4
-      Service Type: of_case.type
-      Closed Date: of_case.closeddate_date
-      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
-      Original Record Type: of_case.original_record_type
-      Has Leave Message: of_case.has_leave_message_filter
-      Resolution Reason: of_case.resolution_reason
-      Office Type: case_owner.officetype
-      Case Owner: case_owner.name
-      Role: of_escalation_history.role
-      Profile: case_owner.profile_name_service
-      Category (L2): of_case.sub_category_l2
-      Awaiting Internal Team Response: of_case_history_air.status_case_Analysis
-      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
-      Country (Case Owner): user_office_hierarchy.country
-      Office (Case Owner): user_office_hierarchy.office_code
-      Source of Chat: of_chat_transcript.origin
-      Queue Owner Name: of_queue.developer_name
-      Customer Segmentation: of_customer_group.key_acct_tp_cd
-      Customer Group: of_customer_group.cust_grp_and_name
-      Customer: of_customer.customer_cd_and_name
-      Contact Name: of_contact.name
-      Sales Team Member: of_sales_team_member.team_role
-      Customer Type: of_customer.customer_type
-    row: 0
-    col: 4
-    width: 2
-    height: 2
-  - name: '<a target="_blank" style="color:#BD0F72; font-size:1vw"  href="https://onelinecloudlookercom/embed/dashboards/1129"><b>Fullscreen?</b></a><p
-      style="font-size:1vw">Version: 20230830 </p>'
-    type: text
-    title_text: '<a target="_blank" style="color:#BD0F72; font-size:1vw"  href="https://oneline.cloud.looker.com/embed/dashboards/1129"><b>Fullscreen?</b></a><p
-      style="font-size:1vw">Version: 2023.08.30 </p>'
-    subtitle_text: ''
-    body_text: ''
-    row: 80
-    col: 17
-    width: 7
-    height: 3
-  - title: Top 10 Customers by Cases
-    name: Top 10 Customers by Cases
-    model: oneforce_service
-    explore: of_case
-    type: looker_bar
-    fields: [of_customer.customer_cd_and_name, of_case.active_case, of_case.case_distinct_count_drill]
-    pivots: [of_case.active_case]
-    filters:
-      has_customer_name: "-NULL"
-    sorts: [of_case.active_case, of_case.case_distinct_count_drill desc 0]
-    limit: 10
-    column_limit: 50
-    row_total: right
-    dynamic_fields: [{category: dimension, expression: "${of_customer.customer_cd_and_name}",
-        label: Has Customer Name, value_format: !!null '', value_format_name: !!null '',
-        dimension: has_customer_name, _kind_hint: dimension, _type_hint: string}]
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_view_names: false
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: false
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: ''
-    stacking: normal
-    limit_displayed_rows: false
-    legend_position: center
-    point_style: circle_outline
-    show_value_labels: true
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: false
-    show_silhouette: false
-    totals_color: "#000000"
-    y_axes: [{label: '', orientation: bottom, series: [{axisId: No - of_case.case_distinct_count_drill,
-            id: No - of_case.case_distinct_count_drill, name: 'No'}], showLabels: false,
-        showValues: false, unpinAxis: false, tickDensity: default, type: linear},
-      {label: '', orientation: bottom, series: [{axisId: Yes - of_case.case_distinct_count_drill,
-            id: Yes - of_case.case_distinct_count_drill, name: 'Yes'}], showLabels: false,
-        showValues: false, unpinAxis: false, tickDensity: default, type: linear}]
-    label_value_format: '[>=1000000]0.0,,"M";[>=1000]0.0,"K";0'
-    series_types:
-      Yes - of_case.count: line
-      Yes - of_case.case_distinct_count_drill: line
-    series_colors:
-      Awaiting Customer Response - of_case.count: "#340335"
-      Closed - of_case.count: "#000000"
-      New - of_case.count: "#00506D"
-      Resolved - of_case.count: "#8b908f"
-      Awaiting Internal Team Response - of_case.count: "#7f0b4d"
-      In Progress - of_case.count: "#BD0F72"
-      No - of_case.count: "#BD0F72"
-      Yes - of_case.count: "#84C5C3"
-    series_labels:
-      No - of_case.count: Closed Cases
-      Yes - of_case.count: Open Cases
-      No - of_case.case_distinct_count_drill: Closed Cases
-      Yes - of_case.case_distinct_count_drill: Open Cases
-    label_color: []
-    defaults_version: 1
-    note_state: collapsed
-    note_display: hover
-    note_text: '<P style="text-align:left;"><B>Metric Name : </B>Total Case Volume
-      by Top 10 Customers<BR><B>How it Helps : </B>To evaluate total  no. of cases
-      by Top 10 Customers<BR>[ALL Case Status]<BR><B>Target : </B>TBD'
-    listen:
-      Channel: of_case.origin
-      Status: of_case.status
-      RHQ (Case): of_case.Regional_Head_Office
-      Cluster Country: of_case.case_country
-      Individual Country: of_case.country
-      Office (Case): of_case.case_office_code
-      Initial Queue Name: of_case.Initial_Queue_Name
-      Case Number: of_case.casenumber
-      Topic (L3): of_case.subordinate_category_l3
-      First Contact Resolution: of_case.first_contact_resolution
-      Web Email: of_case.supplied_email
-      Date Granularity: of_case.timeframe_picker
-      Open Date: of_case.createddate_filter_date
-      Reopened Case: of_case.Case_reopened
-      Dynamic Filter - View By: of_case.Geo_Param
-      Priority: of_case.priority
-      Contact Email: of_case.contactemail
-      eComm ID: of_case.ecomm_id
-      Contract Number: of_case.contract_number
-      Case Rating: of_case.case_rating
-      Service or Contract Customer: of_case.Service_Contract_Customer
-      Sub Resolution Reason: of_case.sub_resolution_reason
-      Category (L1): of_case.reason
-      Subtopic (L4): of_case.subordinate_category_l4
-      Service Type: of_case.type
-      Closed Date: of_case.closeddate_date
-      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
-      Original Record Type: of_case.original_record_type
-      Has Leave Message: of_case.has_leave_message_filter
-      Resolution Reason: of_case.resolution_reason
-      Office Type: case_owner.officetype
-      Case Owner: case_owner.name
-      Role: of_escalation_history.role
-      Profile: case_owner.profile_name_service
-      Category (L2): of_case.sub_category_l2
-      Awaiting Internal Team Response: of_case_history_air.status_case_Analysis
-      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
-      Country (Case Owner): user_office_hierarchy.country
-      Office (Case Owner): user_office_hierarchy.office_code
-      Source of Chat: of_chat_transcript.origin
-      Queue Owner Name: of_queue.developer_name
-      Customer Segmentation: of_customer_group.key_acct_tp_cd
-      Customer Group: of_customer_group.cust_grp_and_name
-      Customer: of_customer.customer_cd_and_name
-      Contact Name: of_contact.name
-      Sales Team Member: of_sales_team_member.team_role
-      Customer Type: of_customer.customer_type
-    row: 59
-    col: 12
-    width: 12
-    height: 7
-  - title: Escalation Trend by Channel
-    name: Escalation Trend by Channel
-    model: oneforce_service
-    explore: of_case
-    type: looker_line
-    fields: [of_case.origin, of_case.createddate_dynamic, of_case.case_distinct_count]
-    pivots: [of_case.origin]
-    filters:
-      of_case.total_escalation: ">0"
-    sorts: [of_case.origin, of_case.createddate_dynamic]
-    limit: 500
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_view_names: false
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: false
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: ''
-    stacking: ''
-    limit_displayed_rows: false
-    legend_position: center
-    point_style: circle_outline
-    show_value_labels: true
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
+    value_labels: labels
+    label_type: labPer
+    inner_radius: 20
+    color_range: ["#4285F4", "#EA4335", "#FBBC04", "#34A852", "#5F6368"]
+    color_by: node
     show_null_points: false
+    value_format_override: ''
+    show_percent: true
+    arm_length: 25
+    arm_weight: 50
+    spinner_length: 100
+    spinner_weight: 50
+    viz_trellis_by: none
+    angle: 90
+    cutout: 50
+    range_x: 1
+    range_y: 1
+    up_color: "#BD0F72"
+    down_color: "#F39200"
+    total_color: "#00506D"
     interpolation: linear
-    y_axes: [{label: '', orientation: left, series: [{axisId: of_case.count, id: Chat
-              - of_case.count, name: Chat}, {axisId: of_case.count, id: Email - of_case.count,
-            name: Email}, {axisId: of_case.count, id: Internal - of_case.count, name: Internal},
-          {axisId: of_case.count, id: Phone - of_case.count, name: Phone}, {axisId: of_case.count,
-            id: Web - of_case.count, name: Web}], showLabels: false, showValues: false,
-        unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
-    label_value_format: '[>=1000000]0.0,,"M";[>=1000]0.0,"K";0'
-    series_types: {}
-    series_colors:
-      Chat - of_case.count: "#BD0F72"
-      Email - of_case.count: "#00506D"
-      Web - of_case.count: "#8b908f"
-      Internal - of_case.count: "#000000"
-      Phone - of_case.count: "#AB6E13"
-      Email - of_case.case_distinct_count: "#00506D"
-      Internal - of_case.case_distinct_count: "#000000"
-      Phone - of_case.case_distinct_count: "#AB6E13"
-      Web - of_case.case_distinct_count: "#8b908f"
-    swap_axes: false
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: false
-    show_silhouette: false
-    totals_color: "#808080"
+    bar_arm_length: 25
+    bar_arm_weight: 50
+    bar_spinner_length: 100
+    bar_spinner_weight: 50
     defaults_version: 1
-    note_state: collapsed
-    note_display: hover
-    note_text: '<P style="text-align:left;"><B>Metric Name : </B>Escalation Trend
-      by Channel<BR><B>How it Helps : </B>To evaluate weekly trend of Escalated cases
-      by Channel<BR>[ALL Case Status and Total Escalation is Greater than 0]<BR><B>Target
-      : </B>By Email: TBD By Phone: TBD By Chat: TBD By Web: TBD'
-    listen:
-      Channel: of_case.origin
-      Status: of_case.status
-      RHQ (Case): of_case.Regional_Head_Office
-      Cluster Country: of_case.case_country
-      Individual Country: of_case.country
-      Office (Case): of_case.case_office_code
-      Initial Queue Name: of_case.Initial_Queue_Name
-      Case Number: of_case.casenumber
-      Topic (L3): of_case.subordinate_category_l3
-      First Contact Resolution: of_case.first_contact_resolution
-      Web Email: of_case.supplied_email
-      Date Granularity: of_case.timeframe_picker
-      Open Date: of_case.createddate_filter_date
-      Reopened Case: of_case.Case_reopened
-      Dynamic Filter - View By: of_case.Geo_Param
-      Priority: of_case.priority
-      Contact Email: of_case.contactemail
-      eComm ID: of_case.ecomm_id
-      Contract Number: of_case.contract_number
-      Case Rating: of_case.case_rating
-      Service or Contract Customer: of_case.Service_Contract_Customer
-      Sub Resolution Reason: of_case.sub_resolution_reason
-      Category (L1): of_case.reason
-      Subtopic (L4): of_case.subordinate_category_l4
-      Service Type: of_case.type
-      Closed Date: of_case.closeddate_date
-      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
-      Original Record Type: of_case.original_record_type
-      Has Leave Message: of_case.has_leave_message_filter
-      Resolution Reason: of_case.resolution_reason
-      Office Type: case_owner.officetype
-      Case Owner: case_owner.name
-      Role: of_escalation_history.role
-      Profile: case_owner.profile_name_service
-      Category (L2): of_case.sub_category_l2
-      Awaiting Internal Team Response: of_case_history_air.status_case_Analysis
-      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
-      Country (Case Owner): user_office_hierarchy.country
-      Office (Case Owner): user_office_hierarchy.office_code
-      Source of Chat: of_chat_transcript.origin
-      Queue Owner Name: of_queue.developer_name
-      Customer Segmentation: of_customer_group.key_acct_tp_cd
-      Customer Group: of_customer_group.cust_grp_and_name
-      Customer: of_customer.customer_cd_and_name
-      Contact Name: of_contact.name
-      Sales Team Member: of_sales_team_member.team_role
-      Customer Type: of_customer.customer_type
-    row: 45
-    col: 16
-    width: 8
-    height: 7
-  - title: Total Escl (30 Days)
-    name: Total Escl (30 Days)
-    model: oneforce_service
-    explore: of_case
-    type: single_value
-    fields: [of_case.case_distinct_count_drill]
-    filters:
-      of_case.createddate_month: 1 months
-      of_case.total_escalation: ">0"
-    limit: 500
-    custom_color_enabled: true
-    show_single_value_title: true
-    show_comparison: false
-    comparison_type: value
-    comparison_reverse_colors: false
-    show_comparison_label: true
-    enable_conditional_formatting: false
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    custom_color: "#7f0b4d"
-    single_value_title: Total Escl (30 Days)
-    value_format: '[>=1000000]0.0,,"M";[>=1000]0.0,"K";0'
-    conditional_formatting: [{type: not null, value: !!null '', background_color: "#BD0F72",
-        font_color: '', color_application: {collection_id: one-theme, palette_id: one-theme-sequential-0},
-        bold: false, italic: false, strikethrough: false, fields: !!null ''}]
-    series_types: {}
-    defaults_version: 1
-    note_state: collapsed
-    note_display: hover
-    note_text: '<P style="text-align:left;"><B>Metric Name : </B>Total Escalated Cases
-      (This Month)<BR><B>How it Helps : </B>To evaluate no.of Escalated cases this
-      month<BR>[ALL Case Status and Total Escalation is Greater than 0]<BR><B>Target
-      : </B>TBD'
-    listen:
-      Channel: of_case.origin
-      Status: of_case.status
-      RHQ (Case): of_case.Regional_Head_Office
-      Cluster Country: of_case.case_country
-      Individual Country: of_case.country
-      Office (Case): of_case.case_office_code
-      Initial Queue Name: of_case.Initial_Queue_Name
-      Case Number: of_case.casenumber
-      Topic (L3): of_case.subordinate_category_l3
-      First Contact Resolution: of_case.first_contact_resolution
-      Web Email: of_case.supplied_email
-      Date Granularity: of_case.timeframe_picker
-      Open Date: of_case.createddate_filter_date
-      Reopened Case: of_case.Case_reopened
-      Dynamic Filter - View By: of_case.Geo_Param
-      Priority: of_case.priority
-      Contact Email: of_case.contactemail
-      eComm ID: of_case.ecomm_id
-      Contract Number: of_case.contract_number
-      Case Rating: of_case.case_rating
-      Service or Contract Customer: of_case.Service_Contract_Customer
-      Sub Resolution Reason: of_case.sub_resolution_reason
-      Category (L1): of_case.reason
-      Subtopic (L4): of_case.subordinate_category_l4
-      Service Type: of_case.type
-      Closed Date: of_case.closeddate_date
-      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
-      Original Record Type: of_case.original_record_type
-      Has Leave Message: of_case.has_leave_message_filter
-      Resolution Reason: of_case.resolution_reason
-      Office Type: case_owner.officetype
-      Case Owner: case_owner.name
-      Role: of_escalation_history.role
-      Profile: case_owner.profile_name_service
-      Category (L2): of_case.sub_category_l2
-      Awaiting Internal Team Response: of_case_history_air.status_case_Analysis
-      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
-      Country (Case Owner): user_office_hierarchy.country
-      Office (Case Owner): user_office_hierarchy.office_code
-      Source of Chat: of_chat_transcript.origin
-      Queue Owner Name: of_queue.developer_name
-      Customer Segmentation: of_customer_group.key_acct_tp_cd
-      Customer Group: of_customer_group.cust_grp_and_name
-      Customer: of_customer.customer_cd_and_name
-      Contact Name: of_contact.name
-      Sales Team Member: of_sales_team_member.team_role
-      Customer Type: of_customer.customer_type
-    row: 0
-    col: 11
-    width: 3
-    height: 2
-  - title: Trend by Location*
-    name: Trend by Location*
-    model: oneforce_service
-    explore: of_case
-    type: looker_line
-    fields: [of_case.Case_Geo, of_case.createddate_dynamic, of_case.case_distinct_count]
-    pivots: [of_case.Case_Geo]
-    sorts: [of_case.Case_Geo, of_case.createddate_dynamic]
-    limit: 500
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_view_names: false
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: false
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: ''
-    stacking: ''
-    limit_displayed_rows: false
-    legend_position: center
-    point_style: circle
-    show_value_labels: true
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
-    show_null_points: false
-    interpolation: linear
-    color_application:
-      collection_id: one-theme
-      palette_id: one-theme-categorical-0
-      options:
-        steps: 5
-    y_axes: [{label: Cases, orientation: left, series: [{axisId: of_case.count, id: HKGHQ
-              - of_case.count, name: HKGHQ}, {axisId: of_case.count, id: LONHQ - of_case.count,
-            name: LONHQ}, {axisId: of_case.count, id: RICHQ - of_case.count, name: RICHQ},
-          {axisId: of_case.count, id: SAOHQ - of_case.count, name: SAOHQ}, {axisId: of_case.count,
-            id: SINHQ - of_case.count, name: SINHQ}], showLabels: false, showValues: false,
-        unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
-    x_axis_label: ''
-    label_value_format: '[>=1000000]0.0,,"M";[>=1000]0.0,"K";0'
-    series_types: {}
-    series_colors:
-      Chat - of_case.count: "#BD0F72"
-      Email - of_case.count: "#8b908f"
-      Web - of_case.count: "#00506D"
-      Internal - of_case.count: "#222b35"
-      Phone - of_case.count: "#3D7876"
-      LONHQ - of_case.count: "#8b908f"
-      SINHQ - of_case.count: "#000000"
-      SINHQ - of_case.case_distinct_count: "#000000"
-    series_labels:
-      1 - of_case.case_distinct_count: GKA
-      2 - of_case.case_distinct_count: RKA
-      3 - of_case.case_distinct_count: LKA
-      4 - of_case.case_distinct_count: ONECare
-    leftAxisLabelVisible: true
-    leftAxisLabel: ''
-    rightAxisLabelVisible: true
-    rightAxisLabel: ''
-    smoothedBars: true
-    orientation: automatic
-    labelPosition: left
-    percentType: total
-    percentPosition: inline
-    valuePosition: right
-    labelColorEnabled: true
-    labelColor: "#000000"
-    isStepped: true
-    defaults_version: 1
-    note_state: collapsed
-    note_display: hover
-    note_text: '<P style="text-align:left;"><B>Metric Name : </B> Trend of Cases<BR><B>How
-      it Helps : </B>To evaluate trend of total no. of cases<BR>[ALL Case Status]<BR><B>Target
-      : </B>TBD'
-    listen:
-      Channel: of_case.origin
-      Status: of_case.status
-      RHQ (Case): of_case.Regional_Head_Office
-      Cluster Country: of_case.case_country
-      Individual Country: of_case.country
-      Office (Case): of_case.case_office_code
-      Initial Queue Name: of_case.Initial_Queue_Name
-      Case Number: of_case.casenumber
-      Topic (L3): of_case.subordinate_category_l3
-      First Contact Resolution: of_case.first_contact_resolution
-      Web Email: of_case.supplied_email
-      Date Granularity: of_case.timeframe_picker
-      Open Date: of_case.createddate_filter_date
-      Reopened Case: of_case.Case_reopened
-      Dynamic Filter - View By: of_case.Geo_Param
-      Priority: of_case.priority
-      Contact Email: of_case.contactemail
-      eComm ID: of_case.ecomm_id
-      Contract Number: of_case.contract_number
-      Case Rating: of_case.case_rating
-      Service or Contract Customer: of_case.Service_Contract_Customer
-      Sub Resolution Reason: of_case.sub_resolution_reason
-      Category (L1): of_case.reason
-      Subtopic (L4): of_case.subordinate_category_l4
-      Service Type: of_case.type
-      Closed Date: of_case.closeddate_date
-      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
-      Original Record Type: of_case.original_record_type
-      Has Leave Message: of_case.has_leave_message_filter
-      Resolution Reason: of_case.resolution_reason
-      Office Type: case_owner.officetype
-      Case Owner: case_owner.name
-      Role: of_escalation_history.role
-      Profile: case_owner.profile_name_service
-      Category (L2): of_case.sub_category_l2
-      Awaiting Internal Team Response: of_case_history_air.status_case_Analysis
-      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
-      Country (Case Owner): user_office_hierarchy.country
-      Office (Case Owner): user_office_hierarchy.office_code
-      Source of Chat: of_chat_transcript.origin
-      Queue Owner Name: of_queue.developer_name
-      Customer Segmentation: of_customer_group.key_acct_tp_cd
-      Customer Group: of_customer_group.cust_grp_and_name
-      Customer: of_customer.customer_cd_and_name
-      Contact Name: of_contact.name
-      Sales Team Member: of_sales_team_member.team_role
-      Customer Type: of_customer.customer_type
-    row: 45
-    col: 8
-    width: 8
-    height: 7
-  - name: ''
-    type: text
-    title_text: ''
-    body_text: "#####Clear Cache for latest data: \nStep 1: Just click anywhere inside\
-      \ the Dashboard and then <BR>Step 2: Press Ctrl+Shift+Enter Key to clear the\
-      \ cache and refresh\n\n"
-    row: 80
-    col: 0
-    width: 9
-    height: 3
-  - title: By Intent L2 & L3
-    name: By Intent L2 & L3
-    model: oneforce_service
-    explore: of_case
-    type: looker_grid
-    fields: [of_case.sub_category_l2, of_case.subordinate_category_l3, of_case.case_distinct_count_drill]
-    filters:
-      category_l2_for_filter: "-NULL"
-    sorts: [of_case.case_distinct_count_drill desc]
-    limit: 500
-    dynamic_fields: [{category: dimension, expression: "${of_case.sub_category_l2}",
-        label: Category L2 for filter, value_format: !!null '', value_format_name: !!null '',
-        dimension: category_l2_for_filter, _kind_hint: dimension, _type_hint: string}]
-    show_view_names: false
-    show_row_numbers: false
+    hidden_fields: []
+    hidden_points_if_no: []
+    show_row_numbers: true
     transpose: false
     truncate_text: true
     hide_totals: false
     hide_row_totals: false
     size_to_fit: true
     table_theme: white
-    limit_displayed_rows: false
     enable_conditional_formatting: false
     header_text_alignment: left
-    header_font_size: '12'
-    rows_font_size: '12'
+    header_font_size: 12
+    rows_font_size: 12
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
-    show_sql_query_menu_options: false
-    show_totals: true
-    show_row_totals: true
-    truncate_header: false
-    series_labels:
-      of_case.case_distinct_count: Case
-      of_case.case_distinct_count_drill: Case
-    series_cell_visualizations:
-      of_case.count:
-        is_active: true
-        palette:
-          palette_id: 209471f1-9ec9-5a9b-4c39-2de406ea17a8
-          collection_id: one-theme
-          custom_colors:
-          - "#F0D6E5"
-          - "#BD0F72"
-          - "#BD0F72"
-      of_case.case_distinct_count:
-        is_active: true
-        palette:
-          palette_id: a75bd352-e8c1-a458-e75a-1551151e7835
-          collection_id: one-theme
-          custom_colors:
-          - "#F0D6E5"
-          - "#BD0F72"
-          - "#BD0F72"
-      of_case.case_distinct_count_drill:
-        is_active: true
-        palette:
-          palette_id: 4f884884-09c7-055f-39a5-aeff0e46407c
-          collection_id: one-theme
-          custom_colors:
-          - "#F0D6E5"
-          - "#BD0F72"
-          - "#7f0b4d"
-    conditional_formatting: [{type: along a scale..., value: !!null '', background_color: "#BD0F72",
-        font_color: !!null '', color_application: {collection_id: one-theme, palette_id: one-theme-sequential-0},
-        bold: false, italic: false, strikethrough: false, fields: !!null ''}]
-    series_value_format:
-      of_case.case_distinct_count_drill: '[>=1000000]0.0,,"M";[>=1000]0.0,"K";0'
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: true
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: ''
-    stacking: ''
-    legend_position: center
-    point_style: none
-    show_value_labels: false
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: false
-    show_silhouette: false
-    totals_color: "#808080"
-    defaults_version: 1
-    series_types: {}
-    note_state: collapsed
-    note_display: hover
-    note_text: '<P style="text-align:left;"><B>Metric Name : </B>Total Case Volume
-      by L2 & L3 Intent<BR><B>How it Helps : </B>To evaluate total no. of cases by
-      L2 and L3 Intent<BR>[ALL Case Status]<BR><B>Target : </B>TBD'
+    map_plot_mode: points
+    heatmap_gridlines: false
+    heatmap_gridlines_empty: false
+    heatmap_opacity: 0.5
+    show_region_field: true
+    draw_map_labels_above_data: true
+    map_tile_provider: light
+    map_position: fit_data
+    map_scale_indicator: 'off'
+    map_pannable: true
+    map_zoomable: true
+    map_marker_type: circle
+    map_marker_icon_name: default
+    map_marker_radius_mode: proportional_value
+    map_marker_units: meters
+    map_marker_proportional_scale_type: linear
+    map_marker_color_mode: fixed
+    show_legend: true
+    quantize_map_value_colors: false
+    reverse_map_value_colors: false
+    hidden_pivots: {}
     listen:
-      Channel: of_case.origin
       Status: of_case.status
-      RHQ (Case): of_case.Regional_Head_Office
-      Cluster Country: of_case.case_country
-      Individual Country: of_case.country
-      Office (Case): of_case.case_office_code
-      Initial Queue Name: of_case.Initial_Queue_Name
-      Case Number: of_case.casenumber
-      Topic (L3): of_case.subordinate_category_l3
-      First Contact Resolution: of_case.first_contact_resolution
-      Web Email: of_case.supplied_email
-      Date Granularity: of_case.timeframe_picker
-      Open Date: of_case.createddate_filter_date
-      Reopened Case: of_case.Case_reopened
-      Dynamic Filter - View By: of_case.Geo_Param
       Priority: of_case.priority
-      Contact Email: of_case.contactemail
-      eComm ID: of_case.ecomm_id
-      Contract Number: of_case.contract_number
-      Case Rating: of_case.case_rating
-      Service or Contract Customer: of_case.Service_Contract_Customer
-      Sub Resolution Reason: of_case.sub_resolution_reason
+      Category (L2): of_case.sub_category_l2
+      Topic (L3): of_case.subordinate_category_l3
+      RHQ (Case): of_case.Regional_Head_Office
+      Office (Case): of_case.case_office_code
       Category (L1): of_case.reason
-      Subtopic (L4): of_case.subordinate_category_l4
-      Service Type: of_case.type
+      Resolution Reason: of_case.resolution_reason
+      Sub Resolution Reason: of_case.sub_resolution_reason
+      Case Number: of_case.casenumber
+      Contract Number: of_case.contract_number
+      Initial Queue Name: of_case.Initial_Queue_Name
+      Web Email: of_case.supplied_email
       Closed Date: of_case.closeddate_date
       Case Resolved Date: of_case.Case_Resolved_Date_Time_date
-      Original Record Type: of_case.original_record_type
-      Has Leave Message: of_case.has_leave_message_filter
-      Resolution Reason: of_case.resolution_reason
-      Office Type: case_owner.officetype
+      Service or Contract Customer: of_case.Service_Contract_Customer
+      Dynamic Filter - View By: of_case.Geo_Param
+      Service Type: of_case.type
+      Date Granularity: of_case.timeframe_picker
       Case Owner: case_owner.name
-      Role: of_escalation_history.role
+      Subtopic (L4): of_case.subordinate_category_l4
+      Contact Email: of_case.contactemail
+      Original Record Type: of_case.original_record_type
+      Cluster Country: of_case.case_country
+      Individual Country: of_case.country
+      eComm ID: of_case.ecomm_id
+      Reopened Case: of_case.Case_reopened
+      Chat Owner: of_case.ct_owner_name1
+      Case Rating: of_case.case_rating
+      Has Leave Message: of_case.has_leave_message_filter
+      Channel: of_case.origin
       Profile: case_owner.profile_name_service
-      Category (L2): of_case.sub_category_l2
-      Awaiting Internal Team Response: of_case_history_air.status_case_Analysis
+      Role: of_escalation_history.role
+      Office Type: case_owner.officetype
       RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
       Country (Case Owner): user_office_hierarchy.country
       Office (Case Owner): user_office_hierarchy.office_code
       Source of Chat: of_chat_transcript.origin
       Queue Owner Name: of_queue.developer_name
       Customer Segmentation: of_customer_group.key_acct_tp_cd
-      Customer Group: of_customer_group.cust_grp_and_name
       Customer: of_customer.customer_cd_and_name
       Contact Name: of_contact.name
-      Sales Team Member: of_sales_team_member.team_role
       Customer Type: of_customer.customer_type
-    row: 52
-    col: 0
+      Sales Team Member: of_sales_team_member.team_role
+      Customer Group: of_customer_group.cust_grp_and_name
+      Open Date: of_case.On_hold_chart_date_date
+    row: 55
+    col: 12
     width: 12
     height: 7
-  - title: Owned by Queue
-    name: Owned by Queue
-    model: oneforce_service
-    explore: of_case
-    type: single_value
-    fields: [of_case.case_distinct_count_drill]
-    filters:
-      of_queue.ownedbyQueue: 'Yes'
-    limit: 500
-    custom_color_enabled: true
-    show_single_value_title: true
-    show_comparison: false
-    comparison_type: value
-    comparison_reverse_colors: false
-    show_comparison_label: true
-    enable_conditional_formatting: false
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    custom_color: "#7f0b4d"
-    single_value_title: Owned by Queue
-    value_format: '[>=1000000]0.0,,"M";[>=1000]0.0,"K";0'
-    conditional_formatting: [{type: not null, value: !!null '', background_color: "#BD0F72",
-        font_color: !!null '', color_application: {collection_id: one-theme, palette_id: one-theme-sequential-0},
-        bold: false, italic: false, strikethrough: false, fields: !!null ''}]
-    series_types: {}
-    defaults_version: 1
-    note_state: collapsed
-    note_display: hover
-    note_text: '<P style="text-align:left;"><B>Metric Name : </B>No. of Cases owned
-      by a Queue name<BR><B>How it Helps : </B>To evaluate no. of cases owned by a
-      Queue<BR>[Number of cases which are routed to Queue but not to individual]<BR><B>Target
-      : </B>TBD'
-    listen:
-      Channel: of_case.origin
-      Status: of_case.status
-      RHQ (Case): of_case.Regional_Head_Office
-      Cluster Country: of_case.case_country
-      Individual Country: of_case.country
-      Office (Case): of_case.case_office_code
-      Initial Queue Name: of_case.Initial_Queue_Name
-      Case Number: of_case.casenumber
-      Topic (L3): of_case.subordinate_category_l3
-      First Contact Resolution: of_case.first_contact_resolution
-      Web Email: of_case.supplied_email
-      Date Granularity: of_case.timeframe_picker
-      Open Date: of_case.createddate_filter_date
-      Reopened Case: of_case.Case_reopened
-      Dynamic Filter - View By: of_case.Geo_Param
-      Priority: of_case.priority
-      Contact Email: of_case.contactemail
-      eComm ID: of_case.ecomm_id
-      Contract Number: of_case.contract_number
-      Case Rating: of_case.case_rating
-      Service or Contract Customer: of_case.Service_Contract_Customer
-      Sub Resolution Reason: of_case.sub_resolution_reason
-      Category (L1): of_case.reason
-      Subtopic (L4): of_case.subordinate_category_l4
-      Service Type: of_case.type
-      Closed Date: of_case.closeddate_date
-      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
-      Original Record Type: of_case.original_record_type
-      Has Leave Message: of_case.has_leave_message_filter
-      Resolution Reason: of_case.resolution_reason
-      Office Type: case_owner.officetype
-      Case Owner: case_owner.name
-      Role: of_escalation_history.role
-      Profile: case_owner.profile_name_service
-      Category (L2): of_case.sub_category_l2
-      Awaiting Internal Team Response: of_case_history_air.status_case_Analysis
-      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
-      Country (Case Owner): user_office_hierarchy.country
-      Office (Case Owner): user_office_hierarchy.office_code
-      Source of Chat: of_chat_transcript.origin
-      Queue Owner Name: of_queue.developer_name
-      Customer Segmentation: of_customer_group.key_acct_tp_cd
-      Customer Group: of_customer_group.cust_grp_and_name
-      Customer: of_customer.customer_cd_and_name
-      Contact Name: of_contact.name
-      Sales Team Member: of_sales_team_member.team_role
-      Customer Type: of_customer.customer_type
-    row: 0
-    col: 14
-    width: 2
-    height: 2
-  - title: Abandoned Chats*
-    name: Abandoned Chats*
+  - title: On-Hold Cases by Location*
+    name: On-Hold Cases by Location*
     model: oneforce_service
     explore: of_case
     type: looker_column
-    fields: [of_case.case_distinct_count, of_case.Case_Geo, customer_abandoned_chat]
-    pivots: [customer_abandoned_chat]
+    fields: [of_case.Case_Geo, of_case.Is_On_Hold, of_case.case_distinct_count]
+    pivots: [of_case.Is_On_Hold]
     filters:
-      of_case.active_case: 'No'
-      chat_cases: 'Yes'
-    sorts: [customer_abandoned_chat, of_case.Case_Geo]
-    limit: 500
-    dynamic_fields: [{category: dimension, expression: 'case (when(${of_case.resolution_reason}="Customer
-          Abandoned Chat","Yes"),"No")', label: Customer Abandoned Chat, value_format: !!null '',
-        value_format_name: !!null '', dimension: customer_abandoned_chat, _kind_hint: dimension,
-        _type_hint: string}, {category: dimension, expression: 'case (when(${of_case.origin}="Chat",
-          "Yes"), "No")', label: Chat Cases, value_format: !!null '', value_format_name: !!null '',
-        dimension: chat_cases, _kind_hint: dimension, _type_hint: string}]
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_view_names: false
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: false
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: true
-    plot_size_by_field: false
-    trellis: ''
-    stacking: percent
-    limit_displayed_rows: false
-    legend_position: center
-    point_style: none
-    show_value_labels: true
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: false
-    show_silhouette: false
-    totals_color: "#808080"
-    y_axes: [{label: '', orientation: left, series: [{axisId: of_case.case_distinct_count,
-            id: of_case.case_distinct_count, name: Case Distinct Count}], showLabels: false,
-        showValues: false, unpinAxis: false, tickDensity: default, tickDensityCustom: 5,
-        type: linear}]
-    series_types: {}
-    series_colors:
-      abandoned_cases: "#84C5C3"
-      Yes - of_case.case_distinct_count: "#F39200"
-    series_labels:
-      No - of_case.case_distinct_count: Other Cases
-      Yes - of_case.case_distinct_count: Abandoned Cases
-    defaults_version: 1
-    note_state: collapsed
-    note_display: hover
-    note_text: '<P style="text-align:left;"><B>Metric Name : </B>No. of Abandoned
-      Chats from Customers vs Total Chat Cases<BR><B>How it Helps : </B>To evaluate
-      no.of Abandoned Chats cases by Customer vs Total Chat Cases<BR>[Case Status
-      = "Resolved" & "Closed", Resolution Reason = "Customer Abandoned Chats", Channel
-      = "Chat"]<BR><B>Target : </B>TBD'
-    listen:
-      Channel: of_case.origin
-      Status: of_case.status
-      RHQ (Case): of_case.Regional_Head_Office
-      Cluster Country: of_case.case_country
-      Individual Country: of_case.country
-      Office (Case): of_case.case_office_code
-      Initial Queue Name: of_case.Initial_Queue_Name
-      Case Number: of_case.casenumber
-      Topic (L3): of_case.subordinate_category_l3
-      First Contact Resolution: of_case.first_contact_resolution
-      Web Email: of_case.supplied_email
-      Date Granularity: of_case.timeframe_picker
-      Open Date: of_case.createddate_filter_date
-      Reopened Case: of_case.Case_reopened
-      Dynamic Filter - View By: of_case.Geo_Param
-      Priority: of_case.priority
-      Contact Email: of_case.contactemail
-      eComm ID: of_case.ecomm_id
-      Contract Number: of_case.contract_number
-      Case Rating: of_case.case_rating
-      Service or Contract Customer: of_case.Service_Contract_Customer
-      Category (L1): of_case.reason
-      Subtopic (L4): of_case.subordinate_category_l4
-      Service Type: of_case.type
-      Closed Date: of_case.closeddate_date
-      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
-      Original Record Type: of_case.original_record_type
-      Has Leave Message: of_case.has_leave_message_filter
-      Office Type: case_owner.officetype
-      Case Owner: case_owner.name
-      Role: of_escalation_history.role
-      Profile: case_owner.profile_name_service
-      Category (L2): of_case.sub_category_l2
-      Awaiting Internal Team Response: of_case_history_air.status_case_Analysis
-      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
-      Country (Case Owner): user_office_hierarchy.country
-      Office (Case Owner): user_office_hierarchy.office_code
-      Source of Chat: of_chat_transcript.origin
-      Queue Owner Name: of_queue.developer_name
-      Customer Segmentation: of_customer_group.key_acct_tp_cd
-      Customer Group: of_customer_group.cust_grp_and_name
-      Customer: of_customer.customer_cd_and_name
-      Contact Name: of_contact.name
-      Sales Team Member: of_sales_team_member.team_role
-      Customer Type: of_customer.customer_type
-    row: 39
-    col: 0
-    width: 8
-    height: 6
-  - title: Duplicate, No Action vs Total Cases by Location*
-    name: Duplicate, No Action vs Total Cases by Location*
-    model: oneforce_service
-    explore: of_case
-    type: looker_column
-    fields: [of_case.Case_Geo, of_case.all_cases, of_case.no_action_required_cases,
-      of_case.duplicate_cases]
-    filters:
-      of_case.active_case: 'No'
-    sorts: [of_case.Case_Geo]
-    limit: 500
-    dynamic_fields: [{category: measure, expression: !!null '', label: Duplicate Cases,
-        value_format: !!null '', value_format_name: !!null '', based_on: of_case.case_distinct_count,
-        _kind_hint: measure, measure: duplicate_cases, type: count_distinct, _type_hint: number,
-        filters: {of_case.resolution_reason: Duplicate}}, {category: measure, expression: !!null '',
-        label: No Action Required Cases, value_format: !!null '', value_format_name: !!null '',
-        based_on: of_case.case_distinct_count, _kind_hint: measure, measure: no_action_required_cases,
-        type: count_distinct, _type_hint: number, filters: {of_case.resolution_reason: No
-            Action Required}}, {category: measure, expression: !!null '', label: All
-          Cases, value_format: !!null '', value_format_name: !!null '', based_on: of_case.case_distinct_count,
-        _kind_hint: measure, measure: all_cases, type: count_distinct, _type_hint: number,
-        filters: {of_case.resolution_reason: 'Customer Abandoned Chat,Customer Query
-            Un-resolved,None,Customer Query Resolved'}}]
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_view_names: false
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: false
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: true
-    plot_size_by_field: false
-    trellis: ''
-    stacking: percent
-    limit_displayed_rows: false
-    legend_position: center
-    point_style: circle_outline
-    show_value_labels: true
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: false
-    show_silhouette: false
-    totals_color: "#808080"
-    y_axes: [{label: '', orientation: left, series: [{axisId: No - of_case.case_distinct_count,
-            id: No - of_case.case_distinct_count, name: Other Cases}, {axisId: Yes
-              - of_case.case_distinct_count, id: Yes - of_case.case_distinct_count,
-            name: Duplicate Cases}], showLabels: false, showValues: false, unpinAxis: false,
-        tickDensity: default, tickDensityCustom: 5, type: linear}]
-    series_types: {}
-    series_colors:
-      duplicate_count: "#84C5C3"
-      of_case.case_distinct_count: "#BD0F72"
-      Yes - of_case.case_distinct_count: "#8b908f"
-      all_cases: "#BD0F72"
-      duplicate_cases: "#8b908f"
-      no_action_required_cases: "#000000"
-      of_case.no_action_required_cases: "#000000"
-      of_case.duplicate_cases: "#F39200"
-    series_labels:
-      of_case.case_distinct_count: Case Count
-      No - of_case.case_distinct_count: Other Cases
-      Yes - of_case.case_distinct_count: Duplicate Cases
-      all_cases: Other Cases
-      no_action_required_cases: No Action Required
-      of_case.all_cases: Other Cases
-      of_case.no_action_required_cases: No Action Required
-    series_point_styles:
-      duplicate_count: triangle-down
-    defaults_version: 1
-    note_state: collapsed
-    note_display: hover
-    note_text: '<P style="text-align:left;"><B>Metric Name : </B>No. of Duplicate
-      Cases, No Action Required Cases vs Total Cases<BR><B>How it Helps : </B>To evaluate
-      no. of Duplicate Cases and No Action Required Cases out of All cases<BR>[Case
-      Status = "Resolved" & "Closed" and Resolution Reason = "Duplicate"]<BR><B>Target
-      : </B>TBD'
-    listen:
-      Channel: of_case.origin
-      Status: of_case.status
-      RHQ (Case): of_case.Regional_Head_Office
-      Cluster Country: of_case.case_country
-      Individual Country: of_case.country
-      Office (Case): of_case.case_office_code
-      Initial Queue Name: of_case.Initial_Queue_Name
-      Case Number: of_case.casenumber
-      Topic (L3): of_case.subordinate_category_l3
-      First Contact Resolution: of_case.first_contact_resolution
-      Web Email: of_case.supplied_email
-      Date Granularity: of_case.timeframe_picker
-      Open Date: of_case.createddate_filter_date
-      Reopened Case: of_case.Case_reopened
-      Dynamic Filter - View By: of_case.Geo_Param
-      Priority: of_case.priority
-      Contact Email: of_case.contactemail
-      eComm ID: of_case.ecomm_id
-      Contract Number: of_case.contract_number
-      Case Rating: of_case.case_rating
-      Service or Contract Customer: of_case.Service_Contract_Customer
-      Category (L1): of_case.reason
-      Subtopic (L4): of_case.subordinate_category_l4
-      Service Type: of_case.type
-      Closed Date: of_case.closeddate_date
-      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
-      Original Record Type: of_case.original_record_type
-      Has Leave Message: of_case.has_leave_message_filter
-      Resolution Reason: of_case.resolution_reason
-      Office Type: case_owner.officetype
-      Case Owner: case_owner.name
-      Role: of_escalation_history.role
-      Profile: case_owner.profile_name_service
-      Category (L2): of_case.sub_category_l2
-      Awaiting Internal Team Response: of_case_history_air.status_case_Analysis
-      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
-      Country (Case Owner): user_office_hierarchy.country
-      Office (Case Owner): user_office_hierarchy.office_code
-      Source of Chat: of_chat_transcript.origin
-      Queue Owner Name: of_queue.developer_name
-      Customer Segmentation: of_customer_group.key_acct_tp_cd
-      Customer Group: of_customer_group.cust_grp_and_name
-      Customer: of_customer.customer_cd_and_name
-      Contact Name: of_contact.name
-      Sales Team Member: of_sales_team_member.team_role
-      Customer Type: of_customer.customer_type
-    row: 39
-    col: 8
-    width: 8
-    height: 6
-  - title: Total
-    name: Total
-    model: oneforce_service
-    explore: of_case
-    type: single_value
-    fields: [of_case.case_distinct_count_drill]
-    limit: 500
-    custom_color_enabled: true
-    show_single_value_title: true
-    show_comparison: false
-    comparison_type: value
-    comparison_reverse_colors: false
-    show_comparison_label: true
-    enable_conditional_formatting: false
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    custom_color: "#7f0b4d"
-    single_value_title: Total
-    value_format: '[>=1000000]0.0,,"M";[>=1000]0.0,"K";0'
-    conditional_formatting: [{type: not null, value: !!null '', background_color: "#BD0F72",
-        font_color: !!null '', color_application: {collection_id: one-theme, palette_id: one-theme-sequential-0},
-        bold: false, italic: false, strikethrough: false, fields: !!null ''}]
-    series_types: {}
-    defaults_version: 1
-    note_state: collapsed
-    note_display: hover
-    note_text: '<P style="text-align:left;"><B>Metric Name : </B>No. of Total Cases<BR><B>How
-      it Helps : </B>To evaluate the no. of Total cases<BR>[ALL Case Status]<BR><B>Target
-      : </B>TBD'
-    listen:
-      Channel: of_case.origin
-      Status: of_case.status
-      RHQ (Case): of_case.Regional_Head_Office
-      Cluster Country: of_case.case_country
-      Individual Country: of_case.country
-      Office (Case): of_case.case_office_code
-      Initial Queue Name: of_case.Initial_Queue_Name
-      Case Number: of_case.casenumber
-      Topic (L3): of_case.subordinate_category_l3
-      First Contact Resolution: of_case.first_contact_resolution
-      Web Email: of_case.supplied_email
-      Date Granularity: of_case.timeframe_picker
-      Open Date: of_case.createddate_filter_date
-      Reopened Case: of_case.Case_reopened
-      Dynamic Filter - View By: of_case.Geo_Param
-      Priority: of_case.priority
-      Contact Email: of_case.contactemail
-      eComm ID: of_case.ecomm_id
-      Contract Number: of_case.contract_number
-      Case Rating: of_case.case_rating
-      Service or Contract Customer: of_case.Service_Contract_Customer
-      Sub Resolution Reason: of_case.sub_resolution_reason
-      Category (L1): of_case.reason
-      Subtopic (L4): of_case.subordinate_category_l4
-      Service Type: of_case.type
-      Closed Date: of_case.closeddate_date
-      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
-      Original Record Type: of_case.original_record_type
-      Has Leave Message: of_case.has_leave_message_filter
-      Resolution Reason: of_case.resolution_reason
-      Office Type: case_owner.officetype
-      Case Owner: case_owner.name
-      Role: of_escalation_history.role
-      Profile: case_owner.profile_name_service
-      Category (L2): of_case.sub_category_l2
-      Awaiting Internal Team Response: of_case_history_air.status_case_Analysis
-      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
-      Country (Case Owner): user_office_hierarchy.country
-      Office (Case Owner): user_office_hierarchy.office_code
-      Source of Chat: of_chat_transcript.origin
-      Queue Owner Name: of_queue.developer_name
-      Customer Segmentation: of_customer_group.key_acct_tp_cd
-      Customer Group: of_customer_group.cust_grp_and_name
-      Customer: of_customer.customer_cd_and_name
-      Contact Name: of_contact.name
-      Sales Team Member: of_sales_team_member.team_role
-      Customer Type: of_customer.customer_type
-    row: 0
-    col: 6
-    width: 2
-    height: 2
-  - title: CSAT by Location*
-    name: CSAT by Location*
-    model: oneforce_service
-    explore: of_case
-    type: looker_column
-    fields: [of_case.Case_Geo, of_case.rating_case_chat, of_case.case_distinct_count_csat]
-    pivots: [of_case.rating_case_chat]
-    filters: {}
-    sorts: [of_case.Case_Geo, of_case.rating_case_chat]
+      of_case.Is_On_Hold: "-NULL"
+    sorts: [of_case.Is_On_Hold, of_case.case_distinct_count desc 0]
     limit: 500
     column_limit: 50
     x_axis_gridlines: false
     y_axis_gridlines: false
     show_view_names: false
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
+    show_y_axis_labels: false
+    show_y_axis_ticks: false
     y_axis_tick_density: default
     y_axis_tick_density_custom: 5
     show_x_axis_label: false
@@ -2303,792 +2888,206 @@
     show_null_labels: false
     show_totals_labels: false
     show_silhouette: false
-    totals_color: "#808080"
-    y_axes: [{label: '', orientation: left, series: [{axisId: of_case.case_distinct_count,
-            id: of_case.case_distinct_count, name: Distinct Count}, {axisId: good_rating,
-            id: good_rating, name: Good Rating}], showLabels: false, showValues: false,
-        unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
+    totals_color: "#CCD3D1"
+    color_application:
+      collection_id: one-theme
+      palette_id: one-theme-categorical-0
+      options:
+        steps: 5
+    y_axes: [{label: !!null '', orientation: top, series: [{axisId: of_case.AVG_FIRST_CONTACT_RESOLUTION,
+            id: of_case.AVG_FIRST_CONTACT_RESOLUTION, name: FCR}], showLabels: false,
+        showValues: false, unpinAxis: false, tickDensity: default, type: linear},
+      {label: '', orientation: bottom, series: [{axisId: of_case.case_distinct_count,
+            id: of_case.case_distinct_count, name: Case}], showLabels: false, showValues: false,
+        unpinAxis: false, tickDensity: default, type: linear}]
+    size_by_field: ''
     x_axis_zoom: true
     y_axis_zoom: true
     limit_displayed_rows_values:
       show_hide: hide
       first_last: first
       num_rows: 0
-    hidden_series: [of_case.case_rating___null - of_case.case_distinct_count]
-    series_types:
-      good_rating: line
+    hide_legend: false
+    font_size: '12'
+    label_value_format: ''
+    series_types: {}
     series_colors:
-      good_rating: "#84C5C3"
-      Good - of_case.case_distinct_count: "#BD0F72"
-      Bad - of_case.case_distinct_count: "#F39200"
-      of_case.case_rating___null - of_case.case_distinct_count: "#8b908f"
-      No Rating - of_case.case_distinct_count: "#8b908f"
-      Bad - of_case.case_distinct_count_csat: "#F39200"
-      Good - of_case.case_distinct_count_csat: "#BD0F72"
-      No Rating - of_case.case_distinct_count_csat: "#8b908f"
+      Bad: "#000000"
+      Good: "#BD0F72"
+      of_case.case_distinct_count: "#F39200"
+      of_case.AVG_FIRST_CONTACT_RESOLUTION: "#00506D"
+      Yes - of_case.case_distinct_count: "#BD0F72"
+      No - of_case.case_distinct_count: "#CCD3D1"
+      On-Hold Cases - of_case.Transferred_Case_count_distinct: "#F39200"
+      On-Hold Cases - of_case.case_distinct_count: "#F39200"
     series_labels:
       of_case.case_distinct_count: Case
-      of_case.case_rating___null - of_case.case_distinct_count: No Rating
-      Good - of_case.case_distinct_count: Good
-      Bad - of_case.case_distinct_count: bad
-      No Rating - of_case.case_distinct_count: No Rating
-    defaults_version: 1
-    note_state: collapsed
-    note_display: hover
-    note_text: '<P style="text-align:left;"><B>Metric Name : </B>Customer Rating by
-      Location <BR><B>How it Helps : </B>To evaluate cases rated Good v/s number of
-      cases received <BR><B>Target : </B>TBD'
-    hidden_pivots: {}
-    listen:
-      Channel: of_case.origin
-      Status: of_case.status
-      RHQ (Case): of_case.Regional_Head_Office
-      Cluster Country: of_case.case_country
-      Individual Country: of_case.country
-      Office (Case): of_case.case_office_code
-      Initial Queue Name: of_case.Initial_Queue_Name
-      Case Number: of_case.casenumber
-      Topic (L3): of_case.subordinate_category_l3
-      First Contact Resolution: of_case.first_contact_resolution
-      Web Email: of_case.supplied_email
-      Date Granularity: of_case.timeframe_picker
-      Open Date: of_case.createddate_filter_date
-      Reopened Case: of_case.Case_reopened
-      Dynamic Filter - View By: of_case.Geo_Param
-      Priority: of_case.priority
-      Contact Email: of_case.contactemail
-      eComm ID: of_case.ecomm_id
-      Contract Number: of_case.contract_number
-      Case Rating: of_case.case_rating
-      Service or Contract Customer: of_case.Service_Contract_Customer
-      Sub Resolution Reason: of_case.sub_resolution_reason
-      Category (L1): of_case.reason
-      Subtopic (L4): of_case.subordinate_category_l4
-      Service Type: of_case.type
-      Closed Date: of_case.closeddate_date
-      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
-      Original Record Type: of_case.original_record_type
-      Has Leave Message: of_case.has_leave_message_filter
-      Resolution Reason: of_case.resolution_reason
-      Office Type: case_owner.officetype
-      Case Owner: case_owner.name
-      Role: of_escalation_history.role
-      Profile: case_owner.profile_name_service
-      Category (L2): of_case.sub_category_l2
-      Awaiting Internal Team Response: of_case_history_air.status_case_Analysis
-      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
-      Country (Case Owner): user_office_hierarchy.country
-      Office (Case Owner): user_office_hierarchy.office_code
-      Source of Chat: of_chat_transcript.origin
-      Queue Owner Name: of_queue.developer_name
-      Customer Segmentation: of_customer_group.key_acct_tp_cd
-      Customer Group: of_customer_group.cust_grp_and_name
-      Customer: of_customer.customer_cd_and_name
-      Contact Name: of_contact.name
-      Sales Team Member: of_sales_team_member.team_role
-      Customer Type: of_customer.customer_type
-      CSAT: of_case.csat_Param
-    row: 39
-    col: 16
-    width: 8
-    height: 6
-  - title: Case Escalation Ratio by Location*
-    name: Case Escalation Ratio by Location*
-    model: oneforce_service
-    explore: of_case
-    type: looker_column
-    fields: [of_case.Case_Geo, total_escalation, of_case.case_distinct_count]
-    pivots: [total_escalation]
-    sorts: [of_case.Case_Geo, total_escalation]
-    limit: 500
-    dynamic_fields: [{category: dimension, expression: 'if(${of_case.total_escalation}
-          > 0, "Yes", "No")', label: Total Escalation, value_format: !!null '', value_format_name: !!null '',
-        dimension: total_escalation, _kind_hint: dimension, _type_hint: string}]
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_view_names: false
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: false
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: true
-    plot_size_by_field: false
-    trellis: ''
-    stacking: percent
-    limit_displayed_rows: false
-    legend_position: center
-    point_style: none
-    show_value_labels: true
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: false
-    show_silhouette: false
-    totals_color: "#808080"
-    y_axes: [{label: '', orientation: left, series: [{axisId: false - of_case.count,
-            id: false - of_case.count, name: Total Cases}, {axisId: true - of_case.count,
-            id: true - of_case.count, name: Escalated Cases}], showLabels: false,
-        showValues: false, unpinAxis: false, tickDensity: default, tickDensityCustom: 5,
-        type: linear}]
-    series_colors:
-      false - of_case.count: "#BD0F72"
-      true - of_case.count: "#F39200"
-      Yes - of_case.count: "#F39200"
-      Yes - of_case.case_distinct_count: "#F39200"
-    series_labels:
-      false - of_case.count: Total Cases
-      true - of_case.count: Escalated Cases
-      No - of_case.count: Total Cases
-      Yes - of_case.count: Escalated Cases
-      No - of_case.case_distinct_count: Total Cases
-      Yes - of_case.case_distinct_count: Escalated Cases
-    defaults_version: 1
-    note_state: collapsed
-    note_display: hover
-    note_text: '<P style="text-align:left;"><B>Metric Name : </B>Case Escalation Ratio<BR><B>How
-      it Helps : </B>To evaluate no. of Escalated cases<BR>[ALL Case Status, Total
-      Escalation>0]<BR><B>Target : </B>TBD'
-    listen:
-      Channel: of_case.origin
-      Status: of_case.status
-      RHQ (Case): of_case.Regional_Head_Office
-      Cluster Country: of_case.case_country
-      Individual Country: of_case.country
-      Office (Case): of_case.case_office_code
-      Initial Queue Name: of_case.Initial_Queue_Name
-      Case Number: of_case.casenumber
-      Topic (L3): of_case.subordinate_category_l3
-      First Contact Resolution: of_case.first_contact_resolution
-      Web Email: of_case.supplied_email
-      Date Granularity: of_case.timeframe_picker
-      Open Date: of_case.createddate_filter_date
-      Reopened Case: of_case.Case_reopened
-      Dynamic Filter - View By: of_case.Geo_Param
-      Priority: of_case.priority
-      Contact Email: of_case.contactemail
-      eComm ID: of_case.ecomm_id
-      Contract Number: of_case.contract_number
-      Case Rating: of_case.case_rating
-      Service or Contract Customer: of_case.Service_Contract_Customer
-      Sub Resolution Reason: of_case.sub_resolution_reason
-      Category (L1): of_case.reason
-      Subtopic (L4): of_case.subordinate_category_l4
-      Service Type: of_case.type
-      Closed Date: of_case.closeddate_date
-      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
-      Original Record Type: of_case.original_record_type
-      Has Leave Message: of_case.has_leave_message_filter
-      Resolution Reason: of_case.resolution_reason
-      Office Type: case_owner.officetype
-      Case Owner: case_owner.name
-      Role: of_escalation_history.role
-      Profile: case_owner.profile_name_service
-      Category (L2): of_case.sub_category_l2
-      Awaiting Internal Team Response: of_case_history_air.status_case_Analysis
-      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
-      Country (Case Owner): user_office_hierarchy.country
-      Office (Case Owner): user_office_hierarchy.office_code
-      Source of Chat: of_chat_transcript.origin
-      Queue Owner Name: of_queue.developer_name
-      Customer Segmentation: of_customer_group.key_acct_tp_cd
-      Customer Group: of_customer_group.cust_grp_and_name
-      Customer: of_customer.customer_cd_and_name
-      Contact Name: of_contact.name
-      Sales Team Member: of_sales_team_member.team_role
-      Customer Type: of_customer.customer_type
-    row: 8
-    col: 12
-    width: 12
-    height: 6
-  - title: Deflection Ratio by Location*
-    name: Deflection Ratio by Location*
-    model: oneforce_service
-    explore: of_case
-    type: looker_column
-    fields: [of_case.origin, of_case.Case_Geo, of_case.deflection_ratio, of_case.case_distinct_count]
-    pivots: [of_case.origin]
-    sorts: [of_case.origin, of_case.Case_Geo]
-    limit: 500
-    column_limit: 50
-    dynamic_fields: [{category: table_calculation, label: Percent of row, value_format: !!null '',
-        value_format_name: percent_0, calculation_type: percent_of_row, table_calculation: percent_of_row,
-        args: [of_case.case_distinct_count], _kind_hint: measure, _type_hint: number,
-        is_disabled: true}]
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_view_names: false
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: false
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: ''
-    stacking: percent
-    limit_displayed_rows: false
-    legend_position: center
-    point_style: none
-    show_value_labels: true
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: false
-    show_silhouette: false
-    totals_color: "#808080"
-    y_axes: [{label: '', orientation: left, series: [{axisId: percent_of_row, id: Chat
-              - percent_of_row, name: Chat}, {axisId: percent_of_row, id: Email -
-              percent_of_row, name: Email}, {axisId: percent_of_row, id: Internal
-              - percent_of_row, name: Internal}, {axisId: percent_of_row, id: Phone
-              - percent_of_row, name: Phone}, {axisId: percent_of_row, id: Web - percent_of_row,
-            name: Web}], showLabels: false, showValues: false, unpinAxis: false, tickDensity: default,
-        tickDensityCustom: 5, type: linear}]
-    x_axis_zoom: true
-    y_axis_zoom: true
-    series_colors:
-      Web - percent_of_row: "#CCD3D1"
-      Email - percent_of_row: "#340335"
-      Internal - percent_of_row: "#00506D"
-      Phone - percent_of_row: "#84C5C3"
-    defaults_version: 1
-    hidden_fields: [of_case.deflection_ratio]
-    hidden_pivots: {}
-    note_state: collapsed
-    note_display: hover
-    note_text: '<P style="text-align:left;"><B>Metric Name : </B>Digital Deflection
-      Ratio<BR><B>How it Helps : </B>Measure how many of our Service Support channels
-      for Email, Internal and Phone are deflected to Chat and Web channels<BR>[Total
-      no. of Each Channel / Total Cases]<BR><B>Target : </B>TBD'
-    listen:
-      Channel: of_case.origin
-      Status: of_case.status
-      RHQ (Case): of_case.Regional_Head_Office
-      Cluster Country: of_case.case_country
-      Individual Country: of_case.country
-      Office (Case): of_case.case_office_code
-      Initial Queue Name: of_case.Initial_Queue_Name
-      Case Number: of_case.casenumber
-      Topic (L3): of_case.subordinate_category_l3
-      First Contact Resolution: of_case.first_contact_resolution
-      Web Email: of_case.supplied_email
-      Date Granularity: of_case.timeframe_picker
-      Open Date: of_case.createddate_filter_date
-      Reopened Case: of_case.Case_reopened
-      Dynamic Filter - View By: of_case.Geo_Param
-      Priority: of_case.priority
-      Contact Email: of_case.contactemail
-      eComm ID: of_case.ecomm_id
-      Contract Number: of_case.contract_number
-      Case Rating: of_case.case_rating
-      Service or Contract Customer: of_case.Service_Contract_Customer
-      Sub Resolution Reason: of_case.sub_resolution_reason
-      Category (L1): of_case.reason
-      Subtopic (L4): of_case.subordinate_category_l4
-      Service Type: of_case.type
-      Closed Date: of_case.closeddate_date
-      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
-      Original Record Type: of_case.original_record_type
-      Has Leave Message: of_case.has_leave_message_filter
-      Resolution Reason: of_case.resolution_reason
-      Office Type: case_owner.officetype
-      Case Owner: case_owner.name
-      Role: of_escalation_history.role
-      Profile: case_owner.profile_name_service
-      Category (L2): of_case.sub_category_l2
-      Awaiting Internal Team Response: of_case_history_air.status_case_Analysis
-      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
-      Country (Case Owner): user_office_hierarchy.country
-      Office (Case Owner): user_office_hierarchy.office_code
-      Source of Chat: of_chat_transcript.origin
-      Queue Owner Name: of_queue.developer_name
-      Customer Segmentation: of_customer_group.key_acct_tp_cd
-      Customer Group: of_customer_group.cust_grp_and_name
-      Customer: of_customer.customer_cd_and_name
-      Contact Name: of_contact.name
-      Sales Team Member: of_sales_team_member.team_role
-      Customer Type: of_customer.customer_type
-    row: 66
-    col: 0
-    width: 12
-    height: 7
-  - title: Overall Deflection Ratio
-    name: Overall Deflection Ratio
-    model: oneforce_service
-    explore: of_case
-    type: single_value
-    fields: [of_case.deflection_ratio]
-    limit: 500
-    custom_color_enabled: true
-    show_single_value_title: true
-    show_comparison: false
-    comparison_type: value
-    comparison_reverse_colors: false
-    show_comparison_label: true
-    enable_conditional_formatting: false
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    custom_color: "#7f0b4d"
-    conditional_formatting: [{type: not null, value: !!null '', background_color: "#BD0F72",
-        font_color: !!null '', color_application: {collection_id: one-theme, palette_id: one-theme-sequential-0},
-        bold: false, italic: false, strikethrough: false, fields: !!null ''}]
-    defaults_version: 1
-    note_state: collapsed
-    note_display: hover
-    note_text: '<P style="text-align:left;"><B>Metric Name : </B>Ratio of cases that
-      are deflected to Chat and Web Channel . Exclude self-service links that are
-      routed to a mailbox, forms that is served by our own agents<BR><B>How it Helps
-      : </B>To evaluate the Case Deflection ratio to Chat and Web Channel that is
-      TRUE Deflection<BR>[Total Chat & Web Cases (exclude "Is Digital Deflection"
-      = False cases) / Total Cases]<BR><B>Target : </B>TBD'
-    listen:
-      Channel: of_case.origin
-      Status: of_case.status
-      RHQ (Case): of_case.Regional_Head_Office
-      Cluster Country: of_case.case_country
-      Individual Country: of_case.country
-      Office (Case): of_case.case_office_code
-      Initial Queue Name: of_case.Initial_Queue_Name
-      Case Number: of_case.casenumber
-      Topic (L3): of_case.subordinate_category_l3
-      First Contact Resolution: of_case.first_contact_resolution
-      Web Email: of_case.supplied_email
-      Date Granularity: of_case.timeframe_picker
-      Open Date: of_case.createddate_filter_date
-      Reopened Case: of_case.Case_reopened
-      Dynamic Filter - View By: of_case.Geo_Param
-      Priority: of_case.priority
-      Contact Email: of_case.contactemail
-      eComm ID: of_case.ecomm_id
-      Contract Number: of_case.contract_number
-      Case Rating: of_case.case_rating
-      Service or Contract Customer: of_case.Service_Contract_Customer
-      Sub Resolution Reason: of_case.sub_resolution_reason
-      Category (L1): of_case.reason
-      Subtopic (L4): of_case.subordinate_category_l4
-      Service Type: of_case.type
-      Closed Date: of_case.closeddate_date
-      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
-      Original Record Type: of_case.original_record_type
-      Has Leave Message: of_case.has_leave_message_filter
-      Resolution Reason: of_case.resolution_reason
-      Office Type: case_owner.officetype
-      Case Owner: case_owner.name
-      Role: of_escalation_history.role
-      Profile: case_owner.profile_name_service
-      Category (L2): of_case.sub_category_l2
-      Awaiting Internal Team Response: of_case_history_air.status_case_Analysis
-      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
-      Country (Case Owner): user_office_hierarchy.country
-      Office (Case Owner): user_office_hierarchy.office_code
-      Source of Chat: of_chat_transcript.origin
-      Queue Owner Name: of_queue.developer_name
-      Customer Segmentation: of_customer_group.key_acct_tp_cd
-      Customer Group: of_customer_group.cust_grp_and_name
-      Customer: of_customer.customer_cd_and_name
-      Contact Name: of_contact.name
-      Sales Team Member: of_sales_team_member.team_role
-      Customer Type: of_customer.customer_type
-    row: 0
-    col: 16
-    width: 3
-    height: 2
-  - title: Deflection Trend by Location*
-    name: Deflection Trend by Location*
-    model: oneforce_service
-    explore: of_case
-    type: looker_line
-    fields: [of_case.Case_Geo, of_case.createddate_dynamic, of_case.deflection_ratio]
-    pivots: [of_case.Case_Geo]
-    sorts: [of_case.createddate_dynamic desc, of_case.Case_Geo]
-    limit: 500
-    row_total: right
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_view_names: false
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: false
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: ''
-    stacking: ''
-    limit_displayed_rows: false
-    legend_position: center
-    point_style: none
-    show_value_labels: true
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
+      of_case.AVG_FIRST_CONTACT_RESOLUTION: FCR
+    series_point_styles:
+      of_case.AVG_FIRST_CONTACT_RESOLUTION: triangle
+    label_color: []
+    column_group_spacing_ratio: 0.1
+    leftAxisLabelVisible: false
+    leftAxisLabel: ''
+    rightAxisLabelVisible: true
+    rightAxisLabel: ''
+    smoothedBars: false
+    isStepped: false
+    orientation: automatic
+    labelPosition: left
+    percentType: total
+    percentPosition: inline
+    valuePosition: right
+    labelColorEnabled: false
+    labelColor: "#FFF"
+    value_labels: labels
+    label_type: labPer
+    inner_radius: 20
+    color_range: ["#4285F4", "#EA4335", "#FBBC04", "#34A852", "#5F6368"]
+    color_by: node
     show_null_points: false
+    value_format_override: ''
+    show_percent: true
+    arm_length: 25
+    arm_weight: 50
+    spinner_length: 100
+    spinner_weight: 50
+    viz_trellis_by: none
+    angle: 90
+    cutout: 50
+    range_x: 1
+    range_y: 1
+    up_color: "#BD0F72"
+    down_color: "#F39200"
+    total_color: "#00506D"
     interpolation: linear
-    y_axes: [{label: '', orientation: left, series: [{axisId: of_case.deflection_ratio,
-            id: HKGHQ - of_case.deflection_ratio, name: HKGHQ}, {axisId: of_case.deflection_ratio,
-            id: LONHQ - of_case.deflection_ratio, name: LONHQ}, {axisId: of_case.deflection_ratio,
-            id: RICHQ - of_case.deflection_ratio, name: RICHQ}, {axisId: of_case.deflection_ratio,
-            id: SAOHQ - of_case.deflection_ratio, name: SAOHQ}, {axisId: of_case.deflection_ratio,
-            id: SINHQ - of_case.deflection_ratio, name: SINHQ}, {axisId: of_case.deflection_ratio,
-            id: Row Total - of_case.deflection_ratio, name: Row Total}], showLabels: false,
-        showValues: false, unpinAxis: false, tickDensity: default, tickDensityCustom: 5,
-        type: linear}]
-    series_colors:
-      LONHQ - of_case.deflection_ratio: "#8b908f"
-    series_labels:
-      Row Total - of_case.deflection_ratio: Global
-      1 - of_case.deflection_ratio: GKA
-      2 - of_case.deflection_ratio: RKA
-      3 - of_case.deflection_ratio: LKA
-      4 - of_case.deflection_ratio: ONECare
-    defaults_version: 1
-    note_state: collapsed
-    note_display: hover
-    note_text: '<P style="text-align:left;"><B>Metric Name : </B>Ratio of cases that
-      are deflected to Chat and Web Channel by Trend. Exclude self-service links that
-      are routed to a mailbox, forms that is served by our own agents<BR><B>How it
-      Helps : </B>To evaluate the trend of Case Deflection ratio to Chat and Web Channel
-      <BR>[Total Chat & Web Cases  / Total Cases]<BR><B>Target : </B>TBD'
-    listen:
-      Channel: of_case.origin
-      Status: of_case.status
-      RHQ (Case): of_case.Regional_Head_Office
-      Cluster Country: of_case.case_country
-      Individual Country: of_case.country
-      Office (Case): of_case.case_office_code
-      Initial Queue Name: of_case.Initial_Queue_Name
-      Case Number: of_case.casenumber
-      Topic (L3): of_case.subordinate_category_l3
-      First Contact Resolution: of_case.first_contact_resolution
-      Web Email: of_case.supplied_email
-      Date Granularity: of_case.timeframe_picker
-      Open Date: of_case.createddate_filter_date
-      Reopened Case: of_case.Case_reopened
-      Dynamic Filter - View By: of_case.Geo_Param
-      Priority: of_case.priority
-      Contact Email: of_case.contactemail
-      eComm ID: of_case.ecomm_id
-      Contract Number: of_case.contract_number
-      Case Rating: of_case.case_rating
-      Service or Contract Customer: of_case.Service_Contract_Customer
-      Sub Resolution Reason: of_case.sub_resolution_reason
-      Category (L1): of_case.reason
-      Subtopic (L4): of_case.subordinate_category_l4
-      Service Type: of_case.type
-      Closed Date: of_case.closeddate_date
-      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
-      Original Record Type: of_case.original_record_type
-      Has Leave Message: of_case.has_leave_message_filter
-      Resolution Reason: of_case.resolution_reason
-      Office Type: case_owner.officetype
-      Case Owner: case_owner.name
-      Role: of_escalation_history.role
-      Profile: case_owner.profile_name_service
-      Category (L2): of_case.sub_category_l2
-      Awaiting Internal Team Response: of_case_history_air.status_case_Analysis
-      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
-      Country (Case Owner): user_office_hierarchy.country
-      Office (Case Owner): user_office_hierarchy.office_code
-      Source of Chat: of_chat_transcript.origin
-      Queue Owner Name: of_queue.developer_name
-      Customer Segmentation: of_customer_group.key_acct_tp_cd
-      Customer Group: of_customer_group.cust_grp_and_name
-      Customer: of_customer.customer_cd_and_name
-      Contact Name: of_contact.name
-      Sales Team Member: of_sales_team_member.team_role
-      Customer Type: of_customer.customer_type
-    row: 66
-    col: 12
-    width: 12
-    height: 7
-  - name: " (2)"
-    type: text
-    title_text: ''
-    subtitle_text: ''
-    body_text: |-
-      ######Notes
-      * Data shown is in UTC Time Zone
-      * *- Charts based on the dynamic filter. Please use the 'View By' option to change the charts dynamically
-      * **- Charts based on the dynamic filter. Please use the 'Transferred Cases By' option to change the charts dynamically
-    row: 80
-    col: 9
-    width: 8
-    height: 4
-  - title: Overall CSAT Rating
-    name: Overall CSAT Rating
-    model: oneforce_service
-    explore: of_case
-    type: single_value
-    fields: [of_case.customer_satisfaction_ratio_case_chat]
-    filters:
-      case_rating_for_filter: ''
-      channel_for_filter: ''
-      chat_rating_for_filter: ''
-    limit: 500
-    column_limit: 50
-    dynamic_fields: [{category: measure, expression: !!null '', label: All Rating,
-        value_format: !!null '', value_format_name: !!null '', based_on: of_case.casenumber,
-        _kind_hint: measure, measure: all_rating, type: count_distinct, _type_hint: number,
-        filters: {of_chat_transcript.chat_case_rating: 'Good,Bad'}}, {category: measure,
-        expression: !!null '', label: Good Rating, value_format: !!null '', value_format_name: !!null '',
-        based_on: of_case.casenumber, _kind_hint: measure, measure: good_rating, type: count_distinct,
-        _type_hint: number, filters: {of_chat_transcript.chat_case_rating: Good}},
-      {category: table_calculation, expression: "${good_rating} / ${all_rating}",
-        label: Diff, value_format: !!null '', value_format_name: percent_0, _kind_hint: measure,
-        table_calculation: diff, _type_hint: number, is_disabled: true}, {category: dimension,
-        expression: "${of_case.case_rating}", label: Case Rating for Filter, value_format: !!null '',
-        value_format_name: !!null '', dimension: case_rating_for_filter, _kind_hint: dimension,
-        _type_hint: string}, {category: dimension, expression: "${of_case.origin}",
-        label: Channel For Filter, value_format: !!null '', value_format_name: !!null '',
-        dimension: channel_for_filter, _kind_hint: dimension, _type_hint: string},
-      {category: dimension, expression: "${of_chat_transcript.chat_case_rating}",
-        label: Chat Rating for Filter, value_format: !!null '', value_format_name: !!null '',
-        dimension: chat_rating_for_filter, _kind_hint: dimension, _type_hint: string}]
-    custom_color_enabled: true
-    show_single_value_title: true
-    show_comparison: false
-    comparison_type: value
-    comparison_reverse_colors: false
-    show_comparison_label: true
-    enable_conditional_formatting: false
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    custom_color: "#7f0b4d"
-    conditional_formatting: [{type: greater than, value: 0.5, background_color: "#BD0F72",
-        font_color: !!null '', color_application: {collection_id: one-theme, palette_id: one-theme-sequential-0},
-        bold: false, italic: false, strikethrough: false, fields: !!null ''}, {type: less
-          than, value: 0.5, background_color: "#FFE2B7", font_color: !!null '', color_application: {
-          collection_id: one-theme, palette_id: one-theme-sequential-0}, bold: false,
-        italic: false, strikethrough: false, fields: !!null ''}]
-    circleThickness: 0.5
-    circleFillGap: 0.5
-    textVertPosition: 0.5
-    textSize: 0.5
-    displayPercent: true
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_view_names: false
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: true
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: ''
-    stacking: ''
-    limit_displayed_rows: false
-    legend_position: center
-    point_style: none
-    show_value_labels: false
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: false
-    show_silhouette: false
-    totals_color: "#808080"
+    bar_arm_length: 25
+    bar_arm_weight: 50
+    bar_spinner_length: 100
+    bar_spinner_weight: 50
     defaults_version: 1
     hidden_fields: []
-    series_types: {}
     hidden_points_if_no: []
-    series_labels: {}
-    hidden_pivots: {}
-    note_state: collapsed
-    note_display: hover
-    note_text: |-
-      <P style="text-align:left;"><B>Metric Name : </B>Overall CSAT Good Rating ratio<BR><B>How it Helps : </B>To evaluate the overall CSAT Good rating ratio<BR>
-      [Good CSAT rating / Total Good and Bad Rating in %]<BR><B>Target : </B>TBD
-    listen:
-      Channel: of_case.origin
-      Status: of_case.status
-      RHQ (Case): of_case.Regional_Head_Office
-      Cluster Country: of_case.case_country
-      Individual Country: of_case.country
-      Office (Case): of_case.case_office_code
-      Initial Queue Name: of_case.Initial_Queue_Name
-      Case Number: of_case.casenumber
-      Topic (L3): of_case.subordinate_category_l3
-      First Contact Resolution: of_case.first_contact_resolution
-      Web Email: of_case.supplied_email
-      Date Granularity: of_case.timeframe_picker
-      Open Date: of_case.createddate_filter_date
-      Reopened Case: of_case.Case_reopened
-      Dynamic Filter - View By: of_case.Geo_Param
-      Priority: of_case.priority
-      Contact Email: of_case.contactemail
-      eComm ID: of_case.ecomm_id
-      Contract Number: of_case.contract_number
-      Case Rating: of_case.case_rating
-      Service or Contract Customer: of_case.Service_Contract_Customer
-      Sub Resolution Reason: of_case.sub_resolution_reason
-      Category (L1): of_case.reason
-      Subtopic (L4): of_case.subordinate_category_l4
-      Service Type: of_case.type
-      Closed Date: of_case.closeddate_date
-      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
-      Original Record Type: of_case.original_record_type
-      Has Leave Message: of_case.has_leave_message_filter
-      Resolution Reason: of_case.resolution_reason
-      Office Type: case_owner.officetype
-      Case Owner: case_owner.name
-      Role: of_escalation_history.role
-      Profile: case_owner.profile_name_service
-      Category (L2): of_case.sub_category_l2
-      Awaiting Internal Team Response: of_case_history_air.status_case_Analysis
-      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
-      Country (Case Owner): user_office_hierarchy.country
-      Office (Case Owner): user_office_hierarchy.office_code
-      Source of Chat: of_chat_transcript.origin
-      Queue Owner Name: of_queue.developer_name
-      Customer Segmentation: of_customer_group.key_acct_tp_cd
-      Customer Group: of_customer_group.cust_grp_and_name
-      Customer: of_customer.customer_cd_and_name
-      Contact Name: of_contact.name
-      Sales Team Member: of_sales_team_member.team_role
-      Customer Type: of_customer.customer_type
-      CSAT: of_case.csat_Param
-    row: 0
-    col: 19
-    width: 3
-    height: 2
-  - title: Global NPS
-    name: Global NPS
-    model: oneforce_service
-    explore: of_case
-    type: single_value
-    fields: [of_case.global_nps_case_chat]
-    limit: 500
-    column_limit: 50
-    custom_color_enabled: true
-    show_single_value_title: true
-    show_comparison: false
-    comparison_type: value
-    comparison_reverse_colors: false
-    show_comparison_label: true
+    show_row_numbers: true
+    transpose: false
+    truncate_text: true
+    hide_totals: false
+    hide_row_totals: false
+    size_to_fit: true
+    table_theme: white
     enable_conditional_formatting: false
+    header_text_alignment: left
+    header_font_size: 12
+    rows_font_size: 12
     conditional_formatting_include_totals: false
     conditional_formatting_include_nulls: false
-    custom_color: "#7f0b4d"
-    value_format: '[>=1000000]0.0,,"M";[>=1000]0.0,"K";0'
-    conditional_formatting: [{type: greater than, value: 0, background_color: "#BD0F72",
-        font_color: !!null '', color_application: {collection_id: one-theme, palette_id: one-theme-sequential-0},
-        bold: false, italic: false, strikethrough: false, fields: !!null ''}]
-    defaults_version: 1
+    map_plot_mode: points
+    heatmap_gridlines: false
+    heatmap_gridlines_empty: false
+    heatmap_opacity: 0.5
+    show_region_field: true
+    draw_map_labels_above_data: true
+    map_tile_provider: light
+    map_position: fit_data
+    map_scale_indicator: 'off'
+    map_pannable: true
+    map_zoomable: true
+    map_marker_type: circle
+    map_marker_icon_name: default
+    map_marker_radius_mode: proportional_value
+    map_marker_units: meters
+    map_marker_proportional_scale_type: linear
+    map_marker_color_mode: fixed
+    show_legend: true
+    quantize_map_value_colors: false
+    reverse_map_value_colors: false
     hidden_pivots: {}
-    note_state: collapsed
-    note_display: hover
-    note_text: |-
-      <P style="text-align:left;"><B>Metric Name : </B>Global Net Promoter Score<BR><B>How it Helps : </B>To measure our Customer Brand Loyalty<BR>
-      <BR>
-      [NPS Computation:<BR>
-      Detractors: NPS Score 1 to 6<BR>
-      Passives: NPS Score 7 to 8<BR>
-      Promoters: NPS Score 9 to 10<BR><BR>
-
-      Detractors %: No. Of Detractors responses / Total responses (Detractors, Passives, Promoters)<BR>
-      Promoters %: No. Of Promoters responses / Total responses (Detractors, Passives, Promoters)<BR>
-      <BR>
-      NPS : Promoters % - Detractors %]<BR><B>Target : </B>TBD
     listen:
-      Channel: of_case.origin
       Status: of_case.status
-      RHQ (Case): of_case.Regional_Head_Office
-      Cluster Country: of_case.case_country
-      Individual Country: of_case.country
-      Office (Case): of_case.case_office_code
-      Initial Queue Name: of_case.Initial_Queue_Name
-      Case Number: of_case.casenumber
-      Topic (L3): of_case.subordinate_category_l3
-      First Contact Resolution: of_case.first_contact_resolution
-      Web Email: of_case.supplied_email
-      Date Granularity: of_case.timeframe_picker
-      Open Date: of_case.createddate_filter_date
-      Reopened Case: of_case.Case_reopened
-      Dynamic Filter - View By: of_case.Geo_Param
       Priority: of_case.priority
-      Contact Email: of_case.contactemail
-      eComm ID: of_case.ecomm_id
-      Contract Number: of_case.contract_number
-      Case Rating: of_case.case_rating
-      Service or Contract Customer: of_case.Service_Contract_Customer
-      Sub Resolution Reason: of_case.sub_resolution_reason
+      Category (L2): of_case.sub_category_l2
+      Topic (L3): of_case.subordinate_category_l3
+      RHQ (Case): of_case.Regional_Head_Office
+      Office (Case): of_case.case_office_code
       Category (L1): of_case.reason
-      Subtopic (L4): of_case.subordinate_category_l4
-      Service Type: of_case.type
+      Resolution Reason: of_case.resolution_reason
+      Sub Resolution Reason: of_case.sub_resolution_reason
+      Case Number: of_case.casenumber
+      Contract Number: of_case.contract_number
+      Initial Queue Name: of_case.Initial_Queue_Name
+      Web Email: of_case.supplied_email
       Closed Date: of_case.closeddate_date
       Case Resolved Date: of_case.Case_Resolved_Date_Time_date
-      Original Record Type: of_case.original_record_type
-      Has Leave Message: of_case.has_leave_message_filter
-      Resolution Reason: of_case.resolution_reason
-      Office Type: case_owner.officetype
+      Service or Contract Customer: of_case.Service_Contract_Customer
+      Dynamic Filter - View By: of_case.Geo_Param
+      Service Type: of_case.type
+      Date Granularity: of_case.timeframe_picker
       Case Owner: case_owner.name
-      Role: of_escalation_history.role
+      Subtopic (L4): of_case.subordinate_category_l4
+      Contact Email: of_case.contactemail
+      Original Record Type: of_case.original_record_type
+      Cluster Country: of_case.case_country
+      Individual Country: of_case.country
+      eComm ID: of_case.ecomm_id
+      Reopened Case: of_case.Case_reopened
+      Chat Owner: of_case.ct_owner_name1
+      Case Rating: of_case.case_rating
+      Has Leave Message: of_case.has_leave_message_filter
+      Channel: of_case.origin
       Profile: case_owner.profile_name_service
-      Category (L2): of_case.sub_category_l2
-      Awaiting Internal Team Response: of_case_history_air.status_case_Analysis
+      Role: of_escalation_history.role
+      Office Type: case_owner.officetype
       RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
       Country (Case Owner): user_office_hierarchy.country
       Office (Case Owner): user_office_hierarchy.office_code
       Source of Chat: of_chat_transcript.origin
       Queue Owner Name: of_queue.developer_name
       Customer Segmentation: of_customer_group.key_acct_tp_cd
-      Customer Group: of_customer_group.cust_grp_and_name
       Customer: of_customer.customer_cd_and_name
       Contact Name: of_contact.name
-      Sales Team Member: of_sales_team_member.team_role
       Customer Type: of_customer.customer_type
-      NPS: of_case.globalnps_Param
-    row: 0
-    col: 22
-    width: 2
-    height: 2
-  - title: NPS by Location*
-    name: NPS by Location*
+      Sales Team Member: of_sales_team_member.team_role
+      Customer Group: of_customer_group.cust_grp_and_name
+      Open Date: of_case.On_hold_chart_date_date
+    row: 55
+    col: 0
+    width: 12
+    height: 7
+  - title: First Response Time (Web) Histogram
+    name: First Response Time (Web) Histogram
     model: oneforce_service
     explore: of_case
     type: looker_column
-    fields: [of_case.Case_Geo, of_case.nps_segment_case_chat, of_case.case_distinct_count_nps]
-    pivots: [of_case.nps_segment_case_chat]
-    sorts: [of_case.Case_Geo, of_case.nps_segment_case_chat]
+    fields: [of_case.dynamic_FRT_tier, of_case.FRT_tier_count]
+    pivots: [of_case.dynamic_FRT_tier]
+    filters:
+      of_case.FRT_selector: Web
+      of_case.dynamic_FRT_tier: "-Undefined,-< 0.1"
+    sorts: [of_case.dynamic_FRT_tier]
     limit: 500
     column_limit: 50
-    dynamic_fields: [{category: dimension, expression: 'case (when(${of_chat_transcript.chat_nps_group}="No
-          Rating","Without Rating"),${of_chat_transcript.chat_nps_group})', label: NPS
-          Segment, value_format: !!null '', value_format_name: !!null '', dimension: nps_segment,
-        _kind_hint: dimension, _type_hint: string}]
+    dynamic_fields: [{category: table_calculation, expression: 'pivot_where(${of_case.dynamic_FRT_tier}
+          = "0", null)', label: Label, value_format: !!null '', value_format_name: !!null '',
+        _kind_hint: dimension, table_calculation: label, _type_hint: 'null', is_disabled: true},
+      {category: table_calculation, label: "% of total", value_format: !!null '',
+        value_format_name: percent_0, calculation_type: percent_of_column_sum, table_calculation: of_total,
+        args: [of_case.FRT_tier_count], _kind_hint: measure, _type_hint: number}]
+    query_timezone: Asia/Ho_Chi_Minh
     x_axis_gridlines: false
-    y_axis_gridlines: true
+    y_axis_gridlines: false
     show_view_names: false
     show_y_axis_labels: true
     show_y_axis_ticks: true
     y_axis_tick_density: default
     y_axis_tick_density_custom: 5
     show_x_axis_label: false
-    show_x_axis_ticks: true
+    show_x_axis_ticks: false
     y_axis_scale_mode: linear
     x_axis_reversed: false
     y_axis_reversed: false
     plot_size_by_field: false
     trellis: ''
-    stacking: percent
+    stacking: ''
     limit_displayed_rows: false
     legend_position: center
     point_style: none
@@ -3101,107 +3100,1371 @@
     show_totals_labels: false
     show_silhouette: false
     totals_color: "#808080"
-    y_axes: [{label: '', orientation: left, series: [{axisId: Detractors - of_case.case_distinct_count,
-            id: Detractors - of_case.case_distinct_count, name: Detractors}, {axisId: No
-              Rating - of_case.case_distinct_count, id: No Rating - of_case.case_distinct_count,
-            name: No Rating}, {axisId: Passives - of_case.case_distinct_count, id: Passives
-              - of_case.case_distinct_count, name: Passives}, {axisId: Promoters -
-              of_case.case_distinct_count, id: Promoters - of_case.case_distinct_count,
-            name: Promoters}], showLabels: false, showValues: false, unpinAxis: false,
-        tickDensity: default, tickDensityCustom: 5, type: linear}]
+    y_axes: [{label: '', orientation: left, series: [{axisId: of_total, id: of_total,
+            name: "% of total"}], showLabels: false, showValues: false, unpinAxis: false,
+        tickDensity: default, type: linear}]
     x_axis_zoom: true
     y_axis_zoom: true
+    series_types: {}
     series_colors:
-      Detractors - of_case.case_distinct_count: "#F39200"
-      Passives - of_case.case_distinct_count: "#00506D"
-      Promoters - of_case.case_distinct_count: "#BD0F72"
-      Without Rating - of_case.case_distinct_count: "#CCD3D1"
-      Detractors - of_case.case_distinct_count_nps: "#F39200"
-      No Rating - of_case.case_distinct_count_nps: "#8b908f"
-      Passives - of_case.case_distinct_count_nps: "#00506D"
-      Promoters - of_case.case_distinct_count_nps: "#BD0F72"
+      300 or Above - 11 - of_chat_transcript.count: "#CCD3D1"
+      270 to 299 - 10 - of_chat_transcript.count: "#CCD3D1"
+      240 to 269 - 09 - of_chat_transcript.count: "#CCD3D1"
+      210 to 239 - 08 - of_chat_transcript.count: "#CCD3D1"
+      180 to 209 - 07 - of_chat_transcript.count: "#CCD3D1"
+      150 to 179 - 06 - of_chat_transcript.count: "#CCD3D1"
+      120 to 149 - 05 - of_chat_transcript.count: "#CCD3D1"
+      90 to 119 - 04 - of_chat_transcript.count: "#CCD3D1"
+      60 to 89 - 03 - of_chat_transcript.count: "#CCD3D1"
+      30 to 59 - 02 - of_chat_transcript.count: "#CCD3D1"
+      180 to 269 - Web - of_chat_transcript.count: "#CCD3D1"
+      270 to 299 - Web - of_chat_transcript.count: "#CCD3D1"
+      300 to 359 - Web - of_chat_transcript.count: "#CCD3D1"
+      360 to 419 - Web - of_chat_transcript.count: "#CCD3D1"
+      480 to 539 - Web - of_chat_transcript.count: "#CCD3D1"
+      420 to 479 - Web - of_chat_transcript.count: "#CCD3D1"
+      540 to 599 - Web - of_chat_transcript.count: "#CCD3D1"
+      60 to 119 - Web - of_chat_transcript.count: "#CCD3D1"
+      600 or Above - Web - of_chat_transcript.count: "#CCD3D1"
+      150 to 179 - Chat - of_chat_transcript.count: "#CCD3D1"
+      180 to 209 - Chat - of_chat_transcript.count: "#CCD3D1"
+      210 to 239 - Chat - of_chat_transcript.count: "#CCD3D1"
+      240 to 269 - Chat - of_chat_transcript.count: "#CCD3D1"
+      270 to 299 - Chat - of_chat_transcript.count: "#CCD3D1"
+      30 to 59 - Chat - of_chat_transcript.count: "#CCD3D1"
+      300 or Above - Chat - of_chat_transcript.count: "#CCD3D1"
+      60 to 89 - Chat - of_chat_transcript.count: "#CCD3D1"
+      90 to 119 - Chat - of_chat_transcript.count: "#CCD3D1"
+      60 to 89 - 3 - of_chat_transcript.count: "#CCD3D1"
+      90 to 119 - 4 - of_chat_transcript.count: "#CCD3D1"
+      120 to 149 - 5 - of_chat_transcript.count: "#CCD3D1"
+      270 to 299 - 5 - of_chat_transcript.count: "#CCD3D1"
+      150 to 179 - 6 - of_chat_transcript.count: "#CCD3D1"
+      180 to 209 - 7 - of_chat_transcript.count: "#CCD3D1"
+      210 to 239 - 8 - of_chat_transcript.count: "#CCD3D1"
+      240 to 269 - 9 - of_chat_transcript.count: "#CCD3D1"
+      300 or Above - 10 - of_chat_transcript.count: "#CCD3D1"
+      120 to 179 - 3 - of_case.FRT_tier_count: "#CCD3D1"
+      180 to 269 - 4 - of_case.FRT_tier_count: "#CCD3D1"
+      270 to 299 - 5 - of_case.FRT_tier_count: "#CCD3D1"
+      300 to 359 - 6 - of_case.FRT_tier_count: "#CCD3D1"
+      360 to 419 - 7 - of_case.FRT_tier_count: "#CCD3D1"
+      420 to 479 - 8 - of_case.FRT_tier_count: "#CCD3D1"
+      480 to 539 - 9 - of_case.FRT_tier_count: "#CCD3D1"
+      540 to 599 - 10 - of_case.FRT_tier_count: "#CCD3D1"
+      600 or Above - 11 - of_case.FRT_tier_count: "#CCD3D1"
+      60 to 89 - 3 - of_case.FRT_tier_count: "#CCD3D1"
+      90 to 119 - 4 - of_case.FRT_tier_count: "#CCD3D1"
+      120 to 149 - 5 - of_case.FRT_tier_count: "#CCD3D1"
+      150 to 179 - 6 - of_case.FRT_tier_count: "#CCD3D1"
+      180 to 209 - 7 - of_case.FRT_tier_count: "#CCD3D1"
+      210 to 239 - 8 - of_case.FRT_tier_count: "#CCD3D1"
+      240 to 269 - 9 - of_case.FRT_tier_count: "#CCD3D1"
+      300 or Above - 10 - of_case.FRT_tier_count: "#CCD3D1"
+      300 or Above - 11 - of_case.FRT_tier_count: "#CCD3D1"
+      270 to 300 - 10 - of_case.FRT_tier_count: "#CCD3D1"
+      301 or Above - 11 - of_case.FRT_tier_count: "#CCD3D1"
+      label: "#BD0F72"
+      60 to 89 - 3 - test: "#CCD3D1"
+      90 to 119 - 4 - test: "#CCD3D1"
+      120 to 149 - 5 - test: "#CCD3D1"
+      150 to 179 - 6 - test: "#CCD3D1"
+      180 to 209 - 7 - test: "#CCD3D1"
+      60 to 89 - 3 - of_total: "#CCD3D1"
+      90 to 119 - 4 - of_total: "#CCD3D1"
+      120 to 149 - 5 - of_total: "#CCD3D1"
+      150 to 179 - 6 - of_total: "#CCD3D1"
+      180 to 209 - 7 - of_total: "#CCD3D1"
+      210 to 239 - 8 - of_total: "#CCD3D1"
+      240 to 269 - 9 - of_total: "#CCD3D1"
+      270 to 300 - 10 - of_total: "#CCD3D1"
+      301 or Above - 11 - of_total: "#CCD3D1"
+      120 to 179 - 3 - of_total: "#CCD3D1"
+      180 to 269 - 4 - of_total: "#CCD3D1"
+      270 to 299 - 5 - of_total: "#CCD3D1"
+      300 to 359 - 6 - of_total: "#CCD3D1"
+      360 to 419 - 7 - of_total: "#CCD3D1"
+      420 to 479 - 8 - of_total: "#CCD3D1"
+      480 to 539 - 9 - of_total: "#CCD3D1"
+      540 to 599 - 10 - of_total: "#CCD3D1"
+      600 or Above - 11 - of_total: "#CCD3D1"
+      121 to 180 - 3 - of_case.FRT_tier_count: "#CCD3D1"
+      181 to 270 - 4 - of_case.FRT_tier_count: "#CCD3D1"
+      271 to 300 - 5 - of_case.FRT_tier_count: "#CCD3D1"
+      301 to 360 - 6 - of_case.FRT_tier_count: "#CCD3D1"
+      361 to 420 - 7 - of_case.FRT_tier_count: "#CCD3D1"
+      421 to 480 - 8 - of_case.FRT_tier_count: "#CCD3D1"
+      481 to 540 - 9 - of_case.FRT_tier_count: "#CCD3D1"
+      541 to 600 - 10 - of_case.FRT_tier_count: "#CCD3D1"
+      601 or Above - 11 - of_case.FRT_tier_count: "#CCD3D1"
+      181 to 240 - 4 - of_case.FRT_tier_count: "#CCD3D1"
+      301 or Above - 6 - of_case.FRT_tier_count: "#CCD3D1"
+      241 to 300 - 5 - of_case.FRT_tier_count: "#CCD3D1"
+      ">= 120.1 and < 180.1 - 3 - of_case.FRT_tier_count": "#CCD3D1"
+      ">= 300.1 - 6 - of_case.FRT_tier_count": "#CCD3D1"
+      ">= 240.1 and < 300.1 - 5 - of_case.FRT_tier_count": "#CCD3D1"
+      ">= 180.1 and < 240.1 - 4 - of_case.FRT_tier_count": "#CCD3D1"
     series_labels:
-      Without Rating - of_case.case_distinct_count: No Rating
+      300 or Above - 11 - of_chat_transcript.count: Over 300 sec
+      270 to 299 - 10 - of_chat_transcript.count: 270-299 sec
+      0 to 29 - 01 - of_chat_transcript.count: 0-29 sec
+      30 to 59 - 02 - of_chat_transcript.count: 30-59 sec
+      60 to 89 - 03 - of_chat_transcript.count: 60-89 sec
+      90 to 119 - 04 - of_chat_transcript.count: 90-119 sec
+      120 to 149 - 05 - of_chat_transcript.count: 120-149 sec
+      150 to 179 - 06 - of_chat_transcript.count: 150-179 sec
+      180 to 209 - 07 - of_chat_transcript.count: 180-209 sec
+      210 to 239 - 08 - of_chat_transcript.count: 210-239 sec
+      240 to 269 - 09 - of_chat_transcript.count: 240-269 sec
+      0 to 59 - Web - of_chat_transcript.count: "< 60 min"
+      120 to 179 - Web - of_chat_transcript.count: 60-120 min
+      270 to 299 - Web - of_chat_transcript.count: 270-299 min
+      180 to 269 - Web - of_chat_transcript.count: 180-269 min
+      300 to 359 - Web - of_chat_transcript.count: 300-359 min
+      360 to 419 - Web - of_chat_transcript.count: 360-419 min
+      420 to 479 - Web - of_chat_transcript.count: 420-479 min
+      480 to 539 - Web - of_chat_transcript.count: 480-539 min
+      540 to 599 - Web - of_chat_transcript.count: 540-599 min
+      60 to 119 - Web - of_chat_transcript.count: 60-119 min
+      600 or Above - Web - of_chat_transcript.count: "> 600 min"
+      0 to 29 - Chat - of_chat_transcript.count: "< 30 sec"
+      300 or Above - 10 - of_case.FRT_tier_count: ">= 300 sec"
+      240 to 269 - 9 - of_case.FRT_tier_count: 240-269 sec
+      0 to 29 - 1 - of_case.FRT_tier_count: 0-29 sec
+      30 to 59 - 2 - of_case.FRT_tier_count: 30-59 sec
+      60 to 89 - 3 - of_case.FRT_tier_count: 60-89 sec
+      90 to 119 - 4 - of_case.FRT_tier_count: 90-119 sec
+      301 or Above - 11 - of_case.FRT_tier_count: "> 300 sec"
+      120 to 149 - 5 - of_case.FRT_tier_count: 120-149 sec
+      150 to 179 - 6 - of_case.FRT_tier_count: 150-179 sec
+      180 to 209 - 7 - of_case.FRT_tier_count: 180-209 sec
+      210 to 239 - 8 - of_case.FRT_tier_count: 210-239 sec
+      270 to 300 - 10 - of_case.FRT_tier_count: 270-300 sec
+      label: FY 2023 Gloabal Target
+      0 to 59 - 1 - of_case.FRT_tier_count: 0-59 min
+      60 to 119 - 2 - of_case.FRT_tier_count: 60-119 min
+      120 to 179 - 3 - of_case.FRT_tier_count: 120-179 min
+      180 to 269 - 4 - of_case.FRT_tier_count: 180-269 min
+      270 to 299 - 5 - of_case.FRT_tier_count: 270-299 min
+      300 to 359 - 6 - of_case.FRT_tier_count: 300-359 min
+      360 to 419 - 7 - of_case.FRT_tier_count: 360-419 min
+      420 to 479 - 8 - of_case.FRT_tier_count: 420-479 min
+      480 to 539 - 9 - of_case.FRT_tier_count: 480-539 min
+      540 to 599 - 10 - of_case.FRT_tier_count: 540-599 min
+      600 or Above - 11 - of_case.FRT_tier_count: ">= 600 min"
+      0 to 29 - 1 - test: 0-29 sec
+      30 to 59 - 2 - test: 30-59 sec
+      60 to 89 - 3 - test: 60-89 sec
+      90 to 119 - 4 - test: 90-119 sec
+      120 to 149 - 5 - test: 12-149 sec
+      150 to 179 - 6 - test: 150-179 sec
+      180 to 209 - 7 - test: 180-209 sec
+      0 to 29 - 1 - of_total: 0-29 sec
+      30 to 59 - 2 - of_total: 30-59 sec
+      60 to 89 - 3 - of_total: 60-89 sec
+      90 to 119 - 4 - of_total: 90-119 sec
+      120 to 149 - 5 - of_total: 120-149 sec
+      150 to 179 - 6 - of_total: 150-179 sec
+      180 to 209 - 7 - of_total: 180-209 sec
+      210 to 239 - 8 - of_total: 210-239 sec
+      240 to 269 - 9 - of_total: 240-269 sec
+      270 to 300 - 10 - of_total: 270-300 sec
+      301 or Above - 11 - of_total: "> 300 sec"
+      0 to 59 - 1 - of_total: 0-59 min
+      60 to 119 - 2 - of_total: 60-119 min
+      120 to 179 - 3 - of_total: 120-179 min
+      180 to 269 - 4 - of_total: 180-269 min
+      270 to 299 - 5 - of_total: 270-299 min
+      300 to 359 - 6 - of_total: 300-359 min
+      360 to 419 - 7 - of_total: 360-419 min
+      420 to 479 - 8 - of_total: 420-479 min
+      480 to 539 - 9 - of_total: 480-539 min
+      540 to 599 - 10 - of_total: 540-599 min
+      600 or Above - 11 - of_total: ">= 600 min"
+      0 to 60 - 1 - of_case.FRT_tier_count: 0-60 min
+      61 to 120 - 2 - of_case.FRT_tier_count: 61-120 min
+      121 to 180 - 3 - of_case.FRT_tier_count: 121-180 min
+      181 to 270 - 4 - of_case.FRT_tier_count: 181-270
+      271 to 300 - 5 - of_case.FRT_tier_count: 271-300
+      301 to 360 - 6 - of_case.FRT_tier_count: 301-360
+      361 to 420 - 7 - of_case.FRT_tier_count: 361-420
+      421 to 480 - 8 - of_case.FRT_tier_count: 421-480
+      481 to 540 - 9 - of_case.FRT_tier_count: 481-540
+      541 to 600 - 10 - of_case.FRT_tier_count: 541-600
+      601 or Above - 11 - of_case.FRT_tier_count: "> 600"
+      181 to 240 - 4 - of_case.FRT_tier_count: 181-240 min
+      241 to 300 - 5 - of_case.FRT_tier_count: 241-300 min
+      301 or Above - 6 - of_case.FRT_tier_count: "> 300 min"
+      ">= 0.1 and < 60.1 - 1 - of_case.FRT_tier_count": 0-60 min
+      ">= 60.1 and < 120.1 - 2 - of_case.FRT_tier_count": 60-120 min
+      ">= 120.1 and < 180.1 - 3 - of_case.FRT_tier_count": 120-180 min
+      ">= 180.1 and < 240.1 - 4 - of_case.FRT_tier_count": 180-240 min
+      ">= 240.1 and < 300.1 - 5 - of_case.FRT_tier_count": 240-300 min
+      ">= 300.1 - 6 - of_case.FRT_tier_count": ">300 min"
+    reference_lines: []
+    trend_lines: []
+    column_spacing_ratio: 0.3
+    column_group_spacing_ratio: 0.3
     defaults_version: 1
-    hidden_pivots: {}
+    hidden_pivots:
+      601 or Above|FIELD|11:
+        is_entire_pivot_hidden: false
+    hidden_fields: [of_total]
+    hidden_points_if_no: []
     note_state: collapsed
     note_display: hover
     note_text: |-
-      <P style="text-align:left;"><B>Metric Name : </B>Net Promoter Score <BR><B>How it Helps : </B>
-
-      To measure our Customer Brand loyalty using Net Promoter Score <br><br>
-
-      Detractors: NPS Score 1 to 6<br>
-      Passives: NPS Score 7 to 8<br>
-      Promoters: NPS Score 9 to 10<br><BR><B>Target : </B>TBD
+      <P style="text-align:left;"><B> Magenta Bar (0-60 min) </B> is the Web FRT Global Target
+      <P style="text-align:left;">*Recommend to zoom the screen to 100% </P>
     listen:
-      Channel: of_case.origin
       Status: of_case.status
+      Priority: of_case.priority
+      Category (L2): of_case.sub_category_l2
+      Topic (L3): of_case.subordinate_category_l3
       RHQ (Case): of_case.Regional_Head_Office
       Cluster Country: of_case.case_country
-      Individual Country: of_case.country
       Office (Case): of_case.case_office_code
-      Initial Queue Name: of_case.Initial_Queue_Name
-      Case Number: of_case.casenumber
-      Topic (L3): of_case.subordinate_category_l3
-      First Contact Resolution: of_case.first_contact_resolution
-      Web Email: of_case.supplied_email
-      Date Granularity: of_case.timeframe_picker
-      Open Date: of_case.createddate_filter_date
-      Reopened Case: of_case.Case_reopened
-      Dynamic Filter - View By: of_case.Geo_Param
-      Priority: of_case.priority
-      Contact Email: of_case.contactemail
-      eComm ID: of_case.ecomm_id
-      Contract Number: of_case.contract_number
-      Case Rating: of_case.case_rating
-      Service or Contract Customer: of_case.Service_Contract_Customer
-      Sub Resolution Reason: of_case.sub_resolution_reason
       Category (L1): of_case.reason
-      Subtopic (L4): of_case.subordinate_category_l4
-      Service Type: of_case.type
+      Resolution Reason: of_case.resolution_reason
+      Sub Resolution Reason: of_case.sub_resolution_reason
+      Case Number: of_case.casenumber
+      Contract Number: of_case.contract_number
+      First Contact Resolution: of_case.first_contact_resolution
+      Initial Queue Name: of_case.Initial_Queue_Name
+      Web Email: of_case.supplied_email
       Closed Date: of_case.closeddate_date
       Case Resolved Date: of_case.Case_Resolved_Date_Time_date
+      Dynamic Filter - View By: of_case.Geo_Param
+      Service or Contract Customer: of_case.Service_Contract_Customer
+      Service Type: of_case.type
+      Date Granularity: of_case.timeframe_picker
+      Subtopic (L4): of_case.subordinate_category_l4
+      Contact Email: of_case.contactemail
       Original Record Type: of_case.original_record_type
+      Individual Country: of_case.country
+      eComm ID: of_case.ecomm_id
+      Reopened Case: of_case.Case_reopened
+      Chat Owner: of_case.ct_owner_name1
+      Case Rating: of_case.case_rating
       Has Leave Message: of_case.has_leave_message_filter
-      Resolution Reason: of_case.resolution_reason
-      Office Type: case_owner.officetype
-      Case Owner: case_owner.name
-      Role: of_escalation_history.role
+      Channel: of_case.origin
       Profile: case_owner.profile_name_service
-      Category (L2): of_case.sub_category_l2
-      Awaiting Internal Team Response: of_case_history_air.status_case_Analysis
+      Role: of_escalation_history.role
+      Office Type: case_owner.officetype
       RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
       Country (Case Owner): user_office_hierarchy.country
       Office (Case Owner): user_office_hierarchy.office_code
       Source of Chat: of_chat_transcript.origin
       Queue Owner Name: of_queue.developer_name
       Customer Segmentation: of_customer_group.key_acct_tp_cd
-      Customer Group: of_customer_group.cust_grp_and_name
       Customer: of_customer.customer_cd_and_name
       Contact Name: of_contact.name
-      Sales Team Member: of_sales_team_member.team_role
       Customer Type: of_customer.customer_type
-      NPS: of_case.globalnps_Param
-    row: 73
+      Sales Team Member: of_sales_team_member.team_role
+      Customer Group: of_customer_group.cust_grp_and_name
+      Open Date: of_case.createddate_filter_date
+    row: 68
     col: 0
     width: 12
-    height: 7
-  - title: NPS trend by Location*
-    name: NPS trend by Location*
+    height: 6
+  - title: First Response Time (Chat) Histogram
+    name: First Response Time (Chat) Histogram
     model: oneforce_service
     explore: of_case
-    type: looker_line
-    fields: [of_case.Case_Geo, of_case.createddate_dynamic, of_case.global_nps_case_chat]
-    pivots: [of_case.Case_Geo]
-    sorts: [of_case.createddate_dynamic desc, of_case.Case_Geo]
+    type: looker_column
+    fields: [of_case.dynamic_FRT_tier, of_case.FRT_tier_count]
+    pivots: [of_case.dynamic_FRT_tier]
+    filters:
+      of_case.FRT_selector: Chat
+      of_case.dynamic_FRT_tier: "-Undefined"
+    sorts: [of_case.dynamic_FRT_tier]
     limit: 500
     column_limit: 50
+    dynamic_fields: [{category: table_calculation, expression: 'pivot_where(${of_case.dynamic_FRT_tier}
+          = "0", null)', label: Label, value_format: !!null '', value_format_name: !!null '',
+        _kind_hint: dimension, table_calculation: label, _type_hint: 'null', is_disabled: true},
+      {category: table_calculation, label: "% of total", value_format: !!null '',
+        value_format_name: percent_0, calculation_type: percent_of_column_sum, table_calculation: of_total,
+        args: [of_case.FRT_tier_count], _kind_hint: measure, _type_hint: number}]
+    query_timezone: Asia/Ho_Chi_Minh
     x_axis_gridlines: false
-    y_axis_gridlines: true
+    y_axis_gridlines: false
     show_view_names: false
     show_y_axis_labels: true
     show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: false
+    show_x_axis_ticks: false
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: true
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    y_axes: [{label: '', orientation: left, series: [{axisId: of_case.FRT_tier_count,
+            id: 0 to 30 - 1 - of_case.FRT_tier_count, name: "&lt;30"}, {axisId: of_case.FRT_tier_count,
+            id: 31 to 60 - 2 - of_case.FRT_tier_count, name: 31-60}, {axisId: of_case.FRT_tier_count,
+            id: 61 to 90 - 3 - of_case.FRT_tier_count, name: 61-90}, {axisId: of_case.FRT_tier_count,
+            id: 91 to 120 - 4 - of_case.FRT_tier_count, name: 91-120}, {axisId: of_case.FRT_tier_count,
+            id: 121 to 150 - 5 - of_case.FRT_tier_count, name: 121-150}, {axisId: of_case.FRT_tier_count,
+            id: 151 to 180 - 6 - of_case.FRT_tier_count, name: 151-180}, {axisId: of_case.FRT_tier_count,
+            id: 181 to 210 - 7 - of_case.FRT_tier_count, name: 181-210}, {axisId: of_case.FRT_tier_count,
+            id: 211 to 240 - 8 - of_case.FRT_tier_count, name: 211-240}, {axisId: of_case.FRT_tier_count,
+            id: 241 to 270 - 9 - of_case.FRT_tier_count, name: 241-270}, {axisId: of_case.FRT_tier_count,
+            id: 271 to 300 - 10 - of_case.FRT_tier_count, name: 271-300}, {axisId: of_case.FRT_tier_count,
+            id: 301 or Above - 11 - of_case.FRT_tier_count, name: "&gt;300"}], showLabels: false,
+        showValues: false, unpinAxis: false, tickDensity: default, type: linear}]
+    x_axis_label: ''
+    x_axis_zoom: true
+    y_axis_zoom: true
+    series_types: {}
+    series_colors:
+      300 or Above - 11 - of_chat_transcript.count: "#CCD3D1"
+      270 to 299 - 10 - of_chat_transcript.count: "#CCD3D1"
+      240 to 269 - 09 - of_chat_transcript.count: "#CCD3D1"
+      210 to 239 - 08 - of_chat_transcript.count: "#CCD3D1"
+      180 to 209 - 07 - of_chat_transcript.count: "#CCD3D1"
+      150 to 179 - 06 - of_chat_transcript.count: "#CCD3D1"
+      120 to 149 - 05 - of_chat_transcript.count: "#CCD3D1"
+      90 to 119 - 04 - of_chat_transcript.count: "#CCD3D1"
+      60 to 89 - 03 - of_chat_transcript.count: "#CCD3D1"
+      30 to 59 - 02 - of_chat_transcript.count: "#CCD3D1"
+      180 to 269 - Web - of_chat_transcript.count: "#CCD3D1"
+      270 to 299 - Web - of_chat_transcript.count: "#CCD3D1"
+      300 to 359 - Web - of_chat_transcript.count: "#CCD3D1"
+      360 to 419 - Web - of_chat_transcript.count: "#CCD3D1"
+      480 to 539 - Web - of_chat_transcript.count: "#CCD3D1"
+      420 to 479 - Web - of_chat_transcript.count: "#CCD3D1"
+      540 to 599 - Web - of_chat_transcript.count: "#CCD3D1"
+      60 to 119 - Web - of_chat_transcript.count: "#CCD3D1"
+      600 or Above - Web - of_chat_transcript.count: "#CCD3D1"
+      150 to 179 - Chat - of_chat_transcript.count: "#CCD3D1"
+      180 to 209 - Chat - of_chat_transcript.count: "#CCD3D1"
+      210 to 239 - Chat - of_chat_transcript.count: "#CCD3D1"
+      240 to 269 - Chat - of_chat_transcript.count: "#CCD3D1"
+      270 to 299 - Chat - of_chat_transcript.count: "#CCD3D1"
+      30 to 59 - Chat - of_chat_transcript.count: "#CCD3D1"
+      300 or Above - Chat - of_chat_transcript.count: "#CCD3D1"
+      60 to 89 - Chat - of_chat_transcript.count: "#CCD3D1"
+      90 to 119 - Chat - of_chat_transcript.count: "#CCD3D1"
+      60 to 89 - 3 - of_chat_transcript.count: "#CCD3D1"
+      90 to 119 - 4 - of_chat_transcript.count: "#CCD3D1"
+      120 to 149 - 5 - of_chat_transcript.count: "#CCD3D1"
+      270 to 299 - 5 - of_chat_transcript.count: "#CCD3D1"
+      150 to 179 - 6 - of_chat_transcript.count: "#CCD3D1"
+      180 to 209 - 7 - of_chat_transcript.count: "#CCD3D1"
+      210 to 239 - 8 - of_chat_transcript.count: "#CCD3D1"
+      240 to 269 - 9 - of_chat_transcript.count: "#CCD3D1"
+      300 or Above - 10 - of_chat_transcript.count: "#CCD3D1"
+      120 to 179 - 3 - of_case.FRT_tier_count: "#CCD3D1"
+      180 to 269 - 4 - of_case.FRT_tier_count: "#CCD3D1"
+      270 to 299 - 5 - of_case.FRT_tier_count: "#CCD3D1"
+      300 to 359 - 6 - of_case.FRT_tier_count: "#CCD3D1"
+      360 to 419 - 7 - of_case.FRT_tier_count: "#CCD3D1"
+      420 to 479 - 8 - of_case.FRT_tier_count: "#CCD3D1"
+      480 to 539 - 9 - of_case.FRT_tier_count: "#CCD3D1"
+      540 to 599 - 10 - of_case.FRT_tier_count: "#CCD3D1"
+      600 or Above - 11 - of_case.FRT_tier_count: "#CCD3D1"
+      60 to 89 - 3 - of_case.FRT_tier_count: "#CCD3D1"
+      90 to 119 - 4 - of_case.FRT_tier_count: "#CCD3D1"
+      120 to 149 - 5 - of_case.FRT_tier_count: "#CCD3D1"
+      150 to 179 - 6 - of_case.FRT_tier_count: "#CCD3D1"
+      180 to 209 - 7 - of_case.FRT_tier_count: "#CCD3D1"
+      210 to 239 - 8 - of_case.FRT_tier_count: "#CCD3D1"
+      240 to 269 - 9 - of_case.FRT_tier_count: "#CCD3D1"
+      300 or Above - 10 - of_case.FRT_tier_count: "#CCD3D1"
+      300 or Above - 11 - of_case.FRT_tier_count: "#CCD3D1"
+      270 to 300 - 10 - of_case.FRT_tier_count: "#CCD3D1"
+      301 or Above - 11 - of_case.FRT_tier_count: "#CCD3D1"
+      label: "#BD0F72"
+      60 to 89 - 3 - test: "#CCD3D1"
+      90 to 119 - 4 - test: "#CCD3D1"
+      120 to 149 - 5 - test: "#CCD3D1"
+      150 to 179 - 6 - test: "#CCD3D1"
+      180 to 209 - 7 - test: "#CCD3D1"
+      60 to 89 - 3 - of_total: "#CCD3D1"
+      90 to 119 - 4 - of_total: "#CCD3D1"
+      120 to 149 - 5 - of_total: "#CCD3D1"
+      150 to 179 - 6 - of_total: "#CCD3D1"
+      180 to 209 - 7 - of_total: "#CCD3D1"
+      210 to 239 - 8 - of_total: "#CCD3D1"
+      240 to 269 - 9 - of_total: "#CCD3D1"
+      270 to 300 - 10 - of_total: "#CCD3D1"
+      301 or Above - 11 - of_total: "#CCD3D1"
+      120 to 179 - 3 - of_total: "#CCD3D1"
+      180 to 269 - 4 - of_total: "#CCD3D1"
+      270 to 299 - 5 - of_total: "#CCD3D1"
+      300 to 359 - 6 - of_total: "#CCD3D1"
+      360 to 419 - 7 - of_total: "#CCD3D1"
+      420 to 479 - 8 - of_total: "#CCD3D1"
+      480 to 539 - 9 - of_total: "#CCD3D1"
+      540 to 599 - 10 - of_total: "#CCD3D1"
+      600 or Above - 11 - of_total: "#CCD3D1"
+      121 to 180 - 3 - of_case.FRT_tier_count: "#CCD3D1"
+      181 to 270 - 4 - of_case.FRT_tier_count: "#CCD3D1"
+      271 to 300 - 5 - of_case.FRT_tier_count: "#CCD3D1"
+      301 to 360 - 6 - of_case.FRT_tier_count: "#CCD3D1"
+      361 to 420 - 7 - of_case.FRT_tier_count: "#CCD3D1"
+      421 to 480 - 8 - of_case.FRT_tier_count: "#CCD3D1"
+      481 to 540 - 9 - of_case.FRT_tier_count: "#CCD3D1"
+      541 to 600 - 10 - of_case.FRT_tier_count: "#CCD3D1"
+      601 or Above - 11 - of_case.FRT_tier_count: "#CCD3D1"
+      121 to 150 - 5 - of_case.FRT_tier_count: "#CCD3D1"
+      91 to 120 - 4 - of_case.FRT_tier_count: "#CCD3D1"
+      61 to 90 - 3 - of_case.FRT_tier_count: "#CCD3D1"
+      151 to 180 - 6 - of_case.FRT_tier_count: "#CCD3D1"
+      181 to 210 - 7 - of_case.FRT_tier_count: "#CCD3D1"
+      241 to 270 - 9 - of_case.FRT_tier_count: "#CCD3D1"
+      211 to 240 - 8 - of_case.FRT_tier_count: "#CCD3D1"
+      271 to 300 - 10 - of_case.FRT_tier_count: "#CCD3D1"
+      121 to 180 - 4 - of_case.FRT_tier_count: "#CCD3D1"
+      181 to 240 - 4 - of_case.FRT_tier_count: "#CCD3D1"
+      61 to 120 - 2 - of_case.FRT_tier_count: "#CCD3D1"
+      241 or Above - 6 - of_case.FRT_tier_count: "#CCD3D1"
+      61 to 120 - 3 - of_case.FRT_tier_count: "#CCD3D1"
+      181 to 240 - 5 - of_case.FRT_tier_count: "#CCD3D1"
+      ">= 240.1 - 6 - of_case.FRT_tier_count": "#CCD3D1"
+      ">= 180.1 and < 240.1 - 5 - of_case.FRT_tier_count": "#CCD3D1"
+      ">= 120.1 and < 180.1 - 4 - of_case.FRT_tier_count": "#CCD3D1"
+      ">= 60.1 and < 120.1 - 3 - of_case.FRT_tier_count": "#CCD3D1"
+    series_labels:
+      300 or Above - 11 - of_chat_transcript.count: Over 300 sec
+      270 to 299 - 10 - of_chat_transcript.count: 270-299 sec
+      0 to 29 - 01 - of_chat_transcript.count: 0-29 sec
+      30 to 59 - 02 - of_chat_transcript.count: 30-59 sec
+      60 to 89 - 03 - of_chat_transcript.count: 60-89 sec
+      90 to 119 - 04 - of_chat_transcript.count: 90-119 sec
+      120 to 149 - 05 - of_chat_transcript.count: 120-149 sec
+      150 to 179 - 06 - of_chat_transcript.count: 150-179 sec
+      180 to 209 - 07 - of_chat_transcript.count: 180-209 sec
+      210 to 239 - 08 - of_chat_transcript.count: 210-239 sec
+      240 to 269 - 09 - of_chat_transcript.count: 240-269 sec
+      0 to 59 - Web - of_chat_transcript.count: "< 60 min"
+      120 to 179 - Web - of_chat_transcript.count: 60-120 min
+      270 to 299 - Web - of_chat_transcript.count: 270-299 min
+      180 to 269 - Web - of_chat_transcript.count: 180-269 min
+      300 to 359 - Web - of_chat_transcript.count: 300-359 min
+      360 to 419 - Web - of_chat_transcript.count: 360-419 min
+      420 to 479 - Web - of_chat_transcript.count: 420-479 min
+      480 to 539 - Web - of_chat_transcript.count: 480-539 min
+      540 to 599 - Web - of_chat_transcript.count: 540-599 min
+      60 to 119 - Web - of_chat_transcript.count: 60-119 min
+      600 or Above - Web - of_chat_transcript.count: "> 600 min"
+      0 to 29 - Chat - of_chat_transcript.count: "< 30 sec"
+      300 or Above - 10 - of_case.FRT_tier_count: ">= 300 sec"
+      240 to 269 - 9 - of_case.FRT_tier_count: 240-269 sec
+      0 to 29 - 1 - of_case.FRT_tier_count: 0-29 sec
+      30 to 59 - 2 - of_case.FRT_tier_count: 30-59 sec
+      60 to 89 - 3 - of_case.FRT_tier_count: 60-89 sec
+      90 to 119 - 4 - of_case.FRT_tier_count: 90-119 sec
+      301 or Above - 11 - of_case.FRT_tier_count: ">300"
+      120 to 149 - 5 - of_case.FRT_tier_count: 120-149 sec
+      150 to 179 - 6 - of_case.FRT_tier_count: 150-179 sec
+      180 to 209 - 7 - of_case.FRT_tier_count: 180-209 sec
+      210 to 239 - 8 - of_case.FRT_tier_count: 210-239 sec
+      270 to 300 - 10 - of_case.FRT_tier_count: 270-300 sec
+      label: FY 2023 Gloabal Target
+      0 to 59 - 1 - of_case.FRT_tier_count: 0-59 min
+      60 to 119 - 2 - of_case.FRT_tier_count: 60-119 min
+      120 to 179 - 3 - of_case.FRT_tier_count: 120-179 min
+      180 to 269 - 4 - of_case.FRT_tier_count: 180-269 min
+      270 to 299 - 5 - of_case.FRT_tier_count: 270-299 min
+      300 to 359 - 6 - of_case.FRT_tier_count: 300-359 min
+      360 to 419 - 7 - of_case.FRT_tier_count: 360-419 min
+      420 to 479 - 8 - of_case.FRT_tier_count: 420-479 min
+      480 to 539 - 9 - of_case.FRT_tier_count: 480-539 min
+      540 to 599 - 10 - of_case.FRT_tier_count: 540-599 min
+      600 or Above - 11 - of_case.FRT_tier_count: ">= 600 min"
+      0 to 29 - 1 - test: 0-29 sec
+      30 to 59 - 2 - test: 30-59 sec
+      60 to 89 - 3 - test: 60-89 sec
+      90 to 119 - 4 - test: 90-119 sec
+      120 to 149 - 5 - test: 12-149 sec
+      150 to 179 - 6 - test: 150-179 sec
+      180 to 209 - 7 - test: 180-209 sec
+      0 to 29 - 1 - of_total: 0-29 sec
+      30 to 59 - 2 - of_total: 30-59 sec
+      60 to 89 - 3 - of_total: 60-89 sec
+      90 to 119 - 4 - of_total: 90-119 sec
+      120 to 149 - 5 - of_total: 120-149 sec
+      150 to 179 - 6 - of_total: 150-179 sec
+      180 to 209 - 7 - of_total: 180-209 sec
+      210 to 239 - 8 - of_total: 210-239 sec
+      240 to 269 - 9 - of_total: 240-269 sec
+      270 to 300 - 10 - of_total: 270-300 sec
+      301 or Above - 11 - of_total: "> 300 sec"
+      0 to 59 - 1 - of_total: 0-59 min
+      60 to 119 - 2 - of_total: 60-119 min
+      120 to 179 - 3 - of_total: 120-179 min
+      180 to 269 - 4 - of_total: 180-269 min
+      270 to 299 - 5 - of_total: 270-299 min
+      300 to 359 - 6 - of_total: 300-359 min
+      360 to 419 - 7 - of_total: 360-419 min
+      420 to 479 - 8 - of_total: 420-479 min
+      480 to 539 - 9 - of_total: 480-539 min
+      540 to 599 - 10 - of_total: 540-599 min
+      600 or Above - 11 - of_total: ">= 600 min"
+      0 to 60 - 1 - of_case.FRT_tier_count: 0-60
+      61 to 120 - 2 - of_case.FRT_tier_count: 61-120 sec
+      121 to 180 - 3 - of_case.FRT_tier_count: 121-180
+      181 to 270 - 4 - of_case.FRT_tier_count: 181-270
+      271 to 300 - 5 - of_case.FRT_tier_count: 271-300
+      301 to 360 - 6 - of_case.FRT_tier_count: 301-360
+      361 to 420 - 7 - of_case.FRT_tier_count: 361-420
+      421 to 480 - 8 - of_case.FRT_tier_count: 421-480
+      481 to 540 - 9 - of_case.FRT_tier_count: 481-540
+      541 to 600 - 10 - of_case.FRT_tier_count: 541-600
+      601 or Above - 11 - of_case.FRT_tier_count: "> 600"
+      0 to 30 - 1 - of_case.FRT_tier_count: 0-30 sec
+      31 to 60 - 2 - of_case.FRT_tier_count: 31-60 sec
+      61 to 90 - 3 - of_case.FRT_tier_count: 61-90
+      91 to 120 - 4 - of_case.FRT_tier_count: 91-120
+      121 to 150 - 5 - of_case.FRT_tier_count: 121-150
+      151 to 180 - 6 - of_case.FRT_tier_count: 151-180
+      181 to 210 - 7 - of_case.FRT_tier_count: 181-210
+      211 to 240 - 8 - of_case.FRT_tier_count: 211-240
+      241 to 270 - 9 - of_case.FRT_tier_count: 241-270
+      271 to 300 - 10 - of_case.FRT_tier_count: 271-300
+      181 to 240 - 4 - of_case.FRT_tier_count: 181-240 sec
+      121 to 180 - 4 - of_case.FRT_tier_count: 121-180 sec
+      241 or Above - 6 - of_case.FRT_tier_count: "> 240 sec"
+      61 to 120 - 3 - of_case.FRT_tier_count: 61-120 sec
+      181 to 240 - 5 - of_case.FRT_tier_count: 181-240 sec
+      ">= 0.1 and < 30.1 - 1 - of_case.FRT_tier_count": 0-30 sec
+      ">= 30.1 and < 60.1 - 2 - of_case.FRT_tier_count": 31-60 sec
+      ">= 60.1 and < 120.1 - 3 - of_case.FRT_tier_count": 61-120 sec
+      ">= 120.1 and < 180.1 - 4 - of_case.FRT_tier_count": 121-180 sec
+      ">= 180.1 and < 240.1 - 5 - of_case.FRT_tier_count": 181-240 sec
+      ">= 240.1 - 6 - of_case.FRT_tier_count": ">240 sec"
+    reference_lines: []
+    trend_lines: []
+    column_spacing_ratio: 0.3
+    column_group_spacing_ratio: 0.3
+    defaults_version: 1
+    hidden_pivots:
+      301 or Above|FIELD|11:
+        is_entire_pivot_hidden: false
+    hidden_fields: [of_total]
+    hidden_points_if_no: []
+    note_state: collapsed
+    note_display: hover
+    note_text: |-
+      <P style="text-align:left;"><B> Magenta Bar (0-30 sec) </B> is the Chat FRT Global Target</P>
+      <P style="text-align:left;">*Recommend to zoom the screen to 100% </P>
+    listen:
+      Status: of_case.status
+      Priority: of_case.priority
+      Category (L2): of_case.sub_category_l2
+      Topic (L3): of_case.subordinate_category_l3
+      RHQ (Case): of_case.Regional_Head_Office
+      Cluster Country: of_case.case_country
+      Office (Case): of_case.case_office_code
+      Category (L1): of_case.reason
+      Resolution Reason: of_case.resolution_reason
+      Sub Resolution Reason: of_case.sub_resolution_reason
+      Case Number: of_case.casenumber
+      Contract Number: of_case.contract_number
+      First Contact Resolution: of_case.first_contact_resolution
+      Initial Queue Name: of_case.Initial_Queue_Name
+      Web Email: of_case.supplied_email
+      Closed Date: of_case.closeddate_date
+      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
+      Dynamic Filter - View By: of_case.Geo_Param
+      Service or Contract Customer: of_case.Service_Contract_Customer
+      Service Type: of_case.type
+      Date Granularity: of_case.timeframe_picker
+      Subtopic (L4): of_case.subordinate_category_l4
+      Contact Email: of_case.contactemail
+      Original Record Type: of_case.original_record_type
+      Individual Country: of_case.country
+      eComm ID: of_case.ecomm_id
+      Reopened Case: of_case.Case_reopened
+      Chat Owner: of_case.ct_owner_name1
+      Case Rating: of_case.case_rating
+      Has Leave Message: of_case.has_leave_message_filter
+      Channel: of_case.origin
+      Profile: case_owner.profile_name_service
+      Role: of_escalation_history.role
+      Office Type: case_owner.officetype
+      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
+      Country (Case Owner): user_office_hierarchy.country
+      Office (Case Owner): user_office_hierarchy.office_code
+      Source of Chat: of_chat_transcript.origin
+      Queue Owner Name: of_queue.developer_name
+      Customer Segmentation: of_customer_group.key_acct_tp_cd
+      Customer: of_customer.customer_cd_and_name
+      Contact Name: of_contact.name
+      Customer Type: of_customer.customer_type
+      Sales Team Member: of_sales_team_member.team_role
+      Customer Group: of_customer_group.cust_grp_and_name
+      Open Date: of_case.createddate_filter_date
+    row: 62
+    col: 0
+    width: 12
+    height: 6
+  - title: First Response Time (Chat) Histogram - Target Achievement Ratio
+    name: First Response Time (Chat) Histogram - Target Achievement Ratio
+    model: oneforce_service
+    explore: of_case
+    type: looker_column
+    fields: [of_case.dynamic_FRT_tier, of_case.FRT_tier_count]
+    pivots: [of_case.dynamic_FRT_tier]
+    filters:
+      of_case.FRT_selector: Chat
+      of_case.dynamic_FRT_tier: "-Undefined"
+    sorts: [of_case.dynamic_FRT_tier]
+    limit: 500
+    column_limit: 50
+    dynamic_fields: [{category: table_calculation, expression: 'pivot_where(${of_case.dynamic_FRT_tier}
+          = "0", null)', label: Label, value_format: !!null '', value_format_name: !!null '',
+        _kind_hint: dimension, table_calculation: label, _type_hint: 'null', is_disabled: true},
+      {category: table_calculation, label: "% of total", value_format: !!null '',
+        value_format_name: percent_1, calculation_type: percent_of_row, table_calculation: of_total,
+        args: [of_case.FRT_tier_count], _kind_hint: measure, _type_hint: number}]
+    query_timezone: Asia/Ho_Chi_Minh
+    x_axis_gridlines: false
+    y_axis_gridlines: false
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: false
+    show_x_axis_ticks: false
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: true
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    y_axes: [{label: '', orientation: left, series: [{axisId: of_total, id: of_total,
+            name: "% of total"}], showLabels: false, showValues: false, unpinAxis: false,
+        tickDensity: default, type: linear}]
+    x_axis_zoom: true
+    y_axis_zoom: true
+    series_types: {}
+    series_colors:
+      300 or Above - 11 - of_chat_transcript.count: "#CCD3D1"
+      270 to 299 - 10 - of_chat_transcript.count: "#CCD3D1"
+      240 to 269 - 09 - of_chat_transcript.count: "#CCD3D1"
+      210 to 239 - 08 - of_chat_transcript.count: "#CCD3D1"
+      180 to 209 - 07 - of_chat_transcript.count: "#CCD3D1"
+      150 to 179 - 06 - of_chat_transcript.count: "#CCD3D1"
+      120 to 149 - 05 - of_chat_transcript.count: "#CCD3D1"
+      90 to 119 - 04 - of_chat_transcript.count: "#CCD3D1"
+      60 to 89 - 03 - of_chat_transcript.count: "#CCD3D1"
+      30 to 59 - 02 - of_chat_transcript.count: "#CCD3D1"
+      180 to 269 - Web - of_chat_transcript.count: "#CCD3D1"
+      270 to 299 - Web - of_chat_transcript.count: "#CCD3D1"
+      300 to 359 - Web - of_chat_transcript.count: "#CCD3D1"
+      360 to 419 - Web - of_chat_transcript.count: "#CCD3D1"
+      480 to 539 - Web - of_chat_transcript.count: "#CCD3D1"
+      420 to 479 - Web - of_chat_transcript.count: "#CCD3D1"
+      540 to 599 - Web - of_chat_transcript.count: "#CCD3D1"
+      60 to 119 - Web - of_chat_transcript.count: "#CCD3D1"
+      600 or Above - Web - of_chat_transcript.count: "#CCD3D1"
+      150 to 179 - Chat - of_chat_transcript.count: "#CCD3D1"
+      180 to 209 - Chat - of_chat_transcript.count: "#CCD3D1"
+      210 to 239 - Chat - of_chat_transcript.count: "#CCD3D1"
+      240 to 269 - Chat - of_chat_transcript.count: "#CCD3D1"
+      270 to 299 - Chat - of_chat_transcript.count: "#CCD3D1"
+      30 to 59 - Chat - of_chat_transcript.count: "#CCD3D1"
+      300 or Above - Chat - of_chat_transcript.count: "#CCD3D1"
+      60 to 89 - Chat - of_chat_transcript.count: "#CCD3D1"
+      90 to 119 - Chat - of_chat_transcript.count: "#CCD3D1"
+      60 to 89 - 3 - of_chat_transcript.count: "#CCD3D1"
+      90 to 119 - 4 - of_chat_transcript.count: "#CCD3D1"
+      120 to 149 - 5 - of_chat_transcript.count: "#CCD3D1"
+      270 to 299 - 5 - of_chat_transcript.count: "#CCD3D1"
+      150 to 179 - 6 - of_chat_transcript.count: "#CCD3D1"
+      180 to 209 - 7 - of_chat_transcript.count: "#CCD3D1"
+      210 to 239 - 8 - of_chat_transcript.count: "#CCD3D1"
+      240 to 269 - 9 - of_chat_transcript.count: "#CCD3D1"
+      300 or Above - 10 - of_chat_transcript.count: "#CCD3D1"
+      120 to 179 - 3 - of_case.FRT_tier_count: "#CCD3D1"
+      180 to 269 - 4 - of_case.FRT_tier_count: "#CCD3D1"
+      270 to 299 - 5 - of_case.FRT_tier_count: "#CCD3D1"
+      300 to 359 - 6 - of_case.FRT_tier_count: "#CCD3D1"
+      360 to 419 - 7 - of_case.FRT_tier_count: "#CCD3D1"
+      420 to 479 - 8 - of_case.FRT_tier_count: "#CCD3D1"
+      480 to 539 - 9 - of_case.FRT_tier_count: "#CCD3D1"
+      540 to 599 - 10 - of_case.FRT_tier_count: "#CCD3D1"
+      600 or Above - 11 - of_case.FRT_tier_count: "#CCD3D1"
+      60 to 89 - 3 - of_case.FRT_tier_count: "#CCD3D1"
+      90 to 119 - 4 - of_case.FRT_tier_count: "#CCD3D1"
+      120 to 149 - 5 - of_case.FRT_tier_count: "#CCD3D1"
+      150 to 179 - 6 - of_case.FRT_tier_count: "#CCD3D1"
+      180 to 209 - 7 - of_case.FRT_tier_count: "#CCD3D1"
+      210 to 239 - 8 - of_case.FRT_tier_count: "#CCD3D1"
+      240 to 269 - 9 - of_case.FRT_tier_count: "#CCD3D1"
+      300 or Above - 10 - of_case.FRT_tier_count: "#CCD3D1"
+      300 or Above - 11 - of_case.FRT_tier_count: "#CCD3D1"
+      270 to 300 - 10 - of_case.FRT_tier_count: "#CCD3D1"
+      301 or Above - 11 - of_case.FRT_tier_count: "#CCD3D1"
+      label: "#BD0F72"
+      60 to 89 - 3 - test: "#CCD3D1"
+      90 to 119 - 4 - test: "#CCD3D1"
+      120 to 149 - 5 - test: "#CCD3D1"
+      150 to 179 - 6 - test: "#CCD3D1"
+      180 to 209 - 7 - test: "#CCD3D1"
+      60 to 89 - 3 - of_total: "#CCD3D1"
+      90 to 119 - 4 - of_total: "#CCD3D1"
+      120 to 149 - 5 - of_total: "#CCD3D1"
+      150 to 179 - 6 - of_total: "#CCD3D1"
+      180 to 209 - 7 - of_total: "#CCD3D1"
+      210 to 239 - 8 - of_total: "#CCD3D1"
+      240 to 269 - 9 - of_total: "#CCD3D1"
+      270 to 300 - 10 - of_total: "#CCD3D1"
+      301 or Above - 11 - of_total: "#CCD3D1"
+      120 to 179 - 3 - of_total: "#CCD3D1"
+      180 to 269 - 4 - of_total: "#CCD3D1"
+      270 to 299 - 5 - of_total: "#CCD3D1"
+      300 to 359 - 6 - of_total: "#CCD3D1"
+      360 to 419 - 7 - of_total: "#CCD3D1"
+      420 to 479 - 8 - of_total: "#CCD3D1"
+      480 to 539 - 9 - of_total: "#CCD3D1"
+      540 to 599 - 10 - of_total: "#CCD3D1"
+      600 or Above - 11 - of_total: "#CCD3D1"
+      121 to 180 - 3 - of_case.FRT_tier_count: "#CCD3D1"
+      181 to 270 - 4 - of_case.FRT_tier_count: "#CCD3D1"
+      271 to 300 - 5 - of_case.FRT_tier_count: "#CCD3D1"
+      301 to 360 - 6 - of_case.FRT_tier_count: "#CCD3D1"
+      361 to 420 - 7 - of_case.FRT_tier_count: "#CCD3D1"
+      421 to 480 - 8 - of_case.FRT_tier_count: "#CCD3D1"
+      481 to 540 - 9 - of_case.FRT_tier_count: "#CCD3D1"
+      541 to 600 - 10 - of_case.FRT_tier_count: "#CCD3D1"
+      601 or Above - 11 - of_case.FRT_tier_count: "#CCD3D1"
+      121 to 150 - 5 - of_case.FRT_tier_count: "#CCD3D1"
+      91 to 120 - 4 - of_case.FRT_tier_count: "#CCD3D1"
+      61 to 90 - 3 - of_case.FRT_tier_count: "#CCD3D1"
+      151 to 180 - 6 - of_case.FRT_tier_count: "#CCD3D1"
+      181 to 210 - 7 - of_case.FRT_tier_count: "#CCD3D1"
+      241 to 270 - 9 - of_case.FRT_tier_count: "#CCD3D1"
+      211 to 240 - 8 - of_case.FRT_tier_count: "#CCD3D1"
+      271 to 300 - 10 - of_case.FRT_tier_count: "#CCD3D1"
+      61 to 90 - 3 - of_total: "#CCD3D1"
+      91 to 120 - 4 - of_total: "#CCD3D1"
+      121 to 150 - 5 - of_total: "#CCD3D1"
+      151 to 180 - 6 - of_total: "#CCD3D1"
+      181 to 210 - 7 - of_total: "#CCD3D1"
+      211 to 240 - 8 - of_total: "#CCD3D1"
+      241 to 270 - 9 - of_total: "#CCD3D1"
+      271 to 300 - 10 - of_total: "#CCD3D1"
+      121 to 180 - 4 - of_total: "#CCD3D1"
+      181 to 240 - 4 - of_total: "#CCD3D1"
+      61 to 120 - 2 - of_total: "#CCD3D1"
+      241 or Above - 6 - of_total: "#CCD3D1"
+      61 to 120 - 3 - of_total: "#CCD3D1"
+      181 to 240 - 5 - of_total: "#CCD3D1"
+      ">= 240.1 - 6 - of_total": "#CCD3D1"
+      ">= 180.1 and < 240.1 - 5 - of_total": "#CCD3D1"
+      ">= 120.1 and < 180.1 - 4 - of_total": "#CCD3D1"
+      ">= 60.1 and < 120.1 - 3 - of_total": "#CCD3D1"
+    series_labels:
+      300 or Above - 11 - of_chat_transcript.count: Over 300 sec
+      270 to 299 - 10 - of_chat_transcript.count: 270-299 sec
+      0 to 29 - 01 - of_chat_transcript.count: 0-29 sec
+      30 to 59 - 02 - of_chat_transcript.count: 30-59 sec
+      60 to 89 - 03 - of_chat_transcript.count: 60-89 sec
+      90 to 119 - 04 - of_chat_transcript.count: 90-119 sec
+      120 to 149 - 05 - of_chat_transcript.count: 120-149 sec
+      150 to 179 - 06 - of_chat_transcript.count: 150-179 sec
+      180 to 209 - 07 - of_chat_transcript.count: 180-209 sec
+      210 to 239 - 08 - of_chat_transcript.count: 210-239 sec
+      240 to 269 - 09 - of_chat_transcript.count: 240-269 sec
+      0 to 59 - Web - of_chat_transcript.count: "< 60 min"
+      120 to 179 - Web - of_chat_transcript.count: 60-120 min
+      270 to 299 - Web - of_chat_transcript.count: 270-299 min
+      180 to 269 - Web - of_chat_transcript.count: 180-269 min
+      300 to 359 - Web - of_chat_transcript.count: 300-359 min
+      360 to 419 - Web - of_chat_transcript.count: 360-419 min
+      420 to 479 - Web - of_chat_transcript.count: 420-479 min
+      480 to 539 - Web - of_chat_transcript.count: 480-539 min
+      540 to 599 - Web - of_chat_transcript.count: 540-599 min
+      60 to 119 - Web - of_chat_transcript.count: 60-119 min
+      600 or Above - Web - of_chat_transcript.count: "> 600 min"
+      0 to 29 - Chat - of_chat_transcript.count: "< 30 sec"
+      300 or Above - 10 - of_case.FRT_tier_count: ">= 300 sec"
+      240 to 269 - 9 - of_case.FRT_tier_count: 240-269 sec
+      0 to 29 - 1 - of_case.FRT_tier_count: 0-29 sec
+      30 to 59 - 2 - of_case.FRT_tier_count: 30-59 sec
+      60 to 89 - 3 - of_case.FRT_tier_count: 60-89 sec
+      90 to 119 - 4 - of_case.FRT_tier_count: 90-119 sec
+      301 or Above - 11 - of_case.FRT_tier_count: "> 300 sec"
+      120 to 149 - 5 - of_case.FRT_tier_count: 120-149 sec
+      150 to 179 - 6 - of_case.FRT_tier_count: 150-179 sec
+      180 to 209 - 7 - of_case.FRT_tier_count: 180-209 sec
+      210 to 239 - 8 - of_case.FRT_tier_count: 210-239 sec
+      270 to 300 - 10 - of_case.FRT_tier_count: 270-300 sec
+      label: FY 2023 Gloabal Target
+      0 to 59 - 1 - of_case.FRT_tier_count: 0-59 min
+      60 to 119 - 2 - of_case.FRT_tier_count: 60-119 min
+      120 to 179 - 3 - of_case.FRT_tier_count: 120-179 min
+      180 to 269 - 4 - of_case.FRT_tier_count: 180-269 min
+      270 to 299 - 5 - of_case.FRT_tier_count: 270-299 min
+      300 to 359 - 6 - of_case.FRT_tier_count: 300-359 min
+      360 to 419 - 7 - of_case.FRT_tier_count: 360-419 min
+      420 to 479 - 8 - of_case.FRT_tier_count: 420-479 min
+      480 to 539 - 9 - of_case.FRT_tier_count: 480-539 min
+      540 to 599 - 10 - of_case.FRT_tier_count: 540-599 min
+      600 or Above - 11 - of_case.FRT_tier_count: ">= 600 min"
+      0 to 29 - 1 - test: 0-29 sec
+      30 to 59 - 2 - test: 30-59 sec
+      60 to 89 - 3 - test: 60-89 sec
+      90 to 119 - 4 - test: 90-119 sec
+      120 to 149 - 5 - test: 12-149 sec
+      150 to 179 - 6 - test: 150-179 sec
+      180 to 209 - 7 - test: 180-209 sec
+      0 to 29 - 1 - of_total: 0-29 sec
+      30 to 59 - 2 - of_total: 30-59 sec
+      60 to 89 - 3 - of_total: 60-89 sec
+      90 to 119 - 4 - of_total: 90-119 sec
+      120 to 149 - 5 - of_total: 120-149 sec
+      150 to 179 - 6 - of_total: 150-179 sec
+      180 to 209 - 7 - of_total: 180-209 sec
+      210 to 239 - 8 - of_total: 210-239 sec
+      240 to 269 - 9 - of_total: 240-269 sec
+      270 to 300 - 10 - of_total: 270-300 sec
+      301 or Above - 11 - of_total: "> 300"
+      0 to 59 - 1 - of_total: 0-59 min
+      60 to 119 - 2 - of_total: 60-119 min
+      120 to 179 - 3 - of_total: 120-179 min
+      180 to 269 - 4 - of_total: 180-269 min
+      270 to 299 - 5 - of_total: 270-299 min
+      300 to 359 - 6 - of_total: 300-359 min
+      360 to 419 - 7 - of_total: 360-419 min
+      420 to 479 - 8 - of_total: 420-479 min
+      480 to 539 - 9 - of_total: 480-539 min
+      540 to 599 - 10 - of_total: 540-599 min
+      600 or Above - 11 - of_total: ">= 600 min"
+      0 to 60 - 1 - of_case.FRT_tier_count: 0-60
+      61 to 120 - 2 - of_case.FRT_tier_count: 61-120
+      121 to 180 - 3 - of_case.FRT_tier_count: 121-180
+      181 to 270 - 4 - of_case.FRT_tier_count: 181-270
+      271 to 300 - 5 - of_case.FRT_tier_count: 271-300
+      301 to 360 - 6 - of_case.FRT_tier_count: 301-360
+      361 to 420 - 7 - of_case.FRT_tier_count: 361-420
+      421 to 480 - 8 - of_case.FRT_tier_count: 421-480
+      481 to 540 - 9 - of_case.FRT_tier_count: 481-540
+      541 to 600 - 10 - of_case.FRT_tier_count: 541-600
+      601 or Above - 11 - of_case.FRT_tier_count: "> 600"
+      0 to 30 - 1 - of_case.FRT_tier_count: 0-30
+      31 to 60 - 2 - of_case.FRT_tier_count: 31-60
+      61 to 90 - 3 - of_case.FRT_tier_count: 61-90
+      91 to 120 - 4 - of_case.FRT_tier_count: 91-120
+      121 to 150 - 5 - of_case.FRT_tier_count: 121-150
+      151 to 180 - 6 - of_case.FRT_tier_count: 151-180
+      181 to 210 - 7 - of_case.FRT_tier_count: 181-210
+      211 to 240 - 8 - of_case.FRT_tier_count: 211-240
+      241 to 270 - 9 - of_case.FRT_tier_count: 241-270
+      271 to 300 - 10 - of_case.FRT_tier_count: 271-300
+      0 to 30 - 1 - of_total: 0-30 sec
+      31 to 60 - 2 - of_total: 31-60 sec
+      61 to 90 - 3 - of_total: 61-90
+      91 to 120 - 4 - of_total: 91-120
+      121 to 150 - 5 - of_total: 121-150
+      151 to 180 - 6 - of_total: 151-180
+      181 to 210 - 7 - of_total: 181-120
+      211 to 240 - 8 - of_total: 211-240
+      241 to 270 - 9 - of_total: 241-270
+      271 to 300 - 10 - of_total: 271-300
+      61 to 120 - 2 - of_total: 61-120 sec
+      121 to 180 - 4 - of_total: 121-180 sec
+      181 to 240 - 4 - of_total: 181-240 sec
+      241 or Above - 6 - of_total: "> 240 sec"
+      61 to 120 - 3 - of_total: 61-120 sec
+      181 to 240 - 5 - of_total: 181-240 sec
+      ">= 0.1 and < 30.1 - 1 - of_total": 0-30 sec
+      ">= 30.1 and < 60.1 - 2 - of_total": 31-60 sec
+      ">= 60.1 and < 120.1 - 3 - of_total": 61-120 sec
+      ">= 120.1 and < 180.1 - 4 - of_total": 121-180 sec
+      ">= 180.1 and < 240.1 - 5 - of_total": 181-240 sec
+      ">= 240.1 - 6 - of_total": ">240 sec"
+    reference_lines: []
+    trend_lines: []
+    column_spacing_ratio: 0.3
+    column_group_spacing_ratio: 0.3
+    defaults_version: 1
+    hidden_pivots:
+      0 to 30|FIELD|1:
+        measure_names: []
+      31 to 60|FIELD|2:
+        measure_names: []
+      301 or Above|FIELD|11:
+        is_entire_pivot_hidden: false
+    hidden_fields: [of_case.FRT_tier_count]
+    hidden_points_if_no: []
+    note_state: collapsed
+    note_display: hover
+    note_text: |-
+      <P style="text-align:left;"><B> Magenta Bar (0-30 sec) </B> is the Chat FRT Global Target
+      <P style="text-align:left;">*Recommend to zoom the screen to 100% </P>
+    listen:
+      Status: of_case.status
+      Priority: of_case.priority
+      Category (L2): of_case.sub_category_l2
+      Topic (L3): of_case.subordinate_category_l3
+      RHQ (Case): of_case.Regional_Head_Office
+      Cluster Country: of_case.case_country
+      Office (Case): of_case.case_office_code
+      Category (L1): of_case.reason
+      Resolution Reason: of_case.resolution_reason
+      Sub Resolution Reason: of_case.sub_resolution_reason
+      Case Number: of_case.casenumber
+      Contract Number: of_case.contract_number
+      First Contact Resolution: of_case.first_contact_resolution
+      Initial Queue Name: of_case.Initial_Queue_Name
+      Web Email: of_case.supplied_email
+      Closed Date: of_case.closeddate_date
+      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
+      Dynamic Filter - View By: of_case.Geo_Param
+      Service or Contract Customer: of_case.Service_Contract_Customer
+      Service Type: of_case.type
+      Date Granularity: of_case.timeframe_picker
+      Subtopic (L4): of_case.subordinate_category_l4
+      Contact Email: of_case.contactemail
+      Original Record Type: of_case.original_record_type
+      Individual Country: of_case.country
+      eComm ID: of_case.ecomm_id
+      Reopened Case: of_case.Case_reopened
+      Chat Owner: of_case.ct_owner_name1
+      Case Rating: of_case.case_rating
+      Has Leave Message: of_case.has_leave_message_filter
+      Channel: of_case.origin
+      Profile: case_owner.profile_name_service
+      Role: of_escalation_history.role
+      Office Type: case_owner.officetype
+      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
+      Country (Case Owner): user_office_hierarchy.country
+      Office (Case Owner): user_office_hierarchy.office_code
+      Source of Chat: of_chat_transcript.origin
+      Queue Owner Name: of_queue.developer_name
+      Customer Segmentation: of_customer_group.key_acct_tp_cd
+      Customer: of_customer.customer_cd_and_name
+      Contact Name: of_contact.name
+      Customer Type: of_customer.customer_type
+      Sales Team Member: of_sales_team_member.team_role
+      Customer Group: of_customer_group.cust_grp_and_name
+      Open Date: of_case.createddate_filter_date
+    row: 62
+    col: 12
+    width: 12
+    height: 6
+  - title: First Response Time (Web) Histogram - Target Achievement Ratio
+    name: First Response Time (Web) Histogram - Target Achievement Ratio
+    model: oneforce_service
+    explore: of_case
+    type: looker_column
+    fields: [of_case.dynamic_FRT_tier, of_case.FRT_tier_count]
+    pivots: [of_case.dynamic_FRT_tier]
+    filters:
+      of_case.FRT_selector: Web
+      of_case.dynamic_FRT_tier: "-Undefined,-< 0.1"
+    sorts: [of_case.dynamic_FRT_tier]
+    limit: 500
+    column_limit: 50
+    dynamic_fields: [{category: table_calculation, expression: 'pivot_where(${of_case.dynamic_FRT_tier}
+          = "0", null)', label: Label, value_format: !!null '', value_format_name: !!null '',
+        _kind_hint: dimension, table_calculation: label, _type_hint: 'null', is_disabled: true},
+      {category: table_calculation, label: "% of total", value_format: !!null '',
+        value_format_name: percent_1, calculation_type: percent_of_row, table_calculation: of_total,
+        args: [of_case.FRT_tier_count], _kind_hint: measure, _type_hint: number}]
+    query_timezone: Asia/Ho_Chi_Minh
+    x_axis_gridlines: false
+    y_axis_gridlines: false
+    show_view_names: false
+    show_y_axis_labels: true
+    show_y_axis_ticks: true
+    y_axis_tick_density: default
+    y_axis_tick_density_custom: 5
+    show_x_axis_label: false
+    show_x_axis_ticks: false
+    y_axis_scale_mode: linear
+    x_axis_reversed: false
+    y_axis_reversed: false
+    plot_size_by_field: false
+    trellis: ''
+    stacking: ''
+    limit_displayed_rows: false
+    legend_position: center
+    point_style: none
+    show_value_labels: true
+    label_density: 25
+    x_axis_scale: auto
+    y_axis_combined: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#808080"
+    y_axes: [{label: '', orientation: left, series: [{axisId: of_total, id: of_total,
+            name: "% of total"}], showLabels: false, showValues: false, unpinAxis: false,
+        tickDensity: default, type: linear}]
+    x_axis_zoom: true
+    y_axis_zoom: true
+    series_types: {}
+    series_colors:
+      300 or Above - 11 - of_chat_transcript.count: "#CCD3D1"
+      270 to 299 - 10 - of_chat_transcript.count: "#CCD3D1"
+      240 to 269 - 09 - of_chat_transcript.count: "#CCD3D1"
+      210 to 239 - 08 - of_chat_transcript.count: "#CCD3D1"
+      180 to 209 - 07 - of_chat_transcript.count: "#CCD3D1"
+      150 to 179 - 06 - of_chat_transcript.count: "#CCD3D1"
+      120 to 149 - 05 - of_chat_transcript.count: "#CCD3D1"
+      90 to 119 - 04 - of_chat_transcript.count: "#CCD3D1"
+      60 to 89 - 03 - of_chat_transcript.count: "#CCD3D1"
+      30 to 59 - 02 - of_chat_transcript.count: "#CCD3D1"
+      180 to 269 - Web - of_chat_transcript.count: "#CCD3D1"
+      270 to 299 - Web - of_chat_transcript.count: "#CCD3D1"
+      300 to 359 - Web - of_chat_transcript.count: "#CCD3D1"
+      360 to 419 - Web - of_chat_transcript.count: "#CCD3D1"
+      480 to 539 - Web - of_chat_transcript.count: "#CCD3D1"
+      420 to 479 - Web - of_chat_transcript.count: "#CCD3D1"
+      540 to 599 - Web - of_chat_transcript.count: "#CCD3D1"
+      60 to 119 - Web - of_chat_transcript.count: "#CCD3D1"
+      600 or Above - Web - of_chat_transcript.count: "#CCD3D1"
+      150 to 179 - Chat - of_chat_transcript.count: "#CCD3D1"
+      180 to 209 - Chat - of_chat_transcript.count: "#CCD3D1"
+      210 to 239 - Chat - of_chat_transcript.count: "#CCD3D1"
+      240 to 269 - Chat - of_chat_transcript.count: "#CCD3D1"
+      270 to 299 - Chat - of_chat_transcript.count: "#CCD3D1"
+      30 to 59 - Chat - of_chat_transcript.count: "#CCD3D1"
+      300 or Above - Chat - of_chat_transcript.count: "#CCD3D1"
+      60 to 89 - Chat - of_chat_transcript.count: "#CCD3D1"
+      90 to 119 - Chat - of_chat_transcript.count: "#CCD3D1"
+      60 to 89 - 3 - of_chat_transcript.count: "#CCD3D1"
+      90 to 119 - 4 - of_chat_transcript.count: "#CCD3D1"
+      120 to 149 - 5 - of_chat_transcript.count: "#CCD3D1"
+      270 to 299 - 5 - of_chat_transcript.count: "#CCD3D1"
+      150 to 179 - 6 - of_chat_transcript.count: "#CCD3D1"
+      180 to 209 - 7 - of_chat_transcript.count: "#CCD3D1"
+      210 to 239 - 8 - of_chat_transcript.count: "#CCD3D1"
+      240 to 269 - 9 - of_chat_transcript.count: "#CCD3D1"
+      300 or Above - 10 - of_chat_transcript.count: "#CCD3D1"
+      120 to 179 - 3 - of_case.FRT_tier_count: "#CCD3D1"
+      180 to 269 - 4 - of_case.FRT_tier_count: "#CCD3D1"
+      270 to 299 - 5 - of_case.FRT_tier_count: "#CCD3D1"
+      300 to 359 - 6 - of_case.FRT_tier_count: "#CCD3D1"
+      360 to 419 - 7 - of_case.FRT_tier_count: "#CCD3D1"
+      420 to 479 - 8 - of_case.FRT_tier_count: "#CCD3D1"
+      480 to 539 - 9 - of_case.FRT_tier_count: "#CCD3D1"
+      540 to 599 - 10 - of_case.FRT_tier_count: "#CCD3D1"
+      600 or Above - 11 - of_case.FRT_tier_count: "#CCD3D1"
+      60 to 89 - 3 - of_case.FRT_tier_count: "#CCD3D1"
+      90 to 119 - 4 - of_case.FRT_tier_count: "#CCD3D1"
+      120 to 149 - 5 - of_case.FRT_tier_count: "#CCD3D1"
+      150 to 179 - 6 - of_case.FRT_tier_count: "#CCD3D1"
+      180 to 209 - 7 - of_case.FRT_tier_count: "#CCD3D1"
+      210 to 239 - 8 - of_case.FRT_tier_count: "#CCD3D1"
+      240 to 269 - 9 - of_case.FRT_tier_count: "#CCD3D1"
+      300 or Above - 10 - of_case.FRT_tier_count: "#CCD3D1"
+      300 or Above - 11 - of_case.FRT_tier_count: "#CCD3D1"
+      270 to 300 - 10 - of_case.FRT_tier_count: "#CCD3D1"
+      301 or Above - 11 - of_case.FRT_tier_count: "#CCD3D1"
+      label: "#BD0F72"
+      60 to 89 - 3 - test: "#CCD3D1"
+      90 to 119 - 4 - test: "#CCD3D1"
+      120 to 149 - 5 - test: "#CCD3D1"
+      150 to 179 - 6 - test: "#CCD3D1"
+      180 to 209 - 7 - test: "#CCD3D1"
+      60 to 89 - 3 - of_total: "#CCD3D1"
+      90 to 119 - 4 - of_total: "#CCD3D1"
+      120 to 149 - 5 - of_total: "#CCD3D1"
+      150 to 179 - 6 - of_total: "#CCD3D1"
+      180 to 209 - 7 - of_total: "#CCD3D1"
+      210 to 239 - 8 - of_total: "#CCD3D1"
+      240 to 269 - 9 - of_total: "#CCD3D1"
+      270 to 300 - 10 - of_total: "#CCD3D1"
+      301 or Above - 11 - of_total: "#CCD3D1"
+      120 to 179 - 3 - of_total: "#CCD3D1"
+      180 to 269 - 4 - of_total: "#CCD3D1"
+      270 to 299 - 5 - of_total: "#CCD3D1"
+      300 to 359 - 6 - of_total: "#CCD3D1"
+      360 to 419 - 7 - of_total: "#CCD3D1"
+      420 to 479 - 8 - of_total: "#CCD3D1"
+      480 to 539 - 9 - of_total: "#CCD3D1"
+      540 to 599 - 10 - of_total: "#CCD3D1"
+      600 or Above - 11 - of_total: "#CCD3D1"
+      121 to 180 - 3 - of_case.FRT_tier_count: "#CCD3D1"
+      181 to 270 - 4 - of_case.FRT_tier_count: "#CCD3D1"
+      271 to 300 - 5 - of_case.FRT_tier_count: "#CCD3D1"
+      301 to 360 - 6 - of_case.FRT_tier_count: "#CCD3D1"
+      361 to 420 - 7 - of_case.FRT_tier_count: "#CCD3D1"
+      421 to 480 - 8 - of_case.FRT_tier_count: "#CCD3D1"
+      481 to 540 - 9 - of_case.FRT_tier_count: "#CCD3D1"
+      541 to 600 - 10 - of_case.FRT_tier_count: "#CCD3D1"
+      601 or Above - 11 - of_case.FRT_tier_count: "#CCD3D1"
+      121 to 150 - 5 - of_case.FRT_tier_count: "#CCD3D1"
+      91 to 120 - 4 - of_case.FRT_tier_count: "#CCD3D1"
+      61 to 90 - 3 - of_case.FRT_tier_count: "#CCD3D1"
+      151 to 180 - 6 - of_case.FRT_tier_count: "#CCD3D1"
+      181 to 210 - 7 - of_case.FRT_tier_count: "#CCD3D1"
+      241 to 270 - 9 - of_case.FRT_tier_count: "#CCD3D1"
+      211 to 240 - 8 - of_case.FRT_tier_count: "#CCD3D1"
+      271 to 300 - 10 - of_case.FRT_tier_count: "#CCD3D1"
+      61 to 90 - 3 - of_total: "#CCD3D1"
+      91 to 120 - 4 - of_total: "#CCD3D1"
+      121 to 150 - 5 - of_total: "#CCD3D1"
+      151 to 180 - 6 - of_total: "#CCD3D1"
+      181 to 210 - 7 - of_total: "#CCD3D1"
+      211 to 240 - 8 - of_total: "#CCD3D1"
+      241 to 270 - 9 - of_total: "#CCD3D1"
+      271 to 300 - 10 - of_total: "#CCD3D1"
+      271 to 300 - 5 - of_total: "#CCD3D1"
+      601 or Above - 11 - of_total: "#CCD3D1"
+      541 to 600 - 10 - of_total: "#CCD3D1"
+      481 to 540 - 9 - of_total: "#CCD3D1"
+      301 to 360 - 6 - of_total: "#CCD3D1"
+      361 to 420 - 7 - of_total: "#CCD3D1"
+      421 to 480 - 8 - of_total: "#CCD3D1"
+      181 to 270 - 4 - of_total: "#CCD3D1"
+      121 to 180 - 3 - of_total: "#CCD3D1"
+      0 to 60 - 1 - of_total: "#BD0F72"
+      181 to 240 - 4 - of_total: "#CCD3D1"
+      241 to 300 - 5 - of_total: "#CCD3D1"
+      301 or Above - 6 - of_total: "#CCD3D1"
+      ">= 120.1 and < 180.1 - 3 - of_total": "#CCD3D1"
+      ">= 180.1 and < 240.1 - 4 - of_total": "#CCD3D1"
+      ">= 240.1 and < 300.1 - 5 - of_total": "#CCD3D1"
+      ">= 300.1 - 6 - of_total": "#CCD3D1"
+    series_labels:
+      300 or Above - 11 - of_chat_transcript.count: Over 300 sec
+      270 to 299 - 10 - of_chat_transcript.count: 270-299 sec
+      0 to 29 - 01 - of_chat_transcript.count: 0-29 sec
+      30 to 59 - 02 - of_chat_transcript.count: 30-59 sec
+      60 to 89 - 03 - of_chat_transcript.count: 60-89 sec
+      90 to 119 - 04 - of_chat_transcript.count: 90-119 sec
+      120 to 149 - 05 - of_chat_transcript.count: 120-149 sec
+      150 to 179 - 06 - of_chat_transcript.count: 150-179 sec
+      180 to 209 - 07 - of_chat_transcript.count: 180-209 sec
+      210 to 239 - 08 - of_chat_transcript.count: 210-239 sec
+      240 to 269 - 09 - of_chat_transcript.count: 240-269 sec
+      0 to 59 - Web - of_chat_transcript.count: "< 60 min"
+      120 to 179 - Web - of_chat_transcript.count: 60-120 min
+      270 to 299 - Web - of_chat_transcript.count: 270-299 min
+      180 to 269 - Web - of_chat_transcript.count: 180-269 min
+      300 to 359 - Web - of_chat_transcript.count: 300-359 min
+      360 to 419 - Web - of_chat_transcript.count: 360-419 min
+      420 to 479 - Web - of_chat_transcript.count: 420-479 min
+      480 to 539 - Web - of_chat_transcript.count: 480-539 min
+      540 to 599 - Web - of_chat_transcript.count: 540-599 min
+      60 to 119 - Web - of_chat_transcript.count: 60-119 min
+      600 or Above - Web - of_chat_transcript.count: "> 600 min"
+      0 to 29 - Chat - of_chat_transcript.count: "< 30 sec"
+      300 or Above - 10 - of_case.FRT_tier_count: ">= 300 sec"
+      240 to 269 - 9 - of_case.FRT_tier_count: 240-269 sec
+      0 to 29 - 1 - of_case.FRT_tier_count: 0-29 sec
+      30 to 59 - 2 - of_case.FRT_tier_count: 30-59 sec
+      60 to 89 - 3 - of_case.FRT_tier_count: 60-89 sec
+      90 to 119 - 4 - of_case.FRT_tier_count: 90-119 sec
+      301 or Above - 11 - of_case.FRT_tier_count: "> 300 sec"
+      120 to 149 - 5 - of_case.FRT_tier_count: 120-149 sec
+      150 to 179 - 6 - of_case.FRT_tier_count: 150-179 sec
+      180 to 209 - 7 - of_case.FRT_tier_count: 180-209 sec
+      210 to 239 - 8 - of_case.FRT_tier_count: 210-239 sec
+      270 to 300 - 10 - of_case.FRT_tier_count: 270-300 sec
+      label: FY 2023 Gloabal Target
+      0 to 59 - 1 - of_case.FRT_tier_count: 0-59 min
+      60 to 119 - 2 - of_case.FRT_tier_count: 60-119 min
+      120 to 179 - 3 - of_case.FRT_tier_count: 120-179 min
+      180 to 269 - 4 - of_case.FRT_tier_count: 180-269 min
+      270 to 299 - 5 - of_case.FRT_tier_count: 270-299 min
+      300 to 359 - 6 - of_case.FRT_tier_count: 300-359 min
+      360 to 419 - 7 - of_case.FRT_tier_count: 360-419 min
+      420 to 479 - 8 - of_case.FRT_tier_count: 420-479 min
+      480 to 539 - 9 - of_case.FRT_tier_count: 480-539 min
+      540 to 599 - 10 - of_case.FRT_tier_count: 540-599 min
+      600 or Above - 11 - of_case.FRT_tier_count: ">= 600 min"
+      0 to 29 - 1 - test: 0-29 sec
+      30 to 59 - 2 - test: 30-59 sec
+      60 to 89 - 3 - test: 60-89 sec
+      90 to 119 - 4 - test: 90-119 sec
+      120 to 149 - 5 - test: 12-149 sec
+      150 to 179 - 6 - test: 150-179 sec
+      180 to 209 - 7 - test: 180-209 sec
+      0 to 29 - 1 - of_total: 0-29 sec
+      30 to 59 - 2 - of_total: 30-59 sec
+      60 to 89 - 3 - of_total: 60-89 sec
+      90 to 119 - 4 - of_total: 90-119 sec
+      120 to 149 - 5 - of_total: 120-149 sec
+      150 to 179 - 6 - of_total: 150-179 sec
+      180 to 209 - 7 - of_total: 180-209 sec
+      210 to 239 - 8 - of_total: 210-239 sec
+      240 to 269 - 9 - of_total: 240-269 sec
+      270 to 300 - 10 - of_total: 270-300 sec
+      301 or Above - 11 - of_total: "> 300"
+      0 to 59 - 1 - of_total: 0-59 min
+      60 to 119 - 2 - of_total: 60-119 min
+      120 to 179 - 3 - of_total: 120-179 min
+      180 to 269 - 4 - of_total: 180-269 min
+      270 to 299 - 5 - of_total: 270-299 min
+      300 to 359 - 6 - of_total: 300-359 min
+      360 to 419 - 7 - of_total: 360-419 min
+      420 to 479 - 8 - of_total: 420-479 min
+      480 to 539 - 9 - of_total: 480-539 min
+      540 to 599 - 10 - of_total: 540-599 min
+      600 or Above - 11 - of_total: ">= 600 min"
+      0 to 60 - 1 - of_case.FRT_tier_count: 0-60
+      61 to 120 - 2 - of_case.FRT_tier_count: 61-120
+      121 to 180 - 3 - of_case.FRT_tier_count: 121-180
+      181 to 270 - 4 - of_case.FRT_tier_count: 181-270
+      271 to 300 - 5 - of_case.FRT_tier_count: 271-300
+      301 to 360 - 6 - of_case.FRT_tier_count: 301-360
+      361 to 420 - 7 - of_case.FRT_tier_count: 361-420
+      421 to 480 - 8 - of_case.FRT_tier_count: 421-480
+      481 to 540 - 9 - of_case.FRT_tier_count: 481-540
+      541 to 600 - 10 - of_case.FRT_tier_count: 541-600
+      601 or Above - 11 - of_case.FRT_tier_count: "> 600"
+      0 to 30 - 1 - of_case.FRT_tier_count: 0-30
+      31 to 60 - 2 - of_case.FRT_tier_count: 31-60
+      61 to 90 - 3 - of_case.FRT_tier_count: 61-90
+      91 to 120 - 4 - of_case.FRT_tier_count: 91-120
+      121 to 150 - 5 - of_case.FRT_tier_count: 121-150
+      151 to 180 - 6 - of_case.FRT_tier_count: 151-180
+      181 to 210 - 7 - of_case.FRT_tier_count: 181-210
+      211 to 240 - 8 - of_case.FRT_tier_count: 211-240
+      241 to 270 - 9 - of_case.FRT_tier_count: 241-270
+      271 to 300 - 10 - of_case.FRT_tier_count: 271-300
+      0 to 30 - 1 - of_total: 0-30
+      31 to 60 - 2 - of_total: 31-60
+      61 to 90 - 3 - of_total: 61-90
+      91 to 120 - 4 - of_total: 91-120
+      121 to 150 - 5 - of_total: 121-150
+      151 to 180 - 6 - of_total: 151-180
+      181 to 210 - 7 - of_total: 181-120
+      211 to 240 - 8 - of_total: 211-240
+      241 to 270 - 9 - of_total: 241-270
+      271 to 300 - 10 - of_total: 271-300
+      0 to 60 - 1 - of_total: 0-60 min
+      61 to 120 - 2 - of_total: 61-120 min
+      121 to 180 - 3 - of_total: 121-180 min
+      181 to 270 - 4 - of_total: 181-270
+      271 to 300 - 5 - of_total: 271-300
+      301 to 360 - 6 - of_total: 301-360
+      361 to 420 - 7 - of_total: 361-420
+      421 to 480 - 8 - of_total: 421-480
+      481 to 540 - 9 - of_total: 481-540
+      541 to 600 - 10 - of_total: 541-600
+      601 or Above - 11 - of_total: "> 600"
+      181 to 240 - 4 - of_total: 181-240 min
+      241 to 300 - 5 - of_total: 241-300 min
+      301 or Above - 6 - of_total: "> 300 min"
+      ">= 0.1 and < 60.1 - 1 - of_total": 0-60 min
+      ">= 60.1 and < 120.1 - 2 - of_total": 60-120 min
+      ">= 120.1 and < 180.1 - 3 - of_total": 120-180 min
+      ">= 180.1 and < 240.1 - 4 - of_total": 180-240 min
+      ">= 240.1 and < 300.1 - 5 - of_total": 240-300 min
+      ">= 300.1 - 6 - of_total": ">300 min"
+    reference_lines: []
+    trend_lines: []
+    column_spacing_ratio: 0.3
+    column_group_spacing_ratio: 0.3
+    defaults_version: 1
+    hidden_pivots:
+      0 to 30|FIELD|1:
+        measure_names: []
+      31 to 60|FIELD|2:
+        measure_names: []
+      601 or Above|FIELD|11:
+        is_entire_pivot_hidden: false
+    hidden_fields: [of_case.FRT_tier_count]
+    hidden_points_if_no: []
+    note_state: collapsed
+    note_display: hover
+    note_text: |-
+      <P style="text-align:left;"><B> Magenta Bar (0-60 min) </B> is the Web FRT Global Target
+      <P style="text-align:left;">*Recommend to zoom the screen to 100% </P>
+    listen:
+      Status: of_case.status
+      Priority: of_case.priority
+      Category (L2): of_case.sub_category_l2
+      Topic (L3): of_case.subordinate_category_l3
+      RHQ (Case): of_case.Regional_Head_Office
+      Cluster Country: of_case.case_country
+      Office (Case): of_case.case_office_code
+      Category (L1): of_case.reason
+      Resolution Reason: of_case.resolution_reason
+      Sub Resolution Reason: of_case.sub_resolution_reason
+      Case Number: of_case.casenumber
+      Contract Number: of_case.contract_number
+      First Contact Resolution: of_case.first_contact_resolution
+      Initial Queue Name: of_case.Initial_Queue_Name
+      Web Email: of_case.supplied_email
+      Closed Date: of_case.closeddate_date
+      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
+      Dynamic Filter - View By: of_case.Geo_Param
+      Service or Contract Customer: of_case.Service_Contract_Customer
+      Service Type: of_case.type
+      Date Granularity: of_case.timeframe_picker
+      Subtopic (L4): of_case.subordinate_category_l4
+      Contact Email: of_case.contactemail
+      Original Record Type: of_case.original_record_type
+      Individual Country: of_case.country
+      eComm ID: of_case.ecomm_id
+      Reopened Case: of_case.Case_reopened
+      Chat Owner: of_case.ct_owner_name1
+      Case Rating: of_case.case_rating
+      Has Leave Message: of_case.has_leave_message_filter
+      Channel: of_case.origin
+      Profile: case_owner.profile_name_service
+      Role: of_escalation_history.role
+      Office Type: case_owner.officetype
+      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
+      Country (Case Owner): user_office_hierarchy.country
+      Office (Case Owner): user_office_hierarchy.office_code
+      Source of Chat: of_chat_transcript.origin
+      Queue Owner Name: of_queue.developer_name
+      Customer Segmentation: of_customer_group.key_acct_tp_cd
+      Customer: of_customer.customer_cd_and_name
+      Contact Name: of_contact.name
+      Customer Type: of_customer.customer_type
+      Sales Team Member: of_sales_team_member.team_role
+      Customer Group: of_customer_group.cust_grp_and_name
+      Open Date: of_case.createddate_filter_date
+    row: 68
+    col: 12
+    width: 12
+    height: 6
+  - title: On-Hold Cases Handling Time*
+    name: On-Hold Cases Handling Time*
+    model: oneforce_service
+    explore: of_case
+    type: looker_column
+    fields: [of_case.Case_Geo, of_case.on_hold_wait_time, of_case.non_on_hold_time,
+      of_case.total_handling_time]
+    sorts: [of_case.Case_Geo]
+    limit: 500
+    column_limit: 50
+    x_axis_gridlines: false
+    y_axis_gridlines: false
+    show_view_names: false
+    show_y_axis_labels: false
+    show_y_axis_ticks: false
     y_axis_tick_density: default
     y_axis_tick_density_custom: 5
     show_x_axis_label: false
@@ -3211,7 +4474,7 @@
     y_axis_reversed: false
     plot_size_by_field: false
     trellis: ''
-    stacking: ''
+    stacking: normal
     limit_displayed_rows: false
     legend_position: center
     point_style: circle_outline
@@ -3219,761 +4482,179 @@
     label_density: 25
     x_axis_scale: auto
     y_axis_combined: true
-    show_null_points: true
+    ordering: none
+    show_null_labels: false
+    show_totals_labels: false
+    show_silhouette: false
+    totals_color: "#CCD3D1"
+    color_application:
+      collection_id: one-theme
+      palette_id: one-theme-categorical-0
+      options:
+        steps: 5
+    y_axes: [{label: '', orientation: left, series: [{axisId: of_case.non_on_hold_time,
+            id: of_case.non_on_hold_time, name: Non-On Hold Time}, {axisId: of_case.on_hold_wait_time,
+            id: of_case.on_hold_wait_time, name: On Hold Wait Time}], showLabels: false,
+        showValues: false, unpinAxis: false, tickDensity: default, type: linear},
+      {label: '', orientation: left, series: [{axisId: of_case.total_handling_time,
+            id: of_case.total_handling_time, name: Total Handling Time}], showLabels: false,
+        showValues: false, unpinAxis: false, tickDensity: default, type: linear}]
+    size_by_field: ''
+    x_axis_zoom: true
+    y_axis_zoom: true
+    limit_displayed_rows_values:
+      show_hide: hide
+      first_last: first
+      num_rows: 0
+    hide_legend: false
+    font_size: '12'
+    label_value_format: ''
+    series_types:
+      of_case.total_handling_time: line
+    series_colors:
+      Bad: "#000000"
+      Good: "#BD0F72"
+      of_case.case_distinct_count: "#F39200"
+      of_case.AVG_FIRST_CONTACT_RESOLUTION: "#00506D"
+      Yes - of_case.case_distinct_count: "#BD0F72"
+      No - of_case.case_distinct_count: "#CCD3D1"
+      On-Hold Cases - of_case.Transferred_Case_count_distinct: "#F39200"
+      On-Hold Cases - of_case.case_distinct_count: "#F39200"
+      of_case.non_on_hold_time: "#BD0F72"
+      of_case.on_hold_wait_time: "#CCD3D1"
+      of_case.total_handling_time: "#84C5C3"
+    series_labels:
+      of_case.case_distinct_count: Case
+      of_case.AVG_FIRST_CONTACT_RESOLUTION: FCR
+    series_point_styles:
+      of_case.AVG_FIRST_CONTACT_RESOLUTION: triangle
+    label_color: []
+    column_group_spacing_ratio: 0.4
+    leftAxisLabelVisible: false
+    leftAxisLabel: ''
+    rightAxisLabelVisible: true
+    rightAxisLabel: ''
+    smoothedBars: false
+    isStepped: false
+    orientation: automatic
+    labelPosition: left
+    percentType: total
+    percentPosition: inline
+    valuePosition: right
+    labelColorEnabled: false
+    labelColor: "#FFF"
+    value_labels: labels
+    label_type: labPer
+    inner_radius: 20
+    color_range: ["#4285F4", "#EA4335", "#FBBC04", "#34A852", "#5F6368"]
+    color_by: node
+    show_null_points: false
+    value_format_override: ''
+    show_percent: true
+    arm_length: 25
+    arm_weight: 50
+    spinner_length: 100
+    spinner_weight: 50
+    viz_trellis_by: none
+    angle: 90
+    cutout: 50
+    range_x: 1
+    range_y: 1
+    up_color: "#BD0F72"
+    down_color: "#F39200"
+    total_color: "#00506D"
     interpolation: linear
-    y_axes: [{label: '', orientation: left, series: [{axisId: of_case.global_nps,
-            id: HKGHQ - of_case.global_nps, name: HKGHQ}, {axisId: of_case.global_nps,
-            id: LONHQ - of_case.global_nps, name: LONHQ}, {axisId: of_case.global_nps,
-            id: RICHQ - of_case.global_nps, name: RICHQ}, {axisId: of_case.global_nps,
-            id: SAOHQ - of_case.global_nps, name: SAOHQ}, {axisId: of_case.global_nps,
-            id: SINHQ - of_case.global_nps, name: SINHQ}], showLabels: false, showValues: true,
-        unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
-    label_value_format: '[>=1000000]0.0,,"M";[>=1000]0.0,"K";0'
-    series_types: {}
-    series_colors:
-      LONHQ - of_case.global_nps: "#8b908f"
-    series_labels:
-      1 - of_case.global_nps: GKA
-      2 - of_case.global_nps: RKA
-      3 - of_case.global_nps: LKA
-      4 - of_case.global_nps: ONECare
+    bar_arm_length: 25
+    bar_arm_weight: 50
+    bar_spinner_length: 100
+    bar_spinner_weight: 50
     defaults_version: 1
+    hidden_fields: []
+    hidden_points_if_no: []
+    show_row_numbers: true
+    transpose: false
+    truncate_text: true
+    hide_totals: false
+    hide_row_totals: false
+    size_to_fit: true
+    table_theme: white
+    enable_conditional_formatting: false
+    header_text_alignment: left
+    header_font_size: 12
+    rows_font_size: 12
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    map_plot_mode: points
+    heatmap_gridlines: false
+    heatmap_gridlines_empty: false
+    heatmap_opacity: 0.5
+    show_region_field: true
+    draw_map_labels_above_data: true
+    map_tile_provider: light
+    map_position: fit_data
+    map_scale_indicator: 'off'
+    map_pannable: true
+    map_zoomable: true
+    map_marker_type: circle
+    map_marker_icon_name: default
+    map_marker_radius_mode: proportional_value
+    map_marker_units: meters
+    map_marker_proportional_scale_type: linear
+    map_marker_color_mode: fixed
+    show_legend: true
+    quantize_map_value_colors: false
+    reverse_map_value_colors: false
     hidden_pivots: {}
-    note_state: collapsed
-    note_display: hover
-    note_text: |-
-      <P style="text-align:left;"><B>Metric Name : </B>Net Promoter Score Trend <BR><B>How it Helps : </B>
-
-      To measure the trend of our Customer Brand loyalty using Net Promoter Score <br><br>
-
-      Detractors: NPS Score 1 to 6<br>
-      Passives: NPS Score 7 to 8<br>
-      Promoters: NPS Score 9 to 10<br><BR><B>Target : </B>TBD
     listen:
-      Channel: of_case.origin
       Status: of_case.status
-      RHQ (Case): of_case.Regional_Head_Office
-      Cluster Country: of_case.case_country
-      Individual Country: of_case.country
-      Office (Case): of_case.case_office_code
-      Initial Queue Name: of_case.Initial_Queue_Name
-      Case Number: of_case.casenumber
-      Topic (L3): of_case.subordinate_category_l3
-      First Contact Resolution: of_case.first_contact_resolution
-      Web Email: of_case.supplied_email
-      Date Granularity: of_case.timeframe_picker
-      Open Date: of_case.createddate_filter_date
-      Reopened Case: of_case.Case_reopened
-      Dynamic Filter - View By: of_case.Geo_Param
       Priority: of_case.priority
-      Contact Email: of_case.contactemail
-      eComm ID: of_case.ecomm_id
-      Contract Number: of_case.contract_number
-      Case Rating: of_case.case_rating
-      Service or Contract Customer: of_case.Service_Contract_Customer
-      Sub Resolution Reason: of_case.sub_resolution_reason
+      Category (L2): of_case.sub_category_l2
+      Topic (L3): of_case.subordinate_category_l3
+      RHQ (Case): of_case.Regional_Head_Office
+      Office (Case): of_case.case_office_code
       Category (L1): of_case.reason
-      Subtopic (L4): of_case.subordinate_category_l4
-      Service Type: of_case.type
+      Resolution Reason: of_case.resolution_reason
+      Sub Resolution Reason: of_case.sub_resolution_reason
+      Case Number: of_case.casenumber
+      Contract Number: of_case.contract_number
+      Initial Queue Name: of_case.Initial_Queue_Name
+      Web Email: of_case.supplied_email
       Closed Date: of_case.closeddate_date
       Case Resolved Date: of_case.Case_Resolved_Date_Time_date
-      Original Record Type: of_case.original_record_type
-      Has Leave Message: of_case.has_leave_message_filter
-      Resolution Reason: of_case.resolution_reason
-      Office Type: case_owner.officetype
+      Service or Contract Customer: of_case.Service_Contract_Customer
+      Dynamic Filter - View By: of_case.Geo_Param
+      Service Type: of_case.type
+      Date Granularity: of_case.timeframe_picker
       Case Owner: case_owner.name
-      Role: of_escalation_history.role
+      Subtopic (L4): of_case.subordinate_category_l4
+      Contact Email: of_case.contactemail
+      Original Record Type: of_case.original_record_type
+      Cluster Country: of_case.case_country
+      Individual Country: of_case.country
+      eComm ID: of_case.ecomm_id
+      Reopened Case: of_case.Case_reopened
+      Chat Owner: of_case.ct_owner_name1
+      Case Rating: of_case.case_rating
+      Has Leave Message: of_case.has_leave_message_filter
+      Channel: of_case.origin
       Profile: case_owner.profile_name_service
-      Category (L2): of_case.sub_category_l2
-      Awaiting Internal Team Response: of_case_history_air.status_case_Analysis
+      Role: of_escalation_history.role
+      Office Type: case_owner.officetype
       RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
       Country (Case Owner): user_office_hierarchy.country
       Office (Case Owner): user_office_hierarchy.office_code
       Source of Chat: of_chat_transcript.origin
       Queue Owner Name: of_queue.developer_name
       Customer Segmentation: of_customer_group.key_acct_tp_cd
-      Customer Group: of_customer_group.cust_grp_and_name
       Customer: of_customer.customer_cd_and_name
       Contact Name: of_contact.name
-      Sales Team Member: of_sales_team_member.team_role
       Customer Type: of_customer.customer_type
-      NPS: of_case.globalnps_Param
-    row: 73
-    col: 12
-    width: 12
-    height: 7
-  - title: Chat Transcript Volume*
-    name: Chat Transcript Volume*
-    model: oneforce_service
-    explore: of_case
-    type: looker_bar
-    fields: [of_case.Case_Geo, sequence, of_chat_transcript.count]
-    filters: {}
-    sorts: [of_case.Case_Geo]
-    limit: 500
-    dynamic_fields: [{category: dimension, expression: "if (${of_case.Case_Geo} =\
-          \ \"GKA\",1,\n  if (${of_case.Case_Geo} = \"RKA\",2,\n    if (${of_case.Case_Geo}\
-          \ = \"LKA\",3,\n      if (${of_case.Case_Geo} = \"ONECare\",4,9))))\n   ",
-        label: Sequence, value_format: !!null '', value_format_name: !!null '', dimension: sequence,
-        _kind_hint: dimension, _type_hint: number}]
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_view_names: false
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: false
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: ''
-    stacking: ''
-    limit_displayed_rows: false
-    legend_position: center
-    point_style: none
-    show_value_labels: true
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: false
-    show_silhouette: false
-    totals_color: "#808080"
-    y_axes: [{label: '', orientation: left, series: [{axisId: of_chat_transcript.count,
-            id: of_chat_transcript.count, name: Chat Transcript}], showLabels: false,
-        showValues: false, unpinAxis: false, tickDensity: default, tickDensityCustom: 5,
-        type: linear}]
-    label_value_format: '[>=1000000]0.0,,"M";[>=1000]0.0,"K";0'
-    series_types: {}
-    defaults_version: 1
-    hidden_fields: [sequence]
-    note_state: collapsed
-    note_display: hover
-    note_text: '<P style="text-align:left;"><B>Metric Name : </B>Chat Transcript Volume<BR><B>How
-      it Helps : </B>To evaluate total no. of chat session volume <BR>[ALL Case Status]<BR><B>Target
-      : </B>TBD'
-    listen:
-      Channel: of_case.origin
-      Status: of_case.status
-      RHQ (Case): of_case.Regional_Head_Office
-      Cluster Country: of_case.case_country
-      Individual Country: of_case.country
-      Office (Case): of_case.case_office_code
-      Initial Queue Name: of_case.Initial_Queue_Name
-      Case Number: of_case.casenumber
-      Topic (L3): of_case.subordinate_category_l3
-      First Contact Resolution: of_case.first_contact_resolution
-      Web Email: of_case.supplied_email
-      Date Granularity: of_case.timeframe_picker
-      Open Date: of_case.createddate_filter_date
-      Reopened Case: of_case.Case_reopened
-      Dynamic Filter - View By: of_case.Geo_Param
-      Priority: of_case.priority
-      Contact Email: of_case.contactemail
-      eComm ID: of_case.ecomm_id
-      Contract Number: of_case.contract_number
-      Case Rating: of_case.case_rating
-      Service or Contract Customer: of_case.Service_Contract_Customer
-      Sub Resolution Reason: of_case.sub_resolution_reason
-      Category (L1): of_case.reason
-      Subtopic (L4): of_case.subordinate_category_l4
-      Service Type: of_case.type
-      Closed Date: of_case.closeddate_date
-      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
-      Original Record Type: of_case.original_record_type
-      Has Leave Message: of_case.has_leave_message_filter
-      Resolution Reason: of_case.resolution_reason
-      Office Type: case_owner.officetype
-      Case Owner: case_owner.name
-      Role: of_escalation_history.role
-      Profile: case_owner.profile_name_service
-      Category (L2): of_case.sub_category_l2
-      Awaiting Internal Team Response: of_case_history_air.status_case_Analysis
-      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
-      Country (Case Owner): user_office_hierarchy.country
-      Office (Case Owner): user_office_hierarchy.office_code
-      Source of Chat: of_chat_transcript.origin
-      Queue Owner Name: of_queue.developer_name
-      Customer Segmentation: of_customer_group.key_acct_tp_cd
+      Sales Team Member: of_sales_team_member.team_role
       Customer Group: of_customer_group.cust_grp_and_name
-      Customer: of_customer.customer_cd_and_name
-      Contact Name: of_contact.name
-      Sales Team Member: of_sales_team_member.team_role
-      Customer Type: of_customer.customer_type
-    row: 2
-    col: 12
-    width: 12
-    height: 6
-  - title: Case Transfer Ratio by Location*
-    name: Case Transfer Ratio by Location*
-    model: oneforce_service
-    explore: of_case
-    type: looker_column
-    fields: [of_case.Case_Geo, of_case.case_distinct_count1, of_case.transfer_ratio]
-    pivots: [of_case.transfer_ratio]
-    sorts: [of_case.Case_Geo, of_case.transfer_ratio]
-    limit: 500
-    dynamic_fields: [{category: dimension, expression: 'is_null(${of_case.transfer_reason})',
-        label: Transfer Ratio, value_format: !!null '', value_format_name: !!null '',
-        dimension: transfer_ratio, _kind_hint: dimension, _type_hint: yesno}]
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_view_names: false
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: false
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: true
-    plot_size_by_field: false
-    trellis: ''
-    stacking: percent
-    limit_displayed_rows: false
-    legend_position: center
-    point_style: none
-    show_value_labels: true
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: false
-    show_silhouette: false
-    totals_color: "#808080"
-    y_axes: [{label: '', orientation: left, series: [{axisId: false - of_case.count,
-            id: false - of_case.count, name: Total Cases}, {axisId: true - of_case.count,
-            id: true - of_case.count, name: Escalated Cases}], showLabels: false,
-        showValues: false, unpinAxis: false, tickDensity: default, tickDensityCustom: 5,
-        type: linear}]
-    series_colors:
-      false - of_case.count: "#BD0F72"
-      true - of_case.count: "#F39200"
-      Yes - of_case.count: "#F39200"
-      Yes - of_case.case_distinct_count: "#F39200"
-      No - of_case.case_distinct_count: "#BD0F72"
-      Yes - of_case.case_distinct_count1: "#F39200"
-    series_labels:
-      false - of_case.count: Total Cases
-      true - of_case.count: Escalated Cases
-      No - of_case.count: Total Cases
-      Yes - of_case.count: Escalated Cases
-      Yes - of_case.case_distinct_count: Transferred Cases
-      No - of_case.case_distinct_count: Total Cases
-      Yes - of_case.case_distinct_count1: Transferred Cases
-      No - of_case.case_distinct_count1: Total Cases
-    defaults_version: 1
-    note_state: collapsed
-    note_display: hover
-    note_text: '<P style="text-align:left;"><B>Metric Name : </B>Case Transfer Ratio<BR><B>How
-      it Helps : </B>To evaluate no. of Transferred cases<BR>[ALL Case Status]<BR><B>Target
-      : </B>TBD'
-    listen:
-      Channel: of_case.origin
-      Status: of_case.status
-      RHQ (Case): of_case.Regional_Head_Office
-      Cluster Country: of_case.case_country
-      Individual Country: of_case.country
-      Office (Case): of_case.case_office_code
-      Initial Queue Name: of_case.Initial_Queue_Name
-      Case Number: of_case.casenumber
-      Topic (L3): of_case.subordinate_category_l3
-      First Contact Resolution: of_case.first_contact_resolution
-      Web Email: of_case.supplied_email
-      Date Granularity: of_case.timeframe_picker
-      Open Date: of_case.createddate_filter_date
-      Reopened Case: of_case.Case_reopened
-      Dynamic Filter - View By: of_case.Geo_Param
-      Priority: of_case.priority
-      Contact Email: of_case.contactemail
-      eComm ID: of_case.ecomm_id
-      Contract Number: of_case.contract_number
-      Case Rating: of_case.case_rating
-      Service or Contract Customer: of_case.Service_Contract_Customer
-      Sub Resolution Reason: of_case.sub_resolution_reason
-      Category (L1): of_case.reason
-      Subtopic (L4): of_case.subordinate_category_l4
-      Service Type: of_case.type
-      Closed Date: of_case.closeddate_date
-      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
-      Original Record Type: of_case.original_record_type
-      Has Leave Message: of_case.has_leave_message_filter
-      Resolution Reason: of_case.resolution_reason
-      Office Type: case_owner.officetype
-      Case Owner: case_owner.name
-      Role: of_escalation_history.role
-      Profile: case_owner.profile_name_service
-      Category (L2): of_case.sub_category_l2
-      Awaiting Internal Team Response: of_case_history_air.status_case_Analysis
-      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
-      Country (Case Owner): user_office_hierarchy.country
-      Office (Case Owner): user_office_hierarchy.office_code
-      Source of Chat: of_chat_transcript.origin
-      Queue Owner Name: of_queue.developer_name
-      Customer Segmentation: of_customer_group.key_acct_tp_cd
-      Customer Group: of_customer_group.cust_grp_and_name
-      Customer: of_customer.customer_cd_and_name
-      Contact Name: of_contact.name
-      Sales Team Member: of_sales_team_member.team_role
-      Customer Type: of_customer.customer_type
-    row: 14
+      Open Date: of_case.On_hold_chart_date_date
+    row: 74
     col: 0
     width: 12
-    height: 6
-  - title: No of Reopened Cases by Location*
-    name: No of Reopened Cases by Location*
-    model: oneforce_service
-    explore: of_case
-    type: looker_bar
-    fields: [of_case.is_reopened, of_case.Case_Geo, of_case.case_distinct_count]
-    pivots: [of_case.is_reopened]
-    filters: {}
-    sorts: [of_case.is_reopened desc, of_case.Case_Geo]
-    limit: 500
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_view_names: false
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: false
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: ''
-    stacking: percent
-    limit_displayed_rows: false
-    legend_position: center
-    point_style: none
-    show_value_labels: true
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: false
-    show_silhouette: false
-    totals_color: "#808080"
-    y_axes: [{label: '', orientation: bottom, series: [{axisId: of_case.case_distinct_count,
-            id: false - of_case.case_distinct_count, name: 'false'}, {axisId: of_case.case_distinct_count,
-            id: true - of_case.case_distinct_count, name: 'true'}], showLabels: false,
-        showValues: false, unpinAxis: false, tickDensity: default, tickDensityCustom: 5,
-        type: linear}]
-    series_types: {}
-    series_colors:
-      true - of_case.case_distinct_count: "#F39200"
-      false - of_case.case_distinct_count: "#BD0F72"
-    series_labels:
-      false - of_case.case_distinct_count: Total
-      true - of_case.case_distinct_count: Reopened
-    defaults_version: 1
-    note_state: collapsed
-    note_display: hover
-    note_text: '<P style="text-align:left;"><B>Metric Name : </B>No of Reopened Cases<BR><B>How
-      it Helps : </B>To evaluate how many reopened cases<BR>[Reopened refers to a
-      case is put back to "In Progress" to "Resolved"]<BR><B>Target : </B>TBD
-
-      '
-    listen:
-      Channel: of_case.origin
-      Status: of_case.status
-      RHQ (Case): of_case.Regional_Head_Office
-      Cluster Country: of_case.case_country
-      Individual Country: of_case.country
-      Office (Case): of_case.case_office_code
-      Initial Queue Name: of_case.Initial_Queue_Name
-      Case Number: of_case.casenumber
-      Topic (L3): of_case.subordinate_category_l3
-      First Contact Resolution: of_case.first_contact_resolution
-      Web Email: of_case.supplied_email
-      Date Granularity: of_case.timeframe_picker
-      Open Date: of_case.createddate_filter_date
-      Reopened Case: of_case.Case_reopened
-      Dynamic Filter - View By: of_case.Geo_Param
-      Priority: of_case.priority
-      Contact Email: of_case.contactemail
-      eComm ID: of_case.ecomm_id
-      Contract Number: of_case.contract_number
-      Case Rating: of_case.case_rating
-      Service or Contract Customer: of_case.Service_Contract_Customer
-      Sub Resolution Reason: of_case.sub_resolution_reason
-      Category (L1): of_case.reason
-      Subtopic (L4): of_case.subordinate_category_l4
-      Service Type: of_case.type
-      Closed Date: of_case.closeddate_date
-      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
-      Original Record Type: of_case.original_record_type
-      Has Leave Message: of_case.has_leave_message_filter
-      Resolution Reason: of_case.resolution_reason
-      Office Type: case_owner.officetype
-      Case Owner: case_owner.name
-      Role: of_escalation_history.role
-      Profile: case_owner.profile_name_service
-      Category (L2): of_case.sub_category_l2
-      Awaiting Internal Team Response: of_case_history_air.status_case_Analysis
-      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
-      Country (Case Owner): user_office_hierarchy.country
-      Office (Case Owner): user_office_hierarchy.office_code
-      Source of Chat: of_chat_transcript.origin
-      Queue Owner Name: of_queue.developer_name
-      Customer Segmentation: of_customer_group.key_acct_tp_cd
-      Customer Group: of_customer_group.cust_grp_and_name
-      Customer: of_customer.customer_cd_and_name
-      Contact Name: of_contact.name
-      Sales Team Member: of_sales_team_member.team_role
-      Customer Type: of_customer.customer_type
-    row: 27
-    col: 0
-    width: 12
-    height: 6
-  - title: No of Times a Case is Reopened*
-    name: No of Times a Case is Reopened*
-    model: oneforce_service
-    explore: of_case
-    type: looker_bar
-    fields: [of_case.no_of_times_case_reopen, of_case.count, of_case.Case_Geo]
-    pivots: [of_case.no_of_times_case_reopen]
-    filters:
-      of_case.no_of_times_case_reopen: NOT NULL
-    sorts: [of_case.Case_Geo, of_case.count desc 0, of_case.no_of_times_case_reopen]
-    limit: 500
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_view_names: false
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: false
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: ''
-    stacking: normal
-    limit_displayed_rows: false
-    legend_position: center
-    point_style: none
-    show_value_labels: true
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: false
-    show_silhouette: false
-    totals_color: "#808080"
-    y_axes: [{label: '', orientation: bottom, series: [{axisId: of_case.count, id: of_case.count,
-            name: Case}], showLabels: false, showValues: false, unpinAxis: false,
-        tickDensity: default, tickDensityCustom: 5, type: linear}]
-    label_value_format: '[>=1000000]0.0,,"M";[>=1000]0.0,"K";0'
-    series_types: {}
-    show_null_points: true
-    defaults_version: 1
-    note_state: collapsed
-    note_display: hover
-    note_text: '<P style="text-align:left;"><B>Metric Name : </B>No of Times a Case
-      is Reopened<BR><B>How it Helps : </B>To evaluate how many times a case has been
-      reopened<BR>[Reopened refers to a case is put back to "In Progress" to "Resolved"]<BR><B>Target
-      : </B>TBD'
-    listen:
-      Channel: of_case.origin
-      Status: of_case.status
-      RHQ (Case): of_case.Regional_Head_Office
-      Cluster Country: of_case.case_country
-      Individual Country: of_case.country
-      Office (Case): of_case.case_office_code
-      Initial Queue Name: of_case.Initial_Queue_Name
-      Case Number: of_case.casenumber
-      Topic (L3): of_case.subordinate_category_l3
-      First Contact Resolution: of_case.first_contact_resolution
-      Web Email: of_case.supplied_email
-      Date Granularity: of_case.timeframe_picker
-      Open Date: of_case.createddate_filter_date
-      Reopened Case: of_case.Case_reopened
-      Dynamic Filter - View By: of_case.Geo_Param
-      Priority: of_case.priority
-      Contact Email: of_case.contactemail
-      eComm ID: of_case.ecomm_id
-      Contract Number: of_case.contract_number
-      Case Rating: of_case.case_rating
-      Service or Contract Customer: of_case.Service_Contract_Customer
-      Sub Resolution Reason: of_case.sub_resolution_reason
-      Category (L1): of_case.reason
-      Subtopic (L4): of_case.subordinate_category_l4
-      Service Type: of_case.type
-      Closed Date: of_case.closeddate_date
-      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
-      Original Record Type: of_case.original_record_type
-      Has Leave Message: of_case.has_leave_message_filter
-      Resolution Reason: of_case.resolution_reason
-      Office Type: case_owner.officetype
-      Case Owner: case_owner.name
-      Role: of_escalation_history.role
-      Profile: case_owner.profile_name_service
-      Category (L2): of_case.sub_category_l2
-      Awaiting Internal Team Response: of_case_history_air.status_case_Analysis
-      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
-      Country (Case Owner): user_office_hierarchy.country
-      Office (Case Owner): user_office_hierarchy.office_code
-      Source of Chat: of_chat_transcript.origin
-      Queue Owner Name: of_queue.developer_name
-      Customer Segmentation: of_customer_group.key_acct_tp_cd
-      Customer Group: of_customer_group.cust_grp_and_name
-      Customer: of_customer.customer_cd_and_name
-      Contact Name: of_contact.name
-      Sales Team Member: of_sales_team_member.team_role
-      Customer Type: of_customer.customer_type
-    row: 27
-    col: 12
-    width: 12
-    height: 6
-  - title: No of Transfer per Case*
-    name: No of Transfer per Case*
-    model: oneforce_service
-    explore: of_case
-    type: looker_bar
-    fields: [of_case.Case_Geo, of_case.group_total_transfer, of_case.count_transfer]
-    pivots: [of_case.group_total_transfer]
-    filters:
-      of_case.total_transfer: NOT NULL
-    sorts: [of_case.group_total_transfer, of_case.count_transfer desc 0]
-    limit: 500
-    column_limit: 50
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_view_names: false
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: false
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: ''
-    stacking: normal
-    limit_displayed_rows: false
-    legend_position: center
-    point_style: none
-    show_value_labels: true
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: false
-    show_silhouette: false
-    totals_color: "#808080"
-    y_axes: [{label: '', orientation: bottom, series: [{axisId: 0.0 - of_case.count,
-            id: 0.0 - of_case.count, name: '0'}, {axisId: 1.0 - of_case.count, id: 1.0
-              - of_case.count, name: '1'}, {axisId: 2.0 - of_case.count, id: 2.0 -
-              of_case.count, name: '2'}, {axisId: 3.0 - of_case.count, id: 3.0 - of_case.count,
-            name: '3'}, {axisId: 4.0 - of_case.count, id: 4.0 - of_case.count, name: '4'},
-          {axisId: 5.0 - of_case.count, id: 5.0 - of_case.count, name: '5'}, {axisId: 6.0
-              - of_case.count, id: 6.0 - of_case.count, name: '6'}, {axisId: 7.0 -
-              of_case.count, id: 7.0 - of_case.count, name: '7'}, {axisId: 8.0 - of_case.count,
-            id: 8.0 - of_case.count, name: '8'}, {axisId: 9.0 - of_case.count, id: 9.0
-              - of_case.count, name: '9'}, {axisId: 10.0 - of_case.count, id: 10.0
-              - of_case.count, name: '10'}, {axisId: 11.0 - of_case.count, id: 11.0
-              - of_case.count, name: '11'}, {axisId: 12.0 - of_case.count, id: 12.0
-              - of_case.count, name: '12'}, {axisId: 13.0 - of_case.count, id: 13.0
-              - of_case.count, name: '13'}, {axisId: 16.0 - of_case.count, id: 16.0
-              - of_case.count, name: '16'}, {axisId: 23.0 - of_case.count, id: 23.0
-              - of_case.count, name: '23'}, {axisId: 26.0 - of_case.count, id: 26.0
-              - of_case.count, name: '26'}], showLabels: false, showValues: false,
-        unpinAxis: false, tickDensity: default, tickDensityCustom: 5, type: linear}]
-    x_axis_zoom: true
-    y_axis_zoom: true
-    series_types: {}
-    series_labels:
-      'Total Transfers: 01 - of_case.count_transfer': 'Total Transfers: 1'
-      'Total Transfers: 02 - of_case.count_transfer': 'Total Transfers: 2'
-      'Total Transfers: 03 - of_case.count_transfer': 'Total Transfers: 3'
-      'Total Transfers: 04 - of_case.count_transfer': 'Total Transfers: 4'
-      'Total Transfers: 05 - of_case.count_transfer': 'Total Transfers: 5'
-      'Total Transfers: 06-50 - of_case.count_transfer': 'Total Transfers: 6-50'
-    defaults_version: 1
-    hidden_pivots: {}
-    note_state: collapsed
-    note_display: hover
-    note_text: '<P style="text-align:left;"><B>Metric Name : </B>No. of Times a Case
-      is Transfer<BR><B>How it Helps : </B>To evaluate how many times a case has been
-      transferred<BR>[ALL Case Status]<BR><B>Target : </B>TBD'
-    listen:
-      Channel: of_case.origin
-      Status: of_case.status
-      Priority: of_case.priority
-      Topic (L3): of_case.subordinate_category_l3
-      RHQ (Case): of_case.Regional_Head_Office
-      Cluster Country: of_case.case_country
-      Office (Case): of_case.case_office_code
-      Open Date: of_case.createddate_filter_date
-      Category (L1): of_case.reason
-      Resolution Reason: of_case.resolution_reason
-      Sub Resolution Reason: of_case.sub_resolution_reason
-      Case Number: of_case.casenumber
-      Contract Number: of_case.contract_number
-      First Contact Resolution: of_case.first_contact_resolution
-      Initial Queue Name: of_case.Initial_Queue_Name
-      Web Email: of_case.supplied_email
-      Closed Date: of_case.closeddate_date
-      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
-      Case Rating: of_case.case_rating
-      Dynamic Filter - View By: of_case.Geo_Param
-      Date Granularity: of_case.timeframe_picker
-      Service or Contract Customer: of_case.Service_Contract_Customer
-      Service Type: of_case.type
-      Subtopic (L4): of_case.subordinate_category_l4
-      Contact Email: of_case.contactemail
-      Original Record Type: of_case.original_record_type
-      Individual Country: of_case.country
-      eComm ID: of_case.ecomm_id
-      Reopened Case: of_case.Case_reopened
-      Has Leave Message: of_case.has_leave_message_filter
-      Office Type: case_owner.officetype
-      Case Owner: case_owner.name
-      Role: of_escalation_history.role
-      Profile: case_owner.profile_name_service
-      Category (L2): of_case.sub_category_l2
-      Awaiting Internal Team Response: of_case_history_air.status_case_Analysis
-      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
-      Country (Case Owner): user_office_hierarchy.country
-      Office (Case Owner): user_office_hierarchy.office_code
-      Source of Chat: of_chat_transcript.origin
-      Queue Owner Name: of_queue.developer_name
-      Customer Segmentation: of_customer_group.key_acct_tp_cd
-      Customer Group: of_customer_group.cust_grp_and_name
-      Customer: of_customer.customer_cd_and_name
-      Contact Name: of_contact.name
-      Sales Team Member: of_sales_team_member.team_role
-      Customer Type: of_customer.customer_type
-    row: 14
-    col: 12
-    width: 12
-    height: 6
-  - title: No of Transferred Cases**
-    name: No of Transferred Cases**
-    model: oneforce_service
-    explore: of_case
-    type: looker_column
-    fields: [of_case.Transferred_chat_case_Dynamic, of_case.Transferred_Case_count_distinct]
-    filters: {}
-    sorts: [of_case.Transferred_Case_count_distinct desc]
-    limit: 500
-    column_limit: 50
-    x_axis_gridlines: false
-    y_axis_gridlines: true
-    show_view_names: false
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: false
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: ''
-    stacking: normal
-    limit_displayed_rows: false
-    legend_position: center
-    point_style: none
-    show_value_labels: false
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: false
-    show_silhouette: false
-    totals_color: "#808080"
-    y_axes: [{label: '', orientation: left, series: [{axisId: of_case.Transferred_Case_count_distinct,
-            id: of_case.Transferred_Case_count_distinct, name: Transferred Case Distinct
-              Count}], showLabels: false, showValues: true, unpinAxis: false, tickDensity: default,
-        tickDensityCustom: 5, type: linear}]
-    x_axis_zoom: true
-    y_axis_zoom: true
-    series_types: {}
-    series_labels:
-      'Total Transfers: 01 - of_case.count_transfer': 'Total Transfers: 1'
-      'Total Transfers: 02 - of_case.count_transfer': 'Total Transfers: 2'
-      'Total Transfers: 03 - of_case.count_transfer': 'Total Transfers: 3'
-      'Total Transfers: 04 - of_case.count_transfer': 'Total Transfers: 4'
-      'Total Transfers: 05 - of_case.count_transfer': 'Total Transfers: 5'
-      'Total Transfers: 06-50 - of_case.count_transfer': 'Total Transfers: 6-50'
-    defaults_version: 1
-    hidden_pivots: {}
-    note_state: collapsed
-    note_display: hover
-    note_text: '<P style="text-align:left;"><B>Metric Name : </B>No. of Times a Case
-      is Transfer<BR><B>How it Helps : </B>To evaluate how many times a case has been
-      transferred<BR>[ALL Case Status]<BR><B>Target : </B>TBD'
-    listen:
-      Channel: of_case.origin
-      Status: of_case.status
-      Priority: of_case.priority
-      Topic (L3): of_case.subordinate_category_l3
-      RHQ (Case): of_case.Regional_Head_Office
-      Cluster Country: of_case.case_country
-      Office (Case): of_case.case_office_code
-      Open Date: of_case.createddate_filter_date
-      Category (L1): of_case.reason
-      Resolution Reason: of_case.resolution_reason
-      Sub Resolution Reason: of_case.sub_resolution_reason
-      Case Number: of_case.casenumber
-      Contract Number: of_case.contract_number
-      First Contact Resolution: of_case.first_contact_resolution
-      Initial Queue Name: of_case.Initial_Queue_Name
-      Web Email: of_case.supplied_email
-      Closed Date: of_case.closeddate_date
-      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
-      Case Rating: of_case.case_rating
-      Dynamic Filter - View By: of_case.Geo_Param
-      Date Granularity: of_case.timeframe_picker
-      Service or Contract Customer: of_case.Service_Contract_Customer
-      Service Type: of_case.type
-      Subtopic (L4): of_case.subordinate_category_l4
-      Contact Email: of_case.contactemail
-      Original Record Type: of_case.original_record_type
-      Individual Country: of_case.country
-      eComm ID: of_case.ecomm_id
-      Reopened Case: of_case.Case_reopened
-      Has Leave Message: of_case.has_leave_message_filter
-      Office Type: case_owner.officetype
-      Case Owner: case_owner.name
-      Role: of_escalation_history.role
-      Profile: case_owner.profile_name_service
-      Category (L2): of_case.sub_category_l2
-      Awaiting Internal Team Response: of_case_history_air.status_case_Analysis
-      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
-      Country (Case Owner): user_office_hierarchy.country
-      Office (Case Owner): user_office_hierarchy.office_code
-      Source of Chat: of_chat_transcript.origin
-      Queue Owner Name: of_queue.developer_name
-      Customer Segmentation: of_customer_group.key_acct_tp_cd
-      Customer Group: of_customer_group.cust_grp_and_name
-      Customer: of_customer.customer_cd_and_name
-      Contact Name: of_contact.name
-      Sales Team Member: of_sales_team_member.team_role
-      Customer Type: of_customer.customer_type
-      Transferred Cases By: of_case.Transferred_chat_case_Param
-    row: 20
-    col: 0
-    width: 24
     height: 7
   filters:
   - name: Channel
@@ -3998,6 +4679,7 @@
     ui_config:
       type: checkboxes
       display: popover
+      options: []
     model: oneforce_service
     explore: of_case
     listens_to_filters: []
@@ -4013,7 +4695,7 @@
       display: popover
     model: oneforce_service
     explore: of_case
-    listens_to_filters: [Cluster Country, Office (Case), Individual Country]
+    listens_to_filters: [Cluster Country, Individual Country, Office (Case)]
     field: of_case.Regional_Head_Office
   - name: Cluster Country
     title: Cluster Country
@@ -4022,11 +4704,11 @@
     allow_multiple_values: true
     required: false
     ui_config:
-      type: tag_list
+      type: advanced
       display: popover
     model: oneforce_service
     explore: of_case
-    listens_to_filters: [RHQ (Case), Office (Case), Individual Country]
+    listens_to_filters: [RHQ (Case), Individual Country, Office (Case)]
     field: of_case.case_country
   - name: Individual Country
     title: Individual Country
@@ -4035,7 +4717,7 @@
     allow_multiple_values: true
     required: false
     ui_config:
-      type: tag_list
+      type: advanced
       display: popover
     model: oneforce_service
     explore: of_case
@@ -4050,6 +4732,7 @@
     ui_config:
       type: tag_list
       display: popover
+      options: []
     model: oneforce_service
     explore: of_case
     listens_to_filters: [RHQ (Case), Cluster Country, Individual Country]
@@ -4076,6 +4759,7 @@
     ui_config:
       type: tag_list
       display: popover
+      options: []
     model: oneforce_service
     explore: of_case
     listens_to_filters: []
@@ -4089,6 +4773,7 @@
     ui_config:
       type: tag_list
       display: popover
+      options: []
     model: oneforce_service
     explore: of_case
     listens_to_filters: []
@@ -4102,10 +4787,24 @@
     ui_config:
       type: tag_list
       display: popover
+      options: []
     model: oneforce_service
     explore: of_case
     listens_to_filters: []
     field: case_owner.name
+  - name: Chat Owner
+    title: Chat Owner
+    type: field_filter
+    default_value: ''
+    allow_multiple_values: true
+    required: false
+    ui_config:
+      type: tag_list
+      display: popover
+    model: oneforce_service
+    explore: of_case
+    listens_to_filters: []
+    field: of_case.ct_owner_name1
   - name: Role
     title: Role
     type: field_filter
@@ -4141,6 +4840,7 @@
     ui_config:
       type: checkboxes
       display: popover
+      options: []
     model: oneforce_service
     explore: of_case
     listens_to_filters: [Category (L1), Topic (L3)]
@@ -4158,22 +4858,6 @@
     explore: of_case
     listens_to_filters: [Category (L1), Category (L2)]
     field: of_case.subordinate_category_l3
-  - name: Awaiting Internal Team Response
-    title: Awaiting Internal Team Response
-    type: field_filter
-    default_value: ''
-    allow_multiple_values: true
-    required: false
-    ui_config:
-      type: button_group
-      display: inline
-      options:
-      - 'Yes'
-      - 'No'
-    model: oneforce_service
-    explore: of_case
-    listens_to_filters: []
-    field: of_case_history_air.status_case_Analysis
   - name: First Contact Resolution
     title: First Contact Resolution
     type: field_filter
@@ -4199,6 +4883,7 @@
     ui_config:
       type: checkboxes
       display: popover
+      options: []
     model: oneforce_service
     explore: of_case
     listens_to_filters: []
@@ -4212,6 +4897,7 @@
     ui_config:
       type: advanced
       display: popover
+      options: []
     model: oneforce_service
     explore: of_case
     listens_to_filters: []
@@ -4239,12 +4925,13 @@
     ui_config:
       type: dropdown_menu
       display: inline
+      options: []
     model: oneforce_service
     explore: of_case
     listens_to_filters: []
     field: of_case.timeframe_picker
-  - name: CSAT
-    title: CSAT
+  - name: First Response Time
+    title: First Response Time
     type: field_filter
     default_value: Case Level
     allow_multiple_values: true
@@ -4255,11 +4942,11 @@
     model: oneforce_service
     explore: of_case
     listens_to_filters: []
-    field: of_case.csat_Param
-  - name: NPS
-    title: NPS
+    field: of_case.responsetime_Param
+  - name: Case/Chat Level
+    title: Case/Chat Level
     type: field_filter
-    default_value: Case Level
+    default_value: CaseLevel
     allow_multiple_values: true
     required: false
     ui_config:
@@ -4268,7 +4955,7 @@
     model: oneforce_service
     explore: of_case
     listens_to_filters: []
-    field: of_case.globalnps_Param
+    field: of_case.Volume_per_Agent_Param
   - name: Reopened Case
     title: Reopened Case
     type: field_filter
@@ -4298,9 +4985,9 @@
       - Global
       - Channel
       - RHQ
+      - 'Segment '
       - Agent Role
       - Escalation Role
-      - 'Segment '
       - Office Type
       - Service Type
       - Office
@@ -4310,19 +4997,6 @@
     explore: of_case
     listens_to_filters: []
     field: of_case.Geo_Param
-  - name: Transferred Cases By
-    title: Transferred Cases By
-    type: field_filter
-    default_value: User Office
-    allow_multiple_values: true
-    required: false
-    ui_config:
-      type: radio_buttons
-      display: inline
-    model: oneforce_service
-    explore: of_case
-    listens_to_filters: []
-    field: of_case.Transferred_chat_case_Param
   - name: RHQ (Case Owner)
     title: RHQ (Case Owner)
     type: field_filter
@@ -4467,6 +5141,7 @@
     ui_config:
       type: tag_list
       display: overflow
+      options: []
     model: oneforce_service
     explore: of_case
     listens_to_filters: []
@@ -4493,6 +5168,7 @@
     ui_config:
       type: tag_list
       display: overflow
+      options: []
     model: oneforce_service
     explore: of_case
     listens_to_filters: []
@@ -4566,6 +5242,7 @@
     ui_config:
       type: checkboxes
       display: overflow
+      options: []
     model: oneforce_service
     explore: of_case
     listens_to_filters: [Resolution Reason]
@@ -4579,6 +5256,7 @@
     ui_config:
       type: tag_list
       display: overflow
+      options: []
     model: oneforce_service
     explore: of_case
     listens_to_filters: []
@@ -4592,6 +5270,7 @@
     ui_config:
       type: tag_list
       display: overflow
+      options: []
     model: oneforce_service
     explore: of_case
     listens_to_filters: []
@@ -4652,6 +5331,7 @@
     ui_config:
       type: advanced
       display: overflow
+      options: []
     model: oneforce_service
     explore: of_case
     listens_to_filters: []
