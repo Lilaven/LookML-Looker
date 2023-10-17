@@ -2798,6 +2798,12 @@
     show_legend: true
     quantize_map_value_colors: false
     reverse_map_value_colors: false
+    note_state: collapsed
+    note_display: hover
+    note_text: "<P style=\"text-align:left;\"><B>Metric Name : </B>First Contact Resolution\
+      \ by Region<BR><B>How it Helps : </B>To evaluate cases resolved by First Contact\
+      \ CCA Regionwise<BR>[Case resolution without inter / intra team transfer & escalation]<BR><B>Target\
+      \ : </B>TBD\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t"
     hidden_pivots: {}
     listen:
       Status: of_case.status
@@ -3001,6 +3007,12 @@
     show_legend: true
     quantize_map_value_colors: false
     reverse_map_value_colors: false
+    note_state: collapsed
+    note_display: hover
+    note_text: "<P style=\"text-align:left;\"><B>Metric Name : </B>First Contact Resolution\
+      \ by Region<BR><B>How it Helps : </B>To evaluate cases resolved by First Contact\
+      \ CCA Regionwise<BR>[Case resolution without inter / intra team transfer & escalation]<BR><B>Target\
+      \ : </B>TBD\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t"
     hidden_pivots: {}
     listen:
       Status: of_case.status
@@ -4604,6 +4616,12 @@
     show_legend: true
     quantize_map_value_colors: false
     reverse_map_value_colors: false
+    note_state: collapsed
+    note_display: hover
+    note_text: "<P style=\"text-align:left;\"><B>Metric Name : </B>First Contact Resolution\
+      \ by Region<BR><B>How it Helps : </B>To evaluate cases resolved by First Contact\
+      \ CCA Regionwise<BR>[Case resolution without inter / intra team transfer & escalation]<BR><B>Target\
+      \ : </B>TBD\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t"
     hidden_pivots: {}
     listen:
       Status: of_case.status
