@@ -95,6 +95,89 @@
     col: 0
     width: 2
     height: 2
+  - title: Open
+    name: Open
+    model: oneforce_service
+    explore: of_case
+    type: single_value
+    fields: [of_case.case_distinct_count_drill]
+    filters:
+      of_case.active_case: 'Yes'
+    limit: 500
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    custom_color: "#7f0b4d"
+    single_value_title: Open
+    value_format: '[>=1000000]0.0,,"M";[>=1000]0.0,"K";0'
+    conditional_formatting: [{type: not null, value: !!null '', background_color: "#BD0F72",
+        font_color: !!null '', color_application: {collection_id: one-theme, palette_id: one-theme-sequential-0},
+        bold: false, italic: false, strikethrough: false, fields: !!null ''}]
+    series_types: {}
+    defaults_version: 1
+    note_state: collapsed
+    note_display: hover
+    note_text: '<P style="text-align:left;"><B>Metric Name : </B>No. of Open Cases<BR><B>How
+      it Helps : </B>To evaluate the no. of Open cases<BR>[Case Status ≠ "Resolved"
+      & "Closed"]<BR><B>Target : </B>TBD'
+    listen:
+      Channel: of_case.origin
+      Status: of_case.status
+      RHQ (Case): of_case.Regional_Head_Office
+      Cluster Country: of_case.case_country
+      Individual Country: of_case.country
+      Office (Case): of_case.case_office_code
+      Initial Queue Name: of_case.Initial_Queue_Name
+      Case Number: of_case.casenumber
+      Topic (L3): of_case.subordinate_category_l3
+      First Contact Resolution: of_case.first_contact_resolution
+      Web Email: of_case.supplied_email
+      Date Granularity: of_case.timeframe_picker
+      Open Date: of_case.createddate_filter_date
+      Reopened Case: of_case.Case_reopened
+      Dynamic Filter - View By: of_case.Geo_Param
+      Priority: of_case.priority
+      Contact Email: of_case.contactemail
+      eComm ID: of_case.ecomm_id
+      Contract Number: of_case.contract_number
+      Case Rating: of_case.case_rating
+      Service or Contract Customer: of_case.Service_Contract_Customer
+      Sub Resolution Reason: of_case.sub_resolution_reason
+      Category (L1): of_case.reason
+      Subtopic (L4): of_case.subordinate_category_l4
+      Service Type: of_case.type
+      Closed Date: of_case.closeddate_date
+      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
+      Original Record Type: of_case.original_record_type
+      Has Leave Message: of_case.has_leave_message_filter
+      Resolution Reason: of_case.resolution_reason
+      Office Type: case_owner.officetype
+      Case Owner: case_owner.name
+      Role: of_escalation_history.role
+      Profile: case_owner.profile_name_service
+      Category (L2): of_case.sub_category_l2
+      Awaiting Internal Team Response: of_case_history_air.status_case_Analysis
+      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
+      Country (Case Owner): user_office_hierarchy.country
+      Office (Case Owner): user_office_hierarchy.office_code
+      Source of Chat: of_chat_transcript.origin
+      Queue Owner Name: of_queue.developer_name
+      Customer Segmentation: of_customer_group.key_acct_tp_cd
+      Customer Group: of_customer_group.cust_grp_and_name
+      Customer: of_customer.customer_cd_and_name
+      Contact Name: of_contact.name
+      Sales Team Member: of_sales_team_member.team_role
+      Customer Type: of_customer.customer_type
+    row: 0
+    col: 2
+    width: 2
+    height: 2
   - title: Escl Cases
     name: Escl Cases
     model: oneforce_service
@@ -1053,11 +1136,94 @@
     col: 12
     width: 12
     height: 6
+  - title: Closed/ Resolved
+    name: Closed/ Resolved
+    model: oneforce_service
+    explore: of_case
+    type: single_value
+    fields: [of_case.case_distinct_count_drill]
+    filters:
+      of_case.active_case: 'No'
+    limit: 500
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    custom_color: "#7f0b4d"
+    single_value_title: Closed
+    value_format: '[>=1000000]0.0,,"M";[>=1000]0.0,"K";0'
+    conditional_formatting: [{type: not null, value: !!null '', background_color: "#BD0F72",
+        font_color: !!null '', color_application: {collection_id: one-theme, palette_id: one-theme-sequential-0},
+        bold: false, italic: false, strikethrough: false, fields: !!null ''}]
+    series_types: {}
+    defaults_version: 1
+    note_state: collapsed
+    note_display: hover
+    note_text: '<P style="text-align:left;"><B>Metric Name : </B>No. of Closed Cases<BR><B>How
+      it Helps : </B>To evaluate the no. of Closed cases<BR>[Case Status = "Resolved"
+      & "Closed"]<BR><B>Target : </B>TBD'
+    listen:
+      Channel: of_case.origin
+      Status: of_case.status
+      RHQ (Case): of_case.Regional_Head_Office
+      Cluster Country: of_case.case_country
+      Individual Country: of_case.country
+      Office (Case): of_case.case_office_code
+      Initial Queue Name: of_case.Initial_Queue_Name
+      Case Number: of_case.casenumber
+      Topic (L3): of_case.subordinate_category_l3
+      First Contact Resolution: of_case.first_contact_resolution
+      Web Email: of_case.supplied_email
+      Date Granularity: of_case.timeframe_picker
+      Open Date: of_case.createddate_filter_date
+      Reopened Case: of_case.Case_reopened
+      Dynamic Filter - View By: of_case.Geo_Param
+      Priority: of_case.priority
+      Contact Email: of_case.contactemail
+      eComm ID: of_case.ecomm_id
+      Contract Number: of_case.contract_number
+      Case Rating: of_case.case_rating
+      Service or Contract Customer: of_case.Service_Contract_Customer
+      Sub Resolution Reason: of_case.sub_resolution_reason
+      Category (L1): of_case.reason
+      Subtopic (L4): of_case.subordinate_category_l4
+      Service Type: of_case.type
+      Closed Date: of_case.closeddate_date
+      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
+      Original Record Type: of_case.original_record_type
+      Has Leave Message: of_case.has_leave_message_filter
+      Resolution Reason: of_case.resolution_reason
+      Office Type: case_owner.officetype
+      Case Owner: case_owner.name
+      Role: of_escalation_history.role
+      Profile: case_owner.profile_name_service
+      Category (L2): of_case.sub_category_l2
+      Awaiting Internal Team Response: of_case_history_air.status_case_Analysis
+      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
+      Country (Case Owner): user_office_hierarchy.country
+      Office (Case Owner): user_office_hierarchy.office_code
+      Source of Chat: of_chat_transcript.origin
+      Queue Owner Name: of_queue.developer_name
+      Customer Segmentation: of_customer_group.key_acct_tp_cd
+      Customer Group: of_customer_group.cust_grp_and_name
+      Customer: of_customer.customer_cd_and_name
+      Contact Name: of_contact.name
+      Sales Team Member: of_sales_team_member.team_role
+      Customer Type: of_customer.customer_type
+    row: 0
+    col: 4
+    width: 2
+    height: 2
   - name: '<a target="_blank" style="color:#BD0F72; font-size:1vw"  href="https://onelinecloudlookercom/embed/dashboards/1129"><b>Fullscreen?</b></a><p
-      style="font-size:1vw">Version: 20231017 </p>'
+      style="font-size:1vw">Version: 20230830 </p>'
     type: text
     title_text: '<a target="_blank" style="color:#BD0F72; font-size:1vw"  href="https://oneline.cloud.looker.com/embed/dashboards/1129"><b>Fullscreen?</b></a><p
-      style="font-size:1vw">Version: 2023.10.17 </p>'
+      style="font-size:1vw">Version: 2023.08.30 </p>'
     subtitle_text: ''
     body_text: ''
     row: 80
@@ -2019,6 +2185,87 @@
     col: 8
     width: 8
     height: 6
+  - title: Total
+    name: Total
+    model: oneforce_service
+    explore: of_case
+    type: single_value
+    fields: [of_case.case_distinct_count_drill]
+    limit: 500
+    custom_color_enabled: true
+    show_single_value_title: true
+    show_comparison: false
+    comparison_type: value
+    comparison_reverse_colors: false
+    show_comparison_label: true
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    custom_color: "#7f0b4d"
+    single_value_title: Total
+    value_format: '[>=1000000]0.0,,"M";[>=1000]0.0,"K";0'
+    conditional_formatting: [{type: not null, value: !!null '', background_color: "#BD0F72",
+        font_color: !!null '', color_application: {collection_id: one-theme, palette_id: one-theme-sequential-0},
+        bold: false, italic: false, strikethrough: false, fields: !!null ''}]
+    series_types: {}
+    defaults_version: 1
+    note_state: collapsed
+    note_display: hover
+    note_text: '<P style="text-align:left;"><B>Metric Name : </B>No. of Total Cases<BR><B>How
+      it Helps : </B>To evaluate the no. of Total cases<BR>[ALL Case Status]<BR><B>Target
+      : </B>TBD'
+    listen:
+      Channel: of_case.origin
+      Status: of_case.status
+      RHQ (Case): of_case.Regional_Head_Office
+      Cluster Country: of_case.case_country
+      Individual Country: of_case.country
+      Office (Case): of_case.case_office_code
+      Initial Queue Name: of_case.Initial_Queue_Name
+      Case Number: of_case.casenumber
+      Topic (L3): of_case.subordinate_category_l3
+      First Contact Resolution: of_case.first_contact_resolution
+      Web Email: of_case.supplied_email
+      Date Granularity: of_case.timeframe_picker
+      Open Date: of_case.createddate_filter_date
+      Reopened Case: of_case.Case_reopened
+      Dynamic Filter - View By: of_case.Geo_Param
+      Priority: of_case.priority
+      Contact Email: of_case.contactemail
+      eComm ID: of_case.ecomm_id
+      Contract Number: of_case.contract_number
+      Case Rating: of_case.case_rating
+      Service or Contract Customer: of_case.Service_Contract_Customer
+      Sub Resolution Reason: of_case.sub_resolution_reason
+      Category (L1): of_case.reason
+      Subtopic (L4): of_case.subordinate_category_l4
+      Service Type: of_case.type
+      Closed Date: of_case.closeddate_date
+      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
+      Original Record Type: of_case.original_record_type
+      Has Leave Message: of_case.has_leave_message_filter
+      Resolution Reason: of_case.resolution_reason
+      Office Type: case_owner.officetype
+      Case Owner: case_owner.name
+      Role: of_escalation_history.role
+      Profile: case_owner.profile_name_service
+      Category (L2): of_case.sub_category_l2
+      Awaiting Internal Team Response: of_case_history_air.status_case_Analysis
+      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
+      Country (Case Owner): user_office_hierarchy.country
+      Office (Case Owner): user_office_hierarchy.office_code
+      Source of Chat: of_chat_transcript.origin
+      Queue Owner Name: of_queue.developer_name
+      Customer Segmentation: of_customer_group.key_acct_tp_cd
+      Customer Group: of_customer_group.cust_grp_and_name
+      Customer: of_customer.customer_cd_and_name
+      Contact Name: of_contact.name
+      Sales Team Member: of_sales_team_member.team_role
+      Customer Type: of_customer.customer_type
+    row: 0
+    col: 6
+    width: 2
+    height: 2
   - title: CSAT by Location*
     name: CSAT by Location*
     model: oneforce_service
@@ -3728,265 +3975,6 @@
     col: 0
     width: 24
     height: 7
-  - title: Open
-    name: Open
-    model: oneforce_service
-    explore: of_case
-    type: single_value
-    fields: [of_case.case_distinct_count_drill]
-    filters:
-      of_case.active_case: 'Yes'
-    limit: 500
-    column_limit: 50
-    dynamic_fields: [{category: dimension, expression: "${of_case.priority}", label: priority
-          for filter, value_format: !!null '', value_format_name: !!null '', dimension: priority_for_filter,
-        _kind_hint: dimension, _type_hint: string}]
-    custom_color_enabled: true
-    show_single_value_title: true
-    show_comparison: false
-    comparison_type: value
-    comparison_reverse_colors: false
-    show_comparison_label: true
-    enable_conditional_formatting: false
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    custom_color: "#7f0b4d"
-    single_value_title: Open
-    value_format: '[>=1000000]0.0,,"M";[>=1000]0.0,"K";0'
-    conditional_formatting: [{type: not null, value: !!null '', background_color: "#BD0F72",
-        font_color: !!null '', color_application: {collection_id: one-theme, palette_id: one-theme-sequential-0},
-        bold: false, italic: false, strikethrough: false, fields: !!null ''}]
-    series_types: {}
-    defaults_version: 1
-    note_state: collapsed
-    note_display: hover
-    note_text: '<P style="text-align:left;"><B>Metric Name : </B>No. of Open High
-      and Urgent Priority Cases<BR><B>How it Helps : </B>To evaluate the no. of Open
-      cases by Priority = Urgent and High<BR>[Case Status ≠ "Resolved" & "Closed"]<BR><B>Target
-      : </B>Urgent: TBD High: TBD'
-    listen:
-      Channel: of_case.origin
-      Status: of_case.status
-      RHQ (Case): of_case.Regional_Head_Office
-      Cluster Country: of_case.case_country
-      Individual Country: of_case.country
-      Office (Case): of_case.case_office_code
-      Initial Queue Name: of_case.Initial_Queue_Name
-      Case Number: of_case.casenumber
-      Topic (L3): of_case.subordinate_category_l3
-      First Contact Resolution: of_case.first_contact_resolution
-      Web Email: of_case.supplied_email
-      Date Granularity: of_case.timeframe_picker
-      Open Date: of_case.createddate_filter_date
-      Reopened Case: of_case.Case_reopened
-      Dynamic Filter - View By: of_case.Geo_Param
-      Contact Email: of_case.contactemail
-      eComm ID: of_case.ecomm_id
-      Contract Number: of_case.contract_number
-      Case Rating: of_case.case_rating
-      Service or Contract Customer: of_case.Service_Contract_Customer
-      Sub Resolution Reason: of_case.sub_resolution_reason
-      Category (L1): of_case.reason
-      Subtopic (L4): of_case.subordinate_category_l4
-      Service Type: of_case.type
-      Closed Date: of_case.closeddate_date
-      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
-      Original Record Type: of_case.original_record_type
-      Has Leave Message: of_case.has_leave_message_filter
-      Resolution Reason: of_case.resolution_reason
-      Office Type: case_owner.officetype
-      Case Owner: case_owner.name
-      Role: of_escalation_history.role
-      Profile: case_owner.profile_name_service
-      Category (L2): of_case.sub_category_l2
-      Awaiting Internal Team Response: of_case_history_air.status_case_Analysis
-      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
-      Country (Case Owner): user_office_hierarchy.country
-      Office (Case Owner): user_office_hierarchy.office_code
-      Source of Chat: of_chat_transcript.origin
-      Queue Owner Name: of_queue.developer_name
-      Customer Segmentation: of_customer_group.key_acct_tp_cd
-      Customer Group: of_customer_group.cust_grp_and_name
-      Customer: of_customer.customer_cd_and_name
-      Contact Name: of_contact.name
-      Sales Team Member: of_sales_team_member.team_role
-      Customer Type: of_customer.customer_type
-    row: 0
-    col: 2
-    width: 2
-    height: 2
-  - title: Total
-    name: Total
-    model: oneforce_service
-    explore: of_case
-    type: single_value
-    fields: [of_case.case_distinct_count_drill]
-    limit: 500
-    column_limit: 50
-    dynamic_fields: [{category: dimension, expression: "${of_case.priority}", label: priority
-          for filter, value_format: !!null '', value_format_name: !!null '', dimension: priority_for_filter,
-        _kind_hint: dimension, _type_hint: string}]
-    custom_color_enabled: true
-    show_single_value_title: true
-    show_comparison: false
-    comparison_type: value
-    comparison_reverse_colors: false
-    show_comparison_label: true
-    enable_conditional_formatting: false
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    custom_color: "#7f0b4d"
-    single_value_title: Total
-    value_format: '[>=1000000]0.0,,"M";[>=1000]0.0,"K";0'
-    conditional_formatting: [{type: not null, value: !!null '', background_color: "#BD0F72",
-        font_color: !!null '', color_application: {collection_id: one-theme, palette_id: one-theme-sequential-0},
-        bold: false, italic: false, strikethrough: false, fields: !!null ''}]
-    series_types: {}
-    defaults_version: 1
-    note_state: collapsed
-    note_display: hover
-    note_text: '<P style="text-align:left;"><B>Metric Name : </B>No. of Open High
-      and Urgent Priority Cases<BR><B>How it Helps : </B>To evaluate the no. of Open
-      cases by Priority = Urgent and High<BR>[Case Status ≠ "Resolved" & "Closed"]<BR><B>Target
-      : </B>Urgent: TBD High: TBD'
-    listen:
-      Channel: of_case.origin
-      Status: of_case.status
-      RHQ (Case): of_case.Regional_Head_Office
-      Cluster Country: of_case.case_country
-      Individual Country: of_case.country
-      Office (Case): of_case.case_office_code
-      Initial Queue Name: of_case.Initial_Queue_Name
-      Case Number: of_case.casenumber
-      Topic (L3): of_case.subordinate_category_l3
-      First Contact Resolution: of_case.first_contact_resolution
-      Web Email: of_case.supplied_email
-      Date Granularity: of_case.timeframe_picker
-      Open Date: of_case.createddate_filter_date
-      Reopened Case: of_case.Case_reopened
-      Dynamic Filter - View By: of_case.Geo_Param
-      Contact Email: of_case.contactemail
-      eComm ID: of_case.ecomm_id
-      Contract Number: of_case.contract_number
-      Case Rating: of_case.case_rating
-      Service or Contract Customer: of_case.Service_Contract_Customer
-      Sub Resolution Reason: of_case.sub_resolution_reason
-      Category (L1): of_case.reason
-      Subtopic (L4): of_case.subordinate_category_l4
-      Service Type: of_case.type
-      Closed Date: of_case.closeddate_date
-      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
-      Original Record Type: of_case.original_record_type
-      Has Leave Message: of_case.has_leave_message_filter
-      Resolution Reason: of_case.resolution_reason
-      Office Type: case_owner.officetype
-      Case Owner: case_owner.name
-      Role: of_escalation_history.role
-      Profile: case_owner.profile_name_service
-      Category (L2): of_case.sub_category_l2
-      Awaiting Internal Team Response: of_case_history_air.status_case_Analysis
-      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
-      Country (Case Owner): user_office_hierarchy.country
-      Office (Case Owner): user_office_hierarchy.office_code
-      Source of Chat: of_chat_transcript.origin
-      Queue Owner Name: of_queue.developer_name
-      Customer Segmentation: of_customer_group.key_acct_tp_cd
-      Customer Group: of_customer_group.cust_grp_and_name
-      Customer: of_customer.customer_cd_and_name
-      Contact Name: of_contact.name
-      Sales Team Member: of_sales_team_member.team_role
-      Customer Type: of_customer.customer_type
-    row: 0
-    col: 6
-    width: 2
-    height: 2
-  - title: Closed/ Resolved
-    name: Closed/ Resolved
-    model: oneforce_service
-    explore: of_case
-    type: single_value
-    fields: [of_case.case_distinct_count_drill]
-    filters:
-      of_case.active_case: 'No'
-    limit: 500
-    column_limit: 50
-    dynamic_fields: [{category: dimension, expression: "${of_case.priority}", label: priority
-          for filter, value_format: !!null '', value_format_name: !!null '', dimension: priority_for_filter,
-        _kind_hint: dimension, _type_hint: string}]
-    custom_color_enabled: true
-    show_single_value_title: true
-    show_comparison: false
-    comparison_type: value
-    comparison_reverse_colors: false
-    show_comparison_label: true
-    enable_conditional_formatting: false
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    custom_color: "#7f0b4d"
-    single_value_title: Closed
-    value_format: '[>=1000000]0.0,,"M";[>=1000]0.0,"K";0'
-    conditional_formatting: [{type: not null, value: !!null '', background_color: "#BD0F72",
-        font_color: !!null '', color_application: {collection_id: one-theme, palette_id: one-theme-sequential-0},
-        bold: false, italic: false, strikethrough: false, fields: !!null ''}]
-    series_types: {}
-    defaults_version: 1
-    note_state: collapsed
-    note_display: hover
-    note_text: '<P style="text-align:left;"><B>Metric Name : </B>No. of Open High
-      and Urgent Priority Cases<BR><B>How it Helps : </B>To evaluate the no. of Open
-      cases by Priority = Urgent and High<BR>[Case Status ≠ "Resolved" & "Closed"]<BR><B>Target
-      : </B>Urgent: TBD High: TBD'
-    listen:
-      Channel: of_case.origin
-      Status: of_case.status
-      RHQ (Case): of_case.Regional_Head_Office
-      Cluster Country: of_case.case_country
-      Individual Country: of_case.country
-      Office (Case): of_case.case_office_code
-      Initial Queue Name: of_case.Initial_Queue_Name
-      Case Number: of_case.casenumber
-      Topic (L3): of_case.subordinate_category_l3
-      First Contact Resolution: of_case.first_contact_resolution
-      Web Email: of_case.supplied_email
-      Date Granularity: of_case.timeframe_picker
-      Open Date: of_case.createddate_filter_date
-      Reopened Case: of_case.Case_reopened
-      Dynamic Filter - View By: of_case.Geo_Param
-      Contact Email: of_case.contactemail
-      eComm ID: of_case.ecomm_id
-      Contract Number: of_case.contract_number
-      Case Rating: of_case.case_rating
-      Service or Contract Customer: of_case.Service_Contract_Customer
-      Sub Resolution Reason: of_case.sub_resolution_reason
-      Category (L1): of_case.reason
-      Subtopic (L4): of_case.subordinate_category_l4
-      Service Type: of_case.type
-      Closed Date: of_case.closeddate_date
-      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
-      Original Record Type: of_case.original_record_type
-      Has Leave Message: of_case.has_leave_message_filter
-      Resolution Reason: of_case.resolution_reason
-      Office Type: case_owner.officetype
-      Case Owner: case_owner.name
-      Role: of_escalation_history.role
-      Profile: case_owner.profile_name_service
-      Category (L2): of_case.sub_category_l2
-      Awaiting Internal Team Response: of_case_history_air.status_case_Analysis
-      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
-      Country (Case Owner): user_office_hierarchy.country
-      Office (Case Owner): user_office_hierarchy.office_code
-      Source of Chat: of_chat_transcript.origin
-      Queue Owner Name: of_queue.developer_name
-      Customer Segmentation: of_customer_group.key_acct_tp_cd
-      Customer Group: of_customer_group.cust_grp_and_name
-      Customer: of_customer.customer_cd_and_name
-      Contact Name: of_contact.name
-      Sales Team Member: of_sales_team_member.team_role
-      Customer Type: of_customer.customer_type
-    row: 0
-    col: 4
-    width: 2
-    height: 2
   filters:
   - name: Channel
     title: Channel
@@ -4034,7 +4022,7 @@
     allow_multiple_values: true
     required: false
     ui_config:
-      type: advanced
+      type: tag_list
       display: popover
     model: oneforce_service
     explore: of_case
@@ -4047,7 +4035,7 @@
     allow_multiple_values: true
     required: false
     ui_config:
-      type: advanced
+      type: tag_list
       display: popover
     model: oneforce_service
     explore: of_case
