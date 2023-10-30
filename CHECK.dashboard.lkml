@@ -1,12 +1,12 @@
-- dashboard: service_kpi_landing_page
-  title: Service KPI Landing Page
+- dashboard: service_kpi_landing_page_lilacopy
+  title: Service KPI Landing Page (lilacopy)
   layout: newspaper
   preferred_viewer: dashboards-next
   crossfilter_enabled: true
   description: ''
   query_timezone: UTC
   filters_bar_collapsed: true
-  preferred_slug: 1VYUlxgqgnbfXMslSklfwn
+  preferred_slug: 84w0MSBqbSDdJQyZb0OgJN
   elements:
   - title: Open Urgent & High
     name: Open Urgent & High
@@ -100,7 +100,7 @@
       Role: of_escalation_history.role
       Channel: of_case.origin
       Do not use(Dynamic Filter): of_case.Case_Geo
-    row: 15
+    row: 11
     col: 21
     width: 3
     height: 3
@@ -191,7 +191,7 @@
       Role: of_escalation_history.role
       Channel: of_case.origin
       Do not use(Dynamic Filter): of_case.Case_Geo
-    row: 12
+    row: 8
     col: 21
     width: 3
     height: 3
@@ -283,7 +283,7 @@
       Role: of_escalation_history.role
       Channel: of_case.origin
       Do not use(Dynamic Filter): of_case.Case_Geo
-    row: 21
+    row: 17
     col: 21
     width: 3
     height: 3
@@ -374,7 +374,7 @@
       Role: of_escalation_history.role
       Channel: of_case.origin
       Do not use(Dynamic Filter): of_case.Case_Geo
-    row: 9
+    row: 5
     col: 21
     width: 3
     height: 3
@@ -993,12 +993,12 @@
       Role: of_escalation_history.role
       Channel: of_case.origin
       Do not use(Dynamic Filter): of_case.Case_Geo
-    row: 18
+    row: 14
     col: 21
     width: 3
     height: 3
-  - title: Digital Deflection Ratio
-    name: Digital Deflection Ratio
+  - title: Chat + Webform Usage
+    name: Chat + Webform Usage
     model: oneforce_service
     explore: of_case
     type: marketplace_viz_multiple_value::multiple_value-marketplace
@@ -1321,154 +1321,6 @@
     col: 12
     width: 3
     height: 4
-  - title: NPS
-    name: NPS
-    model: oneforce_service
-    explore: of_case
-    type: marketplace_viz_multiple_value::multiple_value-marketplace
-    fields: [of_case.global_nps_case_chat, prev_detractor, prev_promoters, current_detractor,
-      current_promoters]
-    limit: 500
-    column_limit: 50
-    dynamic_fields: [{category: table_calculation, expression: "(${current_promoters}\
-          \ -${current_detractor})*100", label: Current NPS, value_format: !!null '',
-        value_format_name: decimal_0, _kind_hint: measure, table_calculation: current_nps,
-        _type_hint: number, is_disabled: true}, {category: table_calculation, expression: "(${prev_promoters}\
-          \ -${prev_detractor})*100", label: Previous NPS, value_format: !!null '',
-        value_format_name: decimal_0, _kind_hint: measure, table_calculation: previous_nps,
-        _type_hint: number, is_disabled: false}, {category: measure, expression: 'trunc_months
-          (${of_case.filter_start} ) = trunc_months ( ${of_case.createddate_date})',
-        label: Prev Detractor, value_format: !!null '', value_format_name: !!null '',
-        based_on: of_case.detractor_percentage, filter_expression: 'trunc_months (${of_case.filter_start}
-          ) = trunc_months ( ${of_case.createddate_date})', _kind_hint: measure, measure: prev_detractor,
-        type: average, _type_hint: number, filters: {}}, {category: measure, expression: !!null '',
-        label: Current Promoters, value_format: !!null '', value_format_name: !!null '',
-        based_on: of_case.promoter_percentage, _kind_hint: measure, measure: current_promoters,
-        type: average, _type_hint: number, filters: {}}, {category: measure, expression: 'trunc_months
-          (${of_case.filter_start} ) = trunc_months ( ${of_case.createddate_date})',
-        label: Prev Promoters, value_format: !!null '', value_format_name: !!null '',
-        based_on: of_case.promoter_percentage, filter_expression: 'trunc_months (${of_case.filter_start}
-          ) = trunc_months ( ${of_case.createddate_date})', _kind_hint: measure, measure: prev_promoters,
-        type: average, _type_hint: number, filters: {}}, {category: measure, expression: !!null '',
-        label: 'Current Detractor ', value_format: !!null '', value_format_name: !!null '',
-        based_on: of_case.detractor_percentage, _kind_hint: measure, measure: current_detractor,
-        type: average, _type_hint: number, filters: {}}]
-    hidden_fields: [prev_detractor, prev_promoters, current_detractor, current_promoters]
-    hidden_points_if_no: []
-    series_labels: {}
-    show_view_names: true
-    font_size_main: '16'
-    orientation: auto
-    style_of_case.global_nps_case_chat: "#7f0b4d"
-    show_title_of_case.global_nps_case_chat: false
-    title_placement_of_case.global_nps_case_chat: above
-    value_format_of_case.global_nps_case_chat: '[>=1000000]0.0,,"M";[>=1000]0.0,"K";0'
-    show_comparison_previous_nps: true
-    comparison_style_previous_nps: percentage_change
-    comparison_show_label_previous_nps: true
-    pos_is_bad_previous_nps: false
-    comparison_label_previous_nps: vs Prev
-    comparison_label_placement_previous_nps: below
-    style_current_nps: "#7f0b4d"
-    show_title_current_nps: false
-    title_placement_current_nps: above
-    value_format_current_nps: '[>=1000000]0.0,,"M";[>=1000]0.0,"K";0'
-    comp_value_format_previous_nps: ''
-    custom_color_enabled: true
-    show_single_value_title: true
-    show_comparison: true
-    comparison_type: value
-    comparison_reverse_colors: false
-    show_comparison_label: false
-    enable_conditional_formatting: true
-    conditional_formatting_include_totals: false
-    conditional_formatting_include_nulls: false
-    color_application:
-      collection_id: one-theme
-      palette_id: one-theme-categorical-0
-    custom_color: "#BD0F72"
-    conditional_formatting: [{type: greater than, value: 0, background_color: "#ffffff",
-        font_color: "#BD0F72", color_application: {collection_id: 6c27c30e-5523-4080-82ae-272146e699d0,
-          palette_id: 25b877bc-c7a8-4ed0-a0ef-5ba64ca3658d}, bold: false, italic: false,
-        strikethrough: false, fields: !!null ''}]
-    showComparison: false
-    minValue: 0
-    maxValue: 100
-    circleThickness: 0.05
-    circleFillGap: 0.05
-    circleColor: "#178BCA"
-    waveHeight: 0.3
-    waveCount: 4
-    waveRiseTime: 2350
-    waveAnimateTime: 2151
-    waveRise: true
-    waveHeightScaling: true
-    waveAnimate: true
-    waveColor: "#BD0F72"
-    waveOffset: 0
-    textVertPosition: 0.5
-    textSize: 0.89
-    valueCountUp: true
-    displayPercent: false
-    textColor: "#000000"
-    waveTextColor: "#FFFFFF"
-    defaults_version: 0
-    series_types: {}
-    hidden_pivots: {}
-    listen:
-      Date Granularity: of_case.timeframe_picker
-      Web Email: of_case.supplied_email
-      Open Date: of_case.createddate_filter_date
-      Status: of_case.status
-      Category (L2): of_case.sub_category_l2
-      Topic (L3): of_case.subordinate_category_l3
-      RHQ (Case): of_case.Regional_Head_Office
-      Office (Case): of_case.case_office_code
-      Category (L1): of_case.reason
-      Case Number: of_case.casenumber
-      First Contact Resolution: of_case.first_contact_resolution
-      Initial Queue Name: of_case.Initial_Queue_Name
-      Closed Date: of_case.closeddate_date
-      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
-      Case Rating: of_case.case_rating
-      Service or Contract Customer: of_case.Service_Contract_Customer
-      Sub Resolution Reason: of_case.sub_resolution_reason
-      Priority: of_case.priority
-      Dynamic Filter - View By: of_case.Geo_Param
-      Service Type: of_case.type
-      Office Type: case_owner.officetype
-      Case Owner: case_owner.name
-      Profile: case_owner.profile_name_service
-      Subtopic (L4): of_case.subordinate_category_l4
-      Resolution Reason: of_case.resolution_reason
-      Source of Chat: of_chat_transcript.origin
-      Queue Owner Name: of_queue.developer_name
-      Customer Segmentation: of_customer_group.key_acct_tp_cd
-      Customer Group: of_customer_group.cust_grp_and_name
-      Customer: of_customer.customer_cd_and_name
-      Contact Name: of_contact.name
-      Contract Number: of_case.contract_number
-      Sales Team Member: of_sales_team_member.team_role
-      Customer Type: of_customer.customer_type
-      Contact Email: of_case.contactemail
-      Original Record Type: of_case.original_record_type
-      Cluster Country: of_case.case_country
-      Individual Country: of_case.country
-      eComm ID: of_case.ecomm_id
-      Reopened Case: of_case.Case_reopened
-      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
-      Country (Case Owner): user_office_hierarchy.country
-      Office (Case Owner): user_office_hierarchy.office_code
-      Has Leave Message: of_case.has_leave_message_filter
-      Required Awaiting Internal Response: of_case_history_air.status_case_Analysis
-      NPS: of_case.globalnps_Param
-      Role: of_escalation_history.role
-      Channel: of_case.origin
-      Do not use(Dynamic Filter): of_case.Case_Geo
-    row: 1
-    col: 18
-    width: 3
-    height: 4
   - title: FCR
     name: FCR
     model: oneforce_service
@@ -1725,7 +1577,7 @@
       Role: of_escalation_history.role
       Channel: of_case.origin
       Do not use(Dynamic Filter): of_case.Case_Geo
-    row: 5
+    row: 1
     col: 21
     width: 3
     height: 4
@@ -1957,7 +1809,7 @@
       Channel: of_case.origin
       Do not use(Dynamic Filter): of_case.Case_Geo
     row: 1
-    col: 21
+    col: 18
     width: 3
     height: 4
   - title: Avg First Response Time (mins)
@@ -5052,7 +4904,7 @@
       Role: of_escalation_history.role
       Channel: of_case.origin
       Do not use(Dynamic Filter): of_case.Case_Geo
-    row: 24
+    row: 20
     col: 21
     width: 3
     height: 3
@@ -5804,7 +5656,7 @@
       Role: of_escalation_history.role
       Channel: of_case.origin
       Do not use(Dynamic Filter): of_case.Case_Geo
-    row: 27
+    row: 23
     col: 21
     width: 3
     height: 3
@@ -5891,7 +5743,7 @@
       Role: of_escalation_history.role
       Channel: of_case.origin
       Do not use(Dynamic Filter): of_case.Case_Geo
-    row: 30
+    row: 26
     col: 21
     width: 3
     height: 3
@@ -6020,7 +5872,7 @@
       Role: of_escalation_history.role
       Channel: of_case.origin
       Do not use(Dynamic Filter): of_case.Case_Geo
-    row: 33
+    row: 29
     col: 21
     width: 3
     height: 3
@@ -6132,7 +5984,7 @@
       Role: of_escalation_history.role
       Channel: of_case.origin
       Do not use(Dynamic Filter): of_case.Case_Geo
-    row: 36
+    row: 32
     col: 21
     width: 3
     height: 4
@@ -9562,7 +9414,7 @@
     width: 11
     height: 9
   - type: button
-    name: button_15792
+    name: button_16806
     rich_content_json: '{"text":"Link to Service KPI Definition","description":"","newTab":true,"alignment":"right","size":"medium","style":"FILLED","color":"#BD0F72","href":"https://docs.google.com/spreadsheets/d/1iV5sa_Bivxi6L8VDA1l4tsT3uclPjERkcxh9lTbFTuI/edit#gid=1240332461"}'
     row: 0
     col: 0
