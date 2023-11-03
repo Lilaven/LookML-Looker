@@ -1,12 +1,12 @@
-- dashboard: service_kpi_landing_page_lilacopy
-  title: Service KPI Landing Page (lilacopy)
+- dashboard: service_kpi_landing_page
+  title: Service KPI Landing Page
   layout: newspaper
   preferred_viewer: dashboards-next
   crossfilter_enabled: true
   description: ''
   query_timezone: UTC
   filters_bar_collapsed: true
-  preferred_slug: 84w0MSBqbSDdJQyZb0OgJN
+  preferred_slug: 1VYUlxgqgnbfXMslSklfwn
   elements:
   - title: Open Urgent & High
     name: Open Urgent & High
@@ -899,7 +899,7 @@
     body_text: |
       <p style="font-size:medium;font-weight: bold;text-align: center;">
           <a target="_blank"  style="color:#BD0F72;" href="https://oneline.cloud.looker.com/embed/dashboards/1225">Fullscreen?</a><br>
-          Version: 2023.10.17 <br>
+          Version: 2023.10.30 <br>
           <a target="_blank" href="https://drive.google.com/file/d/1R7D06xLdWpojlgweseYSWU2SUOdMaOBl/view">HTG - Service KPI Workflow - Metrics</a></p>
     row: 76
     col: 19
@@ -9414,7 +9414,7 @@
     width: 11
     height: 9
   - type: button
-    name: button_16806
+    name: button_15792
     rich_content_json: '{"text":"Link to Service KPI Definition","description":"","newTab":true,"alignment":"right","size":"medium","style":"FILLED","color":"#BD0F72","href":"https://docs.google.com/spreadsheets/d/1iV5sa_Bivxi6L8VDA1l4tsT3uclPjERkcxh9lTbFTuI/edit#gid=1240332461"}'
     row: 0
     col: 0
