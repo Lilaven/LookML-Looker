@@ -1,5 +1,5 @@
-- dashboard: check_poc2
-  title: Check Poc2
+- dashboard: poc_cca_analysis
+  title: POC CCA Analysis
   layout: newspaper
   preferred_viewer: dashboards-next
   crossfilter_enabled: true
@@ -434,7 +434,7 @@
     title_text: '<a target="_blank" style="color:#BD0F72; font-size:1vw"  href="https://oneline.cloud.looker.com/embed/dashboards-next/1118"><b>Fullscreen?</b></a><p
       style="font-size:1vw">Version: 2023.10.31 </p> '
     body_text: ''
-    row: 100
+    row: 94
     col: 20
     width: 4
     height: 3
@@ -4749,7 +4749,118 @@
     series_types:
       target_achievement_ratio: line
     series_colors:
+      300 or Above - 11 - of_chat_transcript.count: "#CCD3D1"
+      270 to 299 - 10 - of_chat_transcript.count: "#CCD3D1"
+      240 to 269 - 09 - of_chat_transcript.count: "#CCD3D1"
+      210 to 239 - 08 - of_chat_transcript.count: "#CCD3D1"
+      180 to 209 - 07 - of_chat_transcript.count: "#CCD3D1"
+      150 to 179 - 06 - of_chat_transcript.count: "#CCD3D1"
+      120 to 149 - 05 - of_chat_transcript.count: "#CCD3D1"
+      90 to 119 - 04 - of_chat_transcript.count: "#CCD3D1"
+      60 to 89 - 03 - of_chat_transcript.count: "#CCD3D1"
+      30 to 59 - 02 - of_chat_transcript.count: "#CCD3D1"
+      180 to 269 - Web - of_chat_transcript.count: "#CCD3D1"
+      270 to 299 - Web - of_chat_transcript.count: "#CCD3D1"
+      300 to 359 - Web - of_chat_transcript.count: "#CCD3D1"
+      360 to 419 - Web - of_chat_transcript.count: "#CCD3D1"
+      480 to 539 - Web - of_chat_transcript.count: "#CCD3D1"
+      420 to 479 - Web - of_chat_transcript.count: "#CCD3D1"
+      540 to 599 - Web - of_chat_transcript.count: "#CCD3D1"
+      60 to 119 - Web - of_chat_transcript.count: "#CCD3D1"
+      600 or Above - Web - of_chat_transcript.count: "#CCD3D1"
+      150 to 179 - Chat - of_chat_transcript.count: "#CCD3D1"
+      180 to 209 - Chat - of_chat_transcript.count: "#CCD3D1"
+      210 to 239 - Chat - of_chat_transcript.count: "#CCD3D1"
+      240 to 269 - Chat - of_chat_transcript.count: "#CCD3D1"
+      270 to 299 - Chat - of_chat_transcript.count: "#CCD3D1"
+      30 to 59 - Chat - of_chat_transcript.count: "#CCD3D1"
+      300 or Above - Chat - of_chat_transcript.count: "#CCD3D1"
+      60 to 89 - Chat - of_chat_transcript.count: "#CCD3D1"
+      90 to 119 - Chat - of_chat_transcript.count: "#CCD3D1"
+      60 to 89 - 3 - of_chat_transcript.count: "#CCD3D1"
+      90 to 119 - 4 - of_chat_transcript.count: "#CCD3D1"
+      120 to 149 - 5 - of_chat_transcript.count: "#CCD3D1"
+      270 to 299 - 5 - of_chat_transcript.count: "#CCD3D1"
+      150 to 179 - 6 - of_chat_transcript.count: "#CCD3D1"
+      180 to 209 - 7 - of_chat_transcript.count: "#CCD3D1"
+      210 to 239 - 8 - of_chat_transcript.count: "#CCD3D1"
+      240 to 269 - 9 - of_chat_transcript.count: "#CCD3D1"
+      300 or Above - 10 - of_chat_transcript.count: "#CCD3D1"
+      120 to 179 - 3 - of_case.FRT_tier_count: "#CCD3D1"
+      180 to 269 - 4 - of_case.FRT_tier_count: "#CCD3D1"
+      270 to 299 - 5 - of_case.FRT_tier_count: "#CCD3D1"
+      300 to 359 - 6 - of_case.FRT_tier_count: "#CCD3D1"
+      360 to 419 - 7 - of_case.FRT_tier_count: "#CCD3D1"
+      420 to 479 - 8 - of_case.FRT_tier_count: "#CCD3D1"
+      480 to 539 - 9 - of_case.FRT_tier_count: "#CCD3D1"
+      540 to 599 - 10 - of_case.FRT_tier_count: "#CCD3D1"
+      600 or Above - 11 - of_case.FRT_tier_count: "#CCD3D1"
+      60 to 89 - 3 - of_case.FRT_tier_count: "#CCD3D1"
+      90 to 119 - 4 - of_case.FRT_tier_count: "#CCD3D1"
+      120 to 149 - 5 - of_case.FRT_tier_count: "#CCD3D1"
+      150 to 179 - 6 - of_case.FRT_tier_count: "#CCD3D1"
+      180 to 209 - 7 - of_case.FRT_tier_count: "#CCD3D1"
+      210 to 239 - 8 - of_case.FRT_tier_count: "#CCD3D1"
+      240 to 269 - 9 - of_case.FRT_tier_count: "#CCD3D1"
+      300 or Above - 10 - of_case.FRT_tier_count: "#CCD3D1"
+      300 or Above - 11 - of_case.FRT_tier_count: "#CCD3D1"
+      270 to 300 - 10 - of_case.FRT_tier_count: "#CCD3D1"
+      301 or Above - 11 - of_case.FRT_tier_count: "#CCD3D1"
       label: "#BD0F72"
+      60 to 89 - 3 - test: "#CCD3D1"
+      90 to 119 - 4 - test: "#CCD3D1"
+      120 to 149 - 5 - test: "#CCD3D1"
+      150 to 179 - 6 - test: "#CCD3D1"
+      180 to 209 - 7 - test: "#CCD3D1"
+      60 to 89 - 3 - of_total: "#CCD3D1"
+      90 to 119 - 4 - of_total: "#CCD3D1"
+      120 to 149 - 5 - of_total: "#CCD3D1"
+      150 to 179 - 6 - of_total: "#CCD3D1"
+      180 to 209 - 7 - of_total: "#CCD3D1"
+      210 to 239 - 8 - of_total: "#CCD3D1"
+      240 to 269 - 9 - of_total: "#CCD3D1"
+      270 to 300 - 10 - of_total: "#CCD3D1"
+      301 or Above - 11 - of_total: "#CCD3D1"
+      120 to 179 - 3 - of_total: "#CCD3D1"
+      180 to 269 - 4 - of_total: "#CCD3D1"
+      270 to 299 - 5 - of_total: "#CCD3D1"
+      300 to 359 - 6 - of_total: "#CCD3D1"
+      360 to 419 - 7 - of_total: "#CCD3D1"
+      420 to 479 - 8 - of_total: "#CCD3D1"
+      480 to 539 - 9 - of_total: "#CCD3D1"
+      540 to 599 - 10 - of_total: "#CCD3D1"
+      600 or Above - 11 - of_total: "#CCD3D1"
+      121 to 180 - 3 - of_case.FRT_tier_count: "#CCD3D1"
+      181 to 270 - 4 - of_case.FRT_tier_count: "#CCD3D1"
+      271 to 300 - 5 - of_case.FRT_tier_count: "#CCD3D1"
+      301 to 360 - 6 - of_case.FRT_tier_count: "#CCD3D1"
+      361 to 420 - 7 - of_case.FRT_tier_count: "#CCD3D1"
+      421 to 480 - 8 - of_case.FRT_tier_count: "#CCD3D1"
+      481 to 540 - 9 - of_case.FRT_tier_count: "#CCD3D1"
+      541 to 600 - 10 - of_case.FRT_tier_count: "#CCD3D1"
+      601 or Above - 11 - of_case.FRT_tier_count: "#CCD3D1"
+      121 to 150 - 5 - of_case.FRT_tier_count: "#CCD3D1"
+      91 to 120 - 4 - of_case.FRT_tier_count: "#CCD3D1"
+      61 to 90 - 3 - of_case.FRT_tier_count: "#CCD3D1"
+      151 to 180 - 6 - of_case.FRT_tier_count: "#CCD3D1"
+      181 to 210 - 7 - of_case.FRT_tier_count: "#CCD3D1"
+      241 to 270 - 9 - of_case.FRT_tier_count: "#CCD3D1"
+      211 to 240 - 8 - of_case.FRT_tier_count: "#CCD3D1"
+      271 to 300 - 10 - of_case.FRT_tier_count: "#CCD3D1"
+      61 to 90 - 3 - of_total: "#CCD3D1"
+      91 to 120 - 4 - of_total: "#CCD3D1"
+      121 to 150 - 5 - of_total: "#CCD3D1"
+      151 to 180 - 6 - of_total: "#CCD3D1"
+      181 to 210 - 7 - of_total: "#CCD3D1"
+      211 to 240 - 8 - of_total: "#CCD3D1"
+      241 to 270 - 9 - of_total: "#CCD3D1"
+      271 to 300 - 10 - of_total: "#CCD3D1"
+      121 to 180 - 4 - of_total: "#CCD3D1"
+      181 to 240 - 4 - of_total: "#CCD3D1"
+      61 to 120 - 2 - of_total: "#CCD3D1"
+      241 or Above - 6 - of_total: "#CCD3D1"
+      61 to 120 - 3 - of_total: "#CCD3D1"
+      181 to 240 - 5 - of_total: "#CCD3D1"
       ">= 240.1 - 6 - of_total": "#CCD3D1"
       ">= 180.1 and < 240.1 - 5 - of_total": "#CCD3D1"
       ">= 120.1 and < 180.1 - 4 - of_total": "#CCD3D1"
@@ -4759,11 +4870,84 @@
       of_total: "#84C5C3"
       target_achievement_ratio: "#84C5C3"
     series_labels:
+      300 or Above - 10 - of_case.FRT_tier_count: ">= 300 sec"
+      240 to 269 - 9 - of_case.FRT_tier_count: 240-269 sec
+      0 to 29 - 1 - of_case.FRT_tier_count: 0-29 sec
+      30 to 59 - 2 - of_case.FRT_tier_count: 30-59 sec
+      60 to 89 - 3 - of_case.FRT_tier_count: 60-89 sec
+      90 to 119 - 4 - of_case.FRT_tier_count: 90-119 sec
+      301 or Above - 11 - of_case.FRT_tier_count: "> 300 sec"
+      120 to 149 - 5 - of_case.FRT_tier_count: 120-149 sec
+      150 to 179 - 6 - of_case.FRT_tier_count: 150-179 sec
+      180 to 209 - 7 - of_case.FRT_tier_count: 180-209 sec
+      210 to 239 - 8 - of_case.FRT_tier_count: 210-239 sec
+      270 to 300 - 10 - of_case.FRT_tier_count: 270-300 sec
+      0 to 59 - 1 - of_case.FRT_tier_count: 0-59 min
+      60 to 119 - 2 - of_case.FRT_tier_count: 60-119 min
+      120 to 179 - 3 - of_case.FRT_tier_count: 120-179 min
+      180 to 269 - 4 - of_case.FRT_tier_count: 180-269 min
+      270 to 299 - 5 - of_case.FRT_tier_count: 270-299 min
+      300 to 359 - 6 - of_case.FRT_tier_count: 300-359 min
+      360 to 419 - 7 - of_case.FRT_tier_count: 360-419 min
+      420 to 479 - 8 - of_case.FRT_tier_count: 420-479 min
+      480 to 539 - 9 - of_case.FRT_tier_count: 480-539 min
+      540 to 599 - 10 - of_case.FRT_tier_count: 540-599 min
+      600 or Above - 11 - of_case.FRT_tier_count: ">= 600 min"
+      0 to 60 - 1 - of_case.FRT_tier_count: 0-60
+      61 to 120 - 2 - of_case.FRT_tier_count: 61-120
+      121 to 180 - 3 - of_case.FRT_tier_count: 121-180
+      181 to 270 - 4 - of_case.FRT_tier_count: 181-270
+      271 to 300 - 5 - of_case.FRT_tier_count: 271-300
+      301 to 360 - 6 - of_case.FRT_tier_count: 301-360
+      361 to 420 - 7 - of_case.FRT_tier_count: 361-420
+      421 to 480 - 8 - of_case.FRT_tier_count: 421-480
+      481 to 540 - 9 - of_case.FRT_tier_count: 481-540
+      541 to 600 - 10 - of_case.FRT_tier_count: 541-600
+      601 or Above - 11 - of_case.FRT_tier_count: "> 600"
+      0 to 30 - 1 - of_case.FRT_tier_count: 0-30
+      31 to 60 - 2 - of_case.FRT_tier_count: 31-60
+      61 to 90 - 3 - of_case.FRT_tier_count: 61-90
+      91 to 120 - 4 - of_case.FRT_tier_count: 91-120
+      121 to 150 - 5 - of_case.FRT_tier_count: 121-150
+      151 to 180 - 6 - of_case.FRT_tier_count: 151-180
+      181 to 210 - 7 - of_case.FRT_tier_count: 181-210
+      211 to 240 - 8 - of_case.FRT_tier_count: 211-240
+      241 to 270 - 9 - of_case.FRT_tier_count: 241-270
+      271 to 300 - 10 - of_case.FRT_tier_count: 271-300
       ">= 0.1 and < 30.1 - 1 - of_case.FRT_tier_count": 0-30 sec
       ">= 30.1 and < 60.1 - 2 - of_case.FRT_tier_count": 31-60 sec
-      "Dynamic FRT Tier >= 0.1 and < 60.1": "FRT Tier"
-      "Dynamic FRT Tier 0-30 sec": "FRT Tier 0-30 sec"
-      "FRT Tier Count": "Count (%Target)"
+
+      ">= 0.1 and < 30.1": "0-30 sec"
+      ">= 30.1 and < 60.1": "31-60 sec"
+      ">= 60.1 and < 120.1": "61-120 sec"
+      ">= 120.1 and < 180.1": "121-180 sec"
+      ">= 180.1 and < 240.1": "181-240 sec"
+      ">= 240.1": ">240 sec"
+
+      ">= 0.1 and < 60.1": "0-60 min"
+      ">= 60.1 and < 120.1": "60-120 min"
+      ">= 120.1 and < 180.1": "120-180 min"
+      ">= 180.1 and < 240.1": "180-240 min"
+      ">= 240.1 and < 300.1": "240-300 min"
+      ">= 300.1": "> 300 min"
+
+      ">= 240.1 and < 300.1 - Web - FRT_tier_count": "240-300 min1"
+      ">= 240.1 and < 300.1 - 5 - Web - of_case.dynamic_FRT_tier": "240-300 min2"
+
+
+      ">= 240.1 and < 300.1 - 5 - Web - of_case.dynamic_FRT_tier": "240-300 min3"
+      ">= 240.1 and < 300.1 - 5 - of_case.FRT_tier_count": "240-300 min"
+      ">= 240.1 and < 300.1 - 5 - target_achievement_ratio": "240-300 min"
+      "Dynamic FRT Tier &gt;= 240.1 and &lt; 300.1": "> 300 min-3"
+      # Dynamic FRT Tier &gt;= 240.1 and &lt; 300.1
+      # ">= 300.1 - 6 - of_case.FRT_tier_count": ">300 min"
+      ">= 300.1": "> 300 min"
+      ">= 300.1 - of_case.FRT_tier_count": "> 300 min-c"
+      "Dynamic FRT Tier >= 300.1" : "> 300 min-a"
+      "Dynamic FRT Tier >= 300.1" : "> 300 min-b"
+      "FRT Tier Count - >= 300.1": "> 300 min-1"
+      ">= 300.1 - of_case.FRT_tier_count": "> 300 min-2"
+
     reference_lines: []
     trend_lines: []
     column_spacing_ratio: 0.3
@@ -5141,165 +5325,6 @@
     row: 6
     col: 6
     width: 9
-    height: 6
-  - title: FRT Chat/Web Histogram and Target Achievement Ratio (Copy)
-    name: FRT Chat/Web Histogram and Target Achievement Ratio (Copy)
-    model: oneforce_service
-    explore: of_case
-    type: looker_column
-    fields: [of_case.FRT_tier_count, of_case.dynamic_FRT_tier]
-    filters:
-      of_case.dynamic_FRT_tier: "-Undefined,-< 0.1"
-    sorts: [of_case.dynamic_FRT_tier]
-    limit: 500
-    column_limit: 50
-    dynamic_fields:
-    - category: table_calculation
-      expression: pivot_where(${of_case.dynamic_FRT_tier} = "0", null)
-      label: Label
-      value_format:
-      value_format_name:
-      _kind_hint: dimension
-      table_calculation: label
-      _type_hint: 'null'
-      is_disabled: true
-    - category: table_calculation
-      label: Target Achievement Ratio
-      value_format:
-      value_format_name: percent_1
-      calculation_type: percent_of_column_sum
-      table_calculation: target_achievement_ratio
-      args:
-      - of_case.FRT_tier_count
-      _kind_hint: measure
-      _type_hint: number
-      is_disabled: true
-    query_timezone: UTC
-    x_axis_gridlines: false
-    y_axis_gridlines: false
-    show_view_names: false
-    show_y_axis_labels: true
-    show_y_axis_ticks: true
-    y_axis_tick_density: default
-    y_axis_tick_density_custom: 5
-    show_x_axis_label: false
-    show_x_axis_ticks: true
-    y_axis_scale_mode: linear
-    x_axis_reversed: false
-    y_axis_reversed: false
-    plot_size_by_field: false
-    trellis: ''
-    stacking: ''
-    limit_displayed_rows: false
-    legend_position: center
-    point_style: circle_outline
-    show_value_labels: true
-    label_density: 25
-    x_axis_scale: auto
-    y_axis_combined: true
-    ordering: none
-    show_null_labels: false
-    show_totals_labels: false
-    show_silhouette: false
-    totals_color: "#808080"
-    y_axes: [{label: '', orientation: left, series: [{axisId: of_case.FRT_tier_count,
-            id: of_case.FRT_tier_count, name: FRT Tier Count}], showLabels: false,
-        showValues: false, unpinAxis: false, tickDensity: default, type: linear},
-      {label: '', orientation: left, series: [{axisId: target_achievement_ratio, id: target_achievement_ratio,
-            name: Target Achievement Ratio}], showLabels: false, showValues: false,
-        unpinAxis: false, tickDensity: default, type: linear}]
-    x_axis_zoom: true
-    y_axis_zoom: true
-    limit_displayed_rows_values:
-      show_hide: hide
-      first_last: first
-      num_rows: '1'
-    series_colors:
-      label: "#BD0F72"
-      ">= 240.1 - 6 - of_total": "#CCD3D1"
-      ">= 180.1 and < 240.1 - 5 - of_total": "#CCD3D1"
-      ">= 120.1 and < 180.1 - 4 - of_total": "#CCD3D1"
-      ">= 60.1 and < 120.1 - 3 - of_total": "#CCD3D1"
-      ">= 30.1 and < 60.1 - 2 - of_case.FRT_tier_count": "#CCD3D1"
-      ">= 30.1 and < 60.1 - 2 - of_total": "#CCD3D1"
-      of_total: "#84C5C3"
-      target_achievement_ratio: "#84C5C3"
-    series_labels:
-      ">= 0.1 and < 30.1 - 1 - of_case.FRT_tier_count": 0-30 sec
-      ">= 30.1 and < 60.1 - 2 - of_case.FRT_tier_count": 31-60 sec
-      ">= 300.1" : "> 300 min"
-      "Dynamic FRT Tier - >= 300.1 - 6 - of_case.FRT_tier_count" : "> 300 min"
-      "Dynamic FRT Tier - >= 300.1 - 6 - of_case.FRT_tier_count" : "> 300 min1"
-      "of_case.dynamic_FRT_tier - >= 300.1 - of_case.FRT_tier_count" : "> 300 min2"
-      "of_case.dynamic_FRT_tier - >= 300.1 - 6 - of_case.FRT_tier_count" : "> 300 min3"
-      ">= 300.1 - 6 - of_case.dynamic_FRT_tier" : "> 300 min4"
-      ">= 300.1 - of_case.dynamic_FRT_tier" : "> 300 min5"
-      "Dynamic FRT Tier >= 300.1 - of_case.dynamic_FRT_tier" : "> 300 min6"
-      "Dynamic FRT Tier >= 300.1 - of_case.FRT_tier_count" : "> 300 min7"
-    reference_lines: []
-    trend_lines: []
-    column_spacing_ratio: 0.3
-    column_group_spacing_ratio: 0.3
-    defaults_version: 1
-    hidden_pivots: {}
-    hidden_fields:
-    hidden_points_if_no: []
-    note_state: collapsed
-    note_display: hover
-    note_text: |-
-      <P style="text-align:left;"><B> Magenta Bar (0-30 sec) </B> is the Chat FRT Global Target
-      <P style="text-align:left;">*Recommend to zoom the screen to 100% </P>
-    listen:
-      Channel: of_case.origin
-      Status: of_case.status
-      RHQ (Case): of_case.Regional_Head_Office
-      Cluster Country: of_case.case_country
-      Individual Country: of_case.country
-      Office (Case): of_case.case_office_code
-      Initial Queue Name: of_case.Initial_Queue_Name
-      Case Number: of_case.casenumber
-      Chat Owner: of_case.ct_owner_name1
-      Category (L2): of_case.sub_category_l2
-      Topic (L3): of_case.subordinate_category_l3
-      First Contact Resolution: of_case.first_contact_resolution
-      Resolution Reason: of_case.resolution_reason
-      Web Email: of_case.supplied_email
-      Date Granularity: of_case.timeframe_picker
-      Reopened Case: of_case.Case_reopened
-      Dynamic Filter - View By: of_case.Geo_Param
-      Priority: of_case.priority
-      Contact Email: of_case.contactemail
-      eComm ID: of_case.ecomm_id
-      Contract Number: of_case.contract_number
-      Case Rating: of_case.case_rating
-      Service or Contract Customer: of_case.Service_Contract_Customer
-      Sub Resolution Reason: of_case.sub_resolution_reason
-      Category (L1): of_case.reason
-      Subtopic (L4): of_case.subordinate_category_l4
-      Service Type: of_case.type
-      Closed Date: of_case.closeddate_date
-      Case Resolved Date: of_case.Case_Resolved_Date_Time_date
-      Original Record Type: of_case.original_record_type
-      Has Leave Message: of_case.has_leave_message_filter
-      Open Date: of_case.createddate_filter_date
-      Source of Chat: of_chat_transcript.origin
-      Contact Name: of_contact.name
-      Role: of_escalation_history.role
-      Customer: of_customer.customer_cd_and_name
-      Customer Group: of_customer_group.cust_grp_and_name
-      Customer Type: of_customer.customer_type
-      Country (Case Owner): user_office_hierarchy.country
-      RHQ (Case Owner): user_office_hierarchy.regional_head_office_short_nm
-      Office (Case Owner): user_office_hierarchy.office_code
-      Queue Owner Name: of_queue.developer_name
-      Office Type: case_owner.officetype
-      Profile: case_owner.profile_name_service
-      Sales Team Member: of_sales_team_member.team_role
-      Customer Segmentation: of_customer_group.key_acct_tp_cd
-      FRT Histogram: of_case.FRT_selector
-    row: 94
-    col: 12
-    width: 12
     height: 6
   filters:
   - name: Channel
