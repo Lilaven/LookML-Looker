@@ -330,14 +330,14 @@ view: of_case {
     group_item_label: "{% assign timeframe = _field._name | remove: 'of_case.closed_date_' | replace: '_',' ' | capitalize %}
   {% case timeframe%}
   {% when 'Time'%}01. Date Time
-  {% when 'Hour'%}02. Hour of the Day
+  {% when 'Hour of day'%}02. Hour of the Day
   {% when 'Date'%}03. Date
-  {% when 'Week'%}04. Week of Year
-  {% when 'Month'%}05. Month
-  {% when 'Calendar Quarter' %}06. Calendar Quarter
-  {% when 'Fiscal Quarter' %}07. Fiscal Quarter
-  {% when 'Calendar Year' %}08. Calendar Year
-  {% when 'Fiscal Year' %}09. Fiscal Year
+  {% when 'Week of year'%}04. Week of Year
+  {% when 'Month num'%}05. Month
+  {% when 'Quarter of year' %}06. Calendar Quarter
+  {% when 'Fiscal quarter of year' %}07. Fiscal Quarter
+  {% when 'Year' %}08. Calendar Year
+  {% when 'Fiscal year' %}09. Fiscal Year
   {% else %}{{timeframe}}{% endcase %}"
     label: "Close"
     datatype: datetime
@@ -360,14 +360,14 @@ view: of_case {
     group_item_label: "{% assign timeframe = _field._name | remove: 'of_case.created_date_' | replace: '_',' ' | capitalize %}
   {% case timeframe%}
   {% when 'Time'%}01. Date Time
-  {% when 'Hour'%}02. Hour of the Day
+  {% when 'Hour of day'%}02. Hour of the Day
   {% when 'Date'%}03. Date
-  {% when 'Week'%}04. Week of Year
-  {% when 'Month'%}05. Month
-  {% when 'Calendar Quarter' %}06. Calendar Quarter
-  {% when 'Fiscal Quarter' %}07. Fiscal Quarter
-  {% when 'Calendar Year' %}08. Calendar Year
-  {% when 'Fiscal Year' %}09. Fiscal Year
+  {% when 'Week of year'%}04. Week of Year
+  {% when 'Month num'%}05. Month
+  {% when 'Quarter of year' %}06. Calendar Quarter
+  {% when 'Fiscal quarter of year' %}07. Fiscal Quarter
+  {% when 'Year' %}08. Calendar Year
+  {% when 'Fiscal year' %}09. Fiscal Year
   {% else %}{{timeframe}}{% endcase %}"
     label: "Open"
     datatype: datetime
@@ -390,14 +390,14 @@ view: of_case {
     group_item_label: "{% assign timeframe = _field._name | remove: 'of_case.resolved_date_' | replace: '_',' ' | capitalize %}
   {% case timeframe%}
   {% when 'Time'%}01. Date Time
-  {% when 'Hour'%}02. Hour of the Day
+  {% when 'Hour of day'%}02. Hour of the Day
   {% when 'Date'%}03. Date
-  {% when 'Week'%}04. Week of Year
-  {% when 'Month'%}05. Month
-  {% when 'Calendar Quarter' %}06. Calendar Quarter
-  {% when 'Fiscal Quarter' %}07. Fiscal Quarter
-  {% when 'Calendar Year' %}08. Calendar Year
-  {% when 'Fiscal Year' %}09. Fiscal Year
+  {% when 'Week of year'%}04. Week of Year
+  {% when 'Month num'%}05. Month
+  {% when 'Quarter of year' %}06. Calendar Quarter
+  {% when 'Fiscal quarter of year' %}07. Fiscal Quarter
+  {% when 'Year' %}08. Calendar Year
+  {% when 'Fiscal year' %}09. Fiscal Year
   {% else %}{{timeframe}}{% endcase %}"
     label: "Resolved"
     datatype: datetime
@@ -629,14 +629,14 @@ view: of_case_history_owner_stat {
     group_item_label: "{% assign timeframe = _field._name | remove: 'of_case_history_owner_stat.end_date_' | replace: '_',' ' | capitalize %}
   {% case timeframe%}
   {% when 'Time'%}01. Date Time
-  {% when 'Hour'%}02. Hour of the Day
+  {% when 'Hour of day'%}02. Hour of the Day
   {% when 'Date'%}03. Date
-  {% when 'Week'%}04. Week of Year
-  {% when 'Month'%}05. Month
-  {% when 'Calendar Quarter' %}06. Calendar Quarter
-  {% when 'Fiscal Quarter' %}07. Fiscal Quarter
-  {% when 'Calendar Year' %}08. Calendar Year
-  {% when 'Fiscal Year' %}09. Fiscal Year
+  {% when 'Week of year'%}04. Week of Year
+  {% when 'Month num'%}05. Month
+  {% when 'Quarter of year' %}06. Calendar Quarter
+  {% when 'Fiscal quarter of year' %}07. Fiscal Quarter
+  {% when 'Year' %}08. Calendar Year
+  {% when 'Fiscal year' %}09. Fiscal Year
   {% else %}{{timeframe}}{% endcase %}"
     label: "End"
     datatype: datetime
@@ -659,14 +659,14 @@ view: of_case_history_owner_stat {
     group_item_label: "{% assign timeframe = _field._name | remove: 'of_case_history_owner_stat.start_date_' | replace: '_',' ' | capitalize %}
   {% case timeframe%}
   {% when 'Time'%}01. Date Time
-  {% when 'Hour'%}02. Hour of the Day
+  {% when 'Hour of day'%}02. Hour of the Day
   {% when 'Date'%}03. Date
-  {% when 'Week'%}04. Week of Year
-  {% when 'Month'%}05. Month
-  {% when 'Calendar Quarter' %}06. Calendar Quarter
-  {% when 'Fiscal Quarter' %}07. Fiscal Quarter
-  {% when 'Calendar Year' %}08. Calendar Year
-  {% when 'Fiscal Year' %}09. Fiscal Year
+  {% when 'Week of year'%}04. Week of Year
+  {% when 'Month num'%}05. Month
+  {% when 'Quarter of year' %}06. Calendar Quarter
+  {% when 'Fiscal quarter of year' %}07. Fiscal Quarter
+  {% when 'Year' %}08. Calendar Year
+  {% when 'Fiscal year' %}09. Fiscal Year
   {% else %}{{timeframe}}{% endcase %}"
     label: "Start"
     datatype: datetime
@@ -706,14 +706,14 @@ view: of_case_history_status_stat {
     group_item_label: "{% assign timeframe = _field._name | remove: 'of_case_history_status_stat.end_date_' | replace: '_',' ' | capitalize %}
   {% case timeframe%}
   {% when 'Time'%}01. Date Time
-  {% when 'Hour'%}02. Hour of the Day
+  {% when 'Hour of day'%}02. Hour of the Day
   {% when 'Date'%}03. Date
-  {% when 'Week'%}04. Week of Year
-  {% when 'Month'%}05. Month
-  {% when 'Calendar Quarter' %}06. Calendar Quarter
-  {% when 'Fiscal Quarter' %}07. Fiscal Quarter
-  {% when 'Calendar Year' %}08. Calendar Year
-  {% when 'Fiscal Year' %}09. Fiscal Year
+  {% when 'Week of year'%}04. Week of Year
+  {% when 'Month num'%}05. Month
+  {% when 'Quarter of year' %}06. Calendar Quarter
+  {% when 'Fiscal quarter of year' %}07. Fiscal Quarter
+  {% when 'Year' %}08. Calendar Year
+  {% when 'Fiscal year' %}09. Fiscal Year
   {% else %}{{timeframe}}{% endcase %}"
     label: "End"
     datatype: datetime
@@ -736,14 +736,14 @@ view: of_case_history_status_stat {
     group_item_label: "{% assign timeframe = _field._name | remove: 'of_case_history_status_stat.start_date_' | replace: '_',' ' | capitalize %}
   {% case timeframe%}
   {% when 'Time'%}01. Date Time
-  {% when 'Hour'%}02. Hour of the Day
+  {% when 'Hour of day'%}02. Hour of the Day
   {% when 'Date'%}03. Date
-  {% when 'Week'%}04. Week of Year
-  {% when 'Month'%}05. Month
-  {% when 'Calendar Quarter' %}06. Calendar Quarter
-  {% when 'Fiscal Quarter' %}07. Fiscal Quarter
-  {% when 'Calendar Year' %}08. Calendar Year
-  {% when 'Fiscal Year' %}09. Fiscal Year
+  {% when 'Week of year'%}04. Week of Year
+  {% when 'Month num'%}05. Month
+  {% when 'Quarter of year' %}06. Calendar Quarter
+  {% when 'Fiscal quarter of year' %}07. Fiscal Quarter
+  {% when 'Year' %}08. Calendar Year
+  {% when 'Fiscal year' %}09. Fiscal Year
   {% else %}{{timeframe}}{% endcase %}"
     label: "Start"
     datatype: datetime
@@ -777,14 +777,14 @@ view: of_case_statistics_v2 {
     group_item_label: "{% assign timeframe = _field._name | remove: 'of_case_statistics_v2.split_localtime_' | replace: '_',' ' | capitalize %}
   {% case timeframe%}
   {% when 'Time'%}01. Date Time
-  {% when 'Hour'%}02. Hour of the Day
+  {% when 'Hour of day'%}02. Hour of the Day
   {% when 'Date'%}03. Date
-  {% when 'Week'%}04. Week of Year
-  {% when 'Month'%}05. Month
-  {% when 'Calendar Quarter' %}06. Calendar Quarter
-  {% when 'Fiscal Quarter' %}07. Fiscal Quarter
-  {% when 'Calendar Year' %}08. Calendar Year
-  {% when 'Fiscal Year' %}09. Fiscal Year
+  {% when 'Week of year'%}04. Week of Year
+  {% when 'Month num'%}05. Month
+  {% when 'Quarter of year' %}06. Calendar Quarter
+  {% when 'Fiscal quarter of year' %}07. Fiscal Quarter
+  {% when 'Year' %}08. Calendar Year
+  {% when 'Fiscal year' %}09. Fiscal Year
   {% else %}{{timeframe}}{% endcase %}"
     label: "Split Local"
     datatype: datetime
@@ -807,14 +807,14 @@ view: of_case_statistics_v2 {
     group_item_label: "{% assign timeframe = _field._name | remove: 'of_case_statistics_v2.split_utc_' | replace: '_',' ' | capitalize %}
   {% case timeframe%}
   {% when 'Time'%}01. Date Time
-  {% when 'Hour'%}02. Hour of the Day
+  {% when 'Hour of day'%}02. Hour of the Day
   {% when 'Date'%}03. Date
-  {% when 'Week'%}04. Week of Year
-  {% when 'Month'%}05. Month
-  {% when 'Calendar Quarter' %}06. Calendar Quarter
-  {% when 'Fiscal Quarter' %}07. Fiscal Quarter
-  {% when 'Calendar Year' %}08. Calendar Year
-  {% when 'Fiscal Year' %}09. Fiscal Year
+  {% when 'Week of year'%}04. Week of Year
+  {% when 'Month num'%}05. Month
+  {% when 'Quarter of year' %}06. Calendar Quarter
+  {% when 'Fiscal quarter of year' %}07. Fiscal Quarter
+  {% when 'Year' %}08. Calendar Year
+  {% when 'Fiscal year' %}09. Fiscal Year
   {% else %}{{timeframe}}{% endcase %}"
     label: "Split UTC"
     datatype: datetime
