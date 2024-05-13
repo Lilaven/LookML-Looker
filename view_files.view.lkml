@@ -343,8 +343,7 @@ view: user_count_n_login_hist {
   }
 
   measure: count_usr_logged { 
-    filters: [ { login_user_id: -NULL
-   } ] 
+    filters: [login_user_id: -NULL] 
     drill_fields: [ of_user_logged_in.country, of_user_logged_in.office_code, of_user_logged_in.full_name, of_user_logged_in.username, of_user_logged_in.profile_name, of_user_logged_in.user_role_name, count_login, login_time_min, login_time_max, no_of_days_since_last_login, ] 
     view_label: "Measure"
     group_item_label: "Logged"
@@ -1110,7 +1109,7 @@ view: of_user {
 
 
 view: user_count_n_login_hist_of_user_logged {
-  extends__all: [ [ of_user, ]  ]
+  extends: [of_user ]
   dimension: country {   label: "Country"
     view_label: "User Logged-in"
   }
