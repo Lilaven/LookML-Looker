@@ -30,6 +30,7 @@ dimension: crm_trainer {
   ${regional_head_office_short_nm}
   {% endif %} ;;
   }
+}
 
 view: dmo_usr_ext_login {
   dimension: usr_eml {   
