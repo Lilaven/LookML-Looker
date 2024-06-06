@@ -87,7 +87,7 @@ link: { label: "Show All {{rendered_value}}"
     value_format: "#,##0"
     sql: ${count_active_usr} - ${count_usr_logged}  ;;
   }
-
+}
   
 
 view: user_count_n_login_hist_of_user_logged {
