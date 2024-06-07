@@ -29,29 +29,6 @@ view: of_user {
   measure: user_count {
     type: number
     sql: COUNT (distinct ${oneforce_id} ) ;;
-    filters: [city: "-NULL"]
     drill_fields: [drillfields*]
   }
 }
-  
-
-view: user_count_n_login_hist_of_user_logged {
-  extends: [of_user]
-
-  dimension: country {   
-    label: "Country"
-    view_label: "User Logged-in"
-  }
-
-  dimension: office_code {   
-    label: "Office."
-    view_label: "User Logged-in"
-  }
-
-  dimension: region_3char {   
-    label: "Region"
-    view_label: "User Logged-in"
-  }
-
- }
-
