@@ -54,7 +54,6 @@ view: user_count_n_login_hist {
   
   dimension: calendar_month { 
     view_label: "User Login History"
-    group_label: "Calendar"
     group_item_label: "Calendar Month"
     label: "Calendar Month"
     type: string
@@ -70,6 +69,7 @@ view: user_count_n_login_hist {
     group_item_label: "Logged"
     label: "Logged"
     type: count_distinct
+    value_format_name: decimal_1
     sql: ${TABLE}.Login_UserId  ;;
   }
 
