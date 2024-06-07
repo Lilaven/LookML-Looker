@@ -2,19 +2,19 @@ view: of_user {
   sql_table_name:  `ONEFORCE.OF_USER` ;;
 
   dimension: oneforce_id {
-    label: "ONEForce Id"  # programmatically added by LookML modifier
+    label: "ONEForce Id"  
     primary_key: yes
     type: string
     sql: ${TABLE}.ONEForce_ID ;;
   }
 
   dimension: city {
-    label: "City" # programmatically added by LookML modifier
+    label: "City" 
     type: string
     sql: ${TABLE}.City ;;
   }
   dimension: country {
-    label: "Country"  # programmatically added by LookML modifier
+    label: "Country"  
     type: string
     #map_layer_name: countries
     sql: ${TABLE}.Country ;;
