@@ -7,7 +7,6 @@ view: dmc_period_mtrc_dt {
     group_label: "Metrics Date (TZ)"
     group_item_label: "14. Fiscal Quarter (YYYY/QQ)"
     label: "Metrics Date Fiscal Quarter (YYYY/QQ)"
-    sql: ${TABLE}.MTRC_DT ;;
   }
 
   dimension: iso_yrwk_desc { 
@@ -15,7 +14,6 @@ view: dmc_period_mtrc_dt {
     group_label: "Metrics Date (TZ)"
     group_item_label: "11. Week of Year (YYYY/WW)"
     label: "Metrics Date Week of Year (YYYY/WW)"
-    sql: ${TABLE}.MTRC_DT ;;
   }
 
   dimension: yrmon_desc { 
@@ -23,7 +21,6 @@ view: dmc_period_mtrc_dt {
     group_label: "Metrics Date (TZ)"
     group_item_label: "12. Month (YYYY/MM)"
     label: "Metrics Date Month (YYYY/MM)"
-    sql: ${TABLE}.MTRC_DT ;;
   }
 
   dimension: yrqtr_desc { 
@@ -31,7 +28,6 @@ view: dmc_period_mtrc_dt {
     group_label: "Metrics Date (TZ)"
     group_item_label: "13. Calendar Quarter (YYYY/QQ)"
     label: "Metrics Date Calendar Quarter (YYYY/QQ)"
-    sql: ${TABLE}.MTRC_DT ;;
   }
 
  }
@@ -699,7 +695,6 @@ view: dmc_period_mtrc_gdt {
     group_label: "Metrics Date (UTC)"
     group_item_label: "14. Fiscal Quarter (YYYY/QQ)"
     label: "Metrics Date Fiscal Quarter (YYYY/QQ)"
-    sql: ${TABLE}.MTRC_DT ;;
   }
 
   dimension: iso_yrwk_desc { 
@@ -707,7 +702,6 @@ view: dmc_period_mtrc_gdt {
     group_label: "Metrics Date (UTC)"
     group_item_label: "11. Week of Year (YYYY/WW)"
     label: "Metrics Date Week of Year (YYYY/WW)"
-    sql: ${TABLE}.MTRC_DT ;;
   }
 
   dimension: yrmon_desc { 
@@ -715,7 +709,6 @@ view: dmc_period_mtrc_gdt {
     group_label: "Metrics Date (UTC)"
     group_item_label: "12. Month (YYYY/MM)"
     label: "Metrics Date Month (YYYY/MM)"
-    sql: ${TABLE}.MTRC_DT ;;
   }
 
   dimension: yrqtr_desc { 
@@ -723,7 +716,6 @@ view: dmc_period_mtrc_gdt {
     group_label: "Metrics Date (UTC)"
     group_item_label: "13. Calendar Quarter (YYYY/QQ)"
     label: "Metrics Date Calendar Quarter (YYYY/QQ)"
-    sql: ${TABLE}.MTRC_DT ;;
   }
 
  }
