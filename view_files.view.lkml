@@ -262,7 +262,7 @@ view: dmo_case_v_ext_epx {
     sql: ${TABLE}.CRE_DT ;;
   }
 
-### PI4V2-22689: Explore Experience Enhancement - Development
+  ### PI4V2-22689: Explore Experience Enhancement - Development
   filter: cre_dt_lab_date_opfilter {
     view_label: " ⚙️ Optimised Filters"
     group_label: "🗂️ Case Open Date (Local)"
@@ -784,7 +784,7 @@ view: dmo_case_v_ext_epx {
     label: "Case Resolution Reason"
   }
 
-#SR0382888-Request for Group Label  (Case ResoIution Reason) ### PI4V2-24644
+ #SR0382888-Request for Group Label  (Case ResoIution Reason) ### PI4V2-24644
   dimension: rsn_group {
     view_label: "Case Info"
     group_label: "Resolution"
