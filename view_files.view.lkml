@@ -262,75 +262,22 @@ view: dmo_case_v_ext_epx {
     sql: ${TABLE}.CRE_DT ;;
   }
 
-  ### PI4V2-22689: Explore Experience Enhancement - Development
-  filter: cre_dt_lab_date_opfilter {
-    view_label: " ⚙️ Optimised Filters"
-    group_label: "🗂️ Case Open Date (Local)"
-    group_item_label: "⚡Date"
-    label: "Case Open Date (Local)"
-    description: "#OptimisedFilters"
-    type: date_time
-    datatype: datetime
-    convert_tz: no
-    default_value: "3 days"
-    sql: {% condition cre_dt_lab_date_opfilter %} ${cre_dt_lc_raw} {% endcondition %} ;;
-  }
-
-  filter: cre_dt_lab_datetime_opfilter {
-    view_label: " ⚙️ Optimised Filters"
-    group_label: "🗂️ Case Open Date (Local)"
-    group_item_label: "⚡Date Time"
-    label: "Case Open Date Time (Local)"
-    description: "#OptimisedFilters"
-    type: date_time
-    datatype: datetime
-    convert_tz: no
-    default_value: "24 hours"
-    sql: {% condition cre_dt_lab_datetime_opfilter %} ${cre_dt_lc_raw} {% endcondition %} ;;
-  }
-
-  filter: cre_dt_lab_fiscal_year_opfilter {
-    view_label: " ⚙️ Optimised Filters"
-    group_label: "🗂️ Case Open Date (Local)"
-    group_item_label: "⚡Fiscal Year"
-    label: "Case Open Fiscal Year (Local)"
-    description: "#OptimisedFilters"
-    type: date_time
-    datatype: datetime
-    convert_tz: no
-    default_value: "1 fiscal years"
-    sql: {% condition cre_dt_lab_fiscal_year_opfilter %} ${cre_dt_lc_raw} {% endcondition %} ;;
-  }
-
-  filter: cre_dt_lab_year_opfilter {
-    view_label: " ⚙️ Optimised Filters"
-    group_label: "🗂️ Case Open Date (Local)"
-    group_item_label: "⚡Calendar Year"
-    label: "Case Open Calendar Year (Local)"
-    description: "#OptimisedFilters"
-    type: date_time
-    datatype: datetime
-    convert_tz: no
-    default_value: "1 years"
-    sql: {% condition cre_dt_lab_year_opfilter %} ${cre_dt_lc_raw} {% endcondition %} ;;
-  }
-
   #PI4V2-21336
   dimension_group: cre_dt_lc {
     view_label: "Case Info"
     group_label: "Open Date (Local)"
     group_item_label: "{% assign timeframe = _field._name | remove: 'dmo_case_v_ext_epx.cre_dt_lc_' | replace: '_',' ' | capitalize %} {% case timeframe %}
-    {% when 'Time'%}   ⚡01. Date Time
+    {% when 'Time'%}   01. Date Time
     {% when 'Hour of day'%}   02. Hour of the Day
-    {% when 'Date'%}  ⚡03. Date
+    {% when 'Date'%}  03. Date
     {% when 'Day of week'%}  04. Day of Week
     {% when 'Week of year'%}  05. Week of Year
     {% when 'Month num'%}  06. Month Number
     {% when 'Month name'%}  07. Month Name
     {% when 'Quarter of year' %}  08. Calendar Quarter
     {% when 'Fiscal quarter of year' %}  09. Fiscal Quarter
-    {% when 'Year' %} ⚡10. Calendar Year
-    {% when 'Fiscal year' %}⚡11. Fiscal Year
+    {% when 'Year' %} 10. Calendar Year
+    {% when 'Fiscal year' %}11. Fiscal Year
     {% else %}{{ timeframe}}{% endcase %}"
     label: "Case Open Local"
     type: time
